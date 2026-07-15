@@ -79,6 +79,11 @@ class TheqooCrawler:
         existing_posts = load_existing_posts(post_path)
         existing_comments = load_existing_comments(comment_path)
         existing = load_existing_numbers(post_path)
+
+        # 메모리에서 계속 유지될 데이터
+        posts = existing_posts[:]
+        comments = existing_comments[:]
+
         posts_by_number: dict[str, Post] = {}
 
         self.logger.info("Start board=%s pages=%s-%s", board, self.runtime.start_page, self.runtime.end_page)
@@ -100,6 +105,40 @@ class TheqooCrawler:
                     posts_by_number[post.number] = post
                 stat.pages += 1
                 self.logger.info("Page complete board=%s page=%s posts=%s", board, page, len(page_posts))
+
+                # ---------------------------------------------------
+                # 50페이지마다 자동 저장
+                # ---------------------------------------------------
+                if page % 50 == 0:
+
+                    new_posts = list(posts_by_number.values())
+
+                    posts_to_enrich = [
+                        *new_posts,
+                        *self.posts_needing_backfill(posts, comments)
+                    ]
+
+                    if self.runtime.crawl_content:
+                        enriched_posts, new_comments = self.enrich_posts(posts_to_enrich)
+                    else:
+                        enriched_posts = new_posts
+                        new_comments = []
+
+                    posts = merge_posts(posts, enriched_posts)
+                    comments = merge_comments(comments, new_comments)
+
+                    write_posts(post_path, posts)
+
+                    if self.runtime.crawl_content and self.runtime.crawl_comment:
+                        write_comments(comment_path, comments)
+
+                    self.logger.info(
+                        "Checkpoint saved (%d pages)", page
+                    )
+
+                    # 이미 저장한 게시글은 메모리에서 제거
+                    posts_by_number.clear()
+
             except Exception as exc:
                 stat.errors += 1
                 self.logger.exception("Page failed board=%s page=%s error=%s", board, page, exc)
@@ -111,22 +150,30 @@ class TheqooCrawler:
                 ", ".join(self.runtime.keywords),
             )
         new_posts = list(posts_by_number.values())
-        posts_to_enrich = [*new_posts, *self.posts_needing_backfill(existing_posts, existing_comments)]
-        new_comments: list[Comment] = []
+
+        posts_to_enrich = [
+            *new_posts,
+            *self.posts_needing_backfill(posts, comments)
+        ]
+
         if self.runtime.crawl_content:
             enriched_posts, new_comments = self.enrich_posts(posts_to_enrich)
-            new_posts = enriched_posts
-        elif not self.runtime.crawl_content:
-            self.logger.info("Content crawl disabled; comments are skipped as required.")
+        else:
+            enriched_posts = new_posts
+            new_comments = []
 
-        posts = merge_posts(existing_posts, new_posts)
-        comments = merge_comments(existing_comments, new_comments)
+        posts = merge_posts(posts, enriched_posts)
+        comments = merge_comments(comments, new_comments)
+
         write_posts(post_path, posts)
+
         if self.runtime.crawl_content and self.runtime.crawl_comment:
             write_comments(comment_path, comments)
 
-        stat.posts = len(new_posts)
-        stat.comments = len(new_comments)
+        self.logger.info("Final save completed.")
+
+        stat.posts = len(posts)
+        stat.comments = len(comments)
         elapsed = time.perf_counter() - started
         self.logger.info(
             "End board=%s pages=%s posts=%s comments=%s elapsed=%.2fs",

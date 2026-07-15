@@ -7,17 +7,17 @@ from pathlib import Path
 BASE_URL = "https://theqoo.net"
 
 BOARDS = ["beauty"]
-START_PAGE = 1
-END_PAGE = 1
+START_PAGE = 201
+END_PAGE = 10000
 
 CRAWL_CONTENT = True
 CRAWL_COMMENT = True
 SAVE_HTML = True
 
 # 제목에 포함될 키워드 목록 (빈 리스트일 경우 전체 수집)
-KEYWORDS: list[str] = []
+KEYWORDS: list[str] = ["지그재그", "직잭", "무신사","에이블리","직쟄", "직젝", "직젴", "zigzag", "29cm", "29CM"]
 
-REQUEST_DELAY = 1.0
+REQUEST_DELAY = 2.0
 TIMEOUT = 15
 MAX_RETRY = 3
 THREAD_WORKERS = 5
