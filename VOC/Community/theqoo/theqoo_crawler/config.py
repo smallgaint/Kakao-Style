@@ -14,6 +14,9 @@ CRAWL_CONTENT = True
 CRAWL_COMMENT = True
 SAVE_HTML = True
 
+# 제목에 포함될 키워드 목록 (빈 리스트일 경우 전체 수집)
+KEYWORDS: list[str] = []
+
 REQUEST_DELAY = 1.0
 TIMEOUT = 15
 MAX_RETRY = 3

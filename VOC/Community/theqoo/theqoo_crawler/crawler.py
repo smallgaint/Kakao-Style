@@ -41,6 +41,7 @@ class RuntimeConfig:
     crawl_content: bool
     crawl_comment: bool
     save_html: bool
+    keywords: list[str] | None
     request_delay: float
     max_retry: int
     thread_workers: int
@@ -89,6 +90,13 @@ class TheqooCrawler:
                 for post in page_posts:
                     if post.number in existing or post.number in posts_by_number:
                         continue
+
+                    # 키워드 필터링 로직
+                    if self.runtime.keywords:
+                        # post.title에 keywords 중 하나라도 포함되어 있는지 확인 (대소문자 무시)
+                        if not any(keyword.lower() in post.title.lower() for keyword in self.runtime.keywords):
+                            continue
+
                     posts_by_number[post.number] = post
                 stat.pages += 1
                 self.logger.info("Page complete board=%s page=%s posts=%s", board, page, len(page_posts))
@@ -96,6 +104,12 @@ class TheqooCrawler:
                 stat.errors += 1
                 self.logger.exception("Page failed board=%s page=%s error=%s", board, page, exc)
 
+        if self.runtime.keywords:
+            self.logger.info(
+                "Found %d posts matching keywords: %s",
+                len(posts_by_number),
+                ", ".join(self.runtime.keywords),
+            )
         new_posts = list(posts_by_number.values())
         posts_to_enrich = [*new_posts, *self.posts_needing_backfill(existing_posts, existing_comments)]
         new_comments: list[Comment] = []
@@ -270,6 +284,7 @@ def build_runtime_config(
     crawl_content: bool | None = None,
     crawl_comment: bool | None = None,
     save_html: bool | None = None,
+    keywords: list[str] | None = None,
 ) -> RuntimeConfig:
     """Merge CLI arguments with config.py defaults."""
     effective_crawl_content = config.CRAWL_CONTENT if crawl_content is None else crawl_content
@@ -284,6 +299,7 @@ def build_runtime_config(
         crawl_content=effective_crawl_content,
         crawl_comment=effective_crawl_comment,
         save_html=config.SAVE_HTML if save_html is None else save_html,
+        keywords=keywords or config.KEYWORDS,
         request_delay=config.REQUEST_DELAY,
         max_retry=config.MAX_RETRY,
         thread_workers=config.THREAD_WORKERS,

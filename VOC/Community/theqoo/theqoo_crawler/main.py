@@ -21,6 +21,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--crawl-comment", dest="crawl_comment", action="store_true", default=None)
     parser.add_argument("--no-crawl-comment", dest="crawl_comment", action="store_false")
     parser.add_argument("--save-html", dest="save_html", action="store_true", default=None)
+    parser.add_argument("--keywords", nargs="+", help="Keywords to filter posts by title")
     parser.add_argument("--no-save-html", dest="save_html", action="store_false")
     return parser.parse_args()
 
@@ -35,6 +36,7 @@ def main() -> None:
         crawl_content=args.crawl_content,
         crawl_comment=args.crawl_comment,
         save_html=args.save_html,
+        keywords=args.keywords,
     )
     logger = setup_logging(config.LOG_DIR)
     started = time.perf_counter()
