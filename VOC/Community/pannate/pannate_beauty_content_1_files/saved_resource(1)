@@ -1,0 +1,43 @@
+
+var ftGUID_10340750="66566742FDE251";
+var ftConfID_10340750="0";
+var ftParams_10340750="ftOBA=1&ft_agentEnv=0&ft_referrer=https%3A%2F%2Fpann.nate.com%2Ftalk%2F375508338%3Fpage%3D1&gdpr=0&ftClick=https://exch.quantserve.com/r?&a=p-1RYxePXT9bCS2&labels=_qc.clk,_click.adserver.rtb,_click.rand.1549994822&rtbip=103.229.8.46&rtbdata2=EA46FWh0dHBzOi8vcGFubi5uYXRlLmNvbVooV3VOSTFWenRHb0JCdms3Y0Nic0cwMXJqRXRSQjZSelZXcjZfR3ZxZ4ABxpaM4wW6ASQyNTU3ZmFmYS00ZDRkLTRiNGMtYWQ4OS05NTRjYjY3YmE0ODPAAdDOBMgB-N21z_Uz2gEkNmYxMDk1OTAtYTU4Zi0zYzRkLTgyYzctMjMwNzBlNzk3MzA0sAIIyAIA0ALO4Yb7-J_3zKkB6AK_AfICDgiK7QEQtqCr3pC1psoM8gIOCL8BEP_J5-Hm_6fs3gH4AgCKAxN0aGVtZWRpYWdyaWQuTEhDNUVHkgMMdGhlbWVkaWFncmlkmAMAqAMAsgMEeiUTE7oDEgnwQc_alsHE8xF13pf9x_MfqsIDEgnZTvL-tcgp2RH0pUcqm8tJqMgDl4CAgwHYA8aWjOMF4gMPcC0xUll4ZVBYVDliQ1My6gMGCKwCEPoB8gMFMTI3Nzf4AwCABJg0igQCNzaaBBIJKkFiposq6MIR2aiFAJ0eW7CiBBIJ8EHP2pbBxPMRdd6X_cfzH6qqBBIJ8EHP2pbBxPMRdd6X_cfzH6q4BNAF0AQR8gQCS1KABQGKBSoyMDIwOTllYjU3ZjAwMWE5OGFiZjM3NDU1NjY5OGI2YTQ5ZTc5OWJlNWSQBQGaBRUgIJnrV_ABqYq_N0VWaYtqSeeZvl2iBSRfd0F5OWNJaEpfbmVERExPMlJKR21jMExKdnJhTXJTdFdMbz2wBQC4BQDABcaWjOMFyAWt0KoE0gUGCAQQAhgB6AUFmgYUChIJKkFiposq6MIR2aiFAJ0eW7CgBgCoBvSv3pUBtQY1SEk5ugZACgJLUhICNDEY6IMZIgtqYW5namktZG9uZyoFMTI3Nzc6DmxnJTIwcG93ZXJjb21tWg5sZyUyMHBvd2VyY29tbckGsgAC-AYIihPxBgEgAvgGCIoT-AYDgAcAigcSCdlO8v61yCnZEfSlRyqby0mosAei7LMEuAf5oJoF2AcE&rtb_id=CbIAAvgGCIoTEQEgAvgGCIoTGDziitYp111RQ19YZIk&redirecturl3=&ft_custom=CbseIQboFiESvBopWfAccgu5AikNvhg8De4fJg-4GCgI7h8l_-1TWQ==&ft_mcid=9087021&ft_mliid=9238050&site_creativeid=10915961&site_lineitem=9238050&site_url=nate.com&cachebuster=107043.79380168505";
+var ftKeyword_10340750="";
+var ftCustom_10340750="CbseIQboFiESvBopWfAccgu5AikNvhg8De4fJg-4GCgI7h8l_-1TWQ==";
+var ftSection_10340750="";
+var ftSegment_10340750="";
+var ftSegmentList_10340750=[];
+var ftRuleMatch_10340750="0";
+var ftTimestamp_10340750="1783920199";
+var ftGeoC2_10340750="kr";
+var ftGeoState_10340750="41";
+var ftGeoCity_10340750="jangji-dong";
+var ftISP_10340750="lg powercomm";
+var ftSpeed_10340750="broadband";
+var ftConnType_10340750="wifi";
+var ftDMA_10340750="410088";
+var ftLong_10340750="127.24";
+var ftLat_10340750="37.39";
+var ftPostal_10340750="12777";
+var ftTimeZone_10340750="+900";
+var ftMobileCarrier_10340750="";
+var ftImp10340750 = {};
+ftImp10340750.privacy = "x";
+ftImp10340750.guidAge = "112";
+ftImp10340750.impID = "B8B61100-F997-4C46-57C9-4628D472249E";
+ftImp10340750.duid = "FT:66566742FDE251";
+
+ftImp10340750.ft_tpplid = "";
+ftImp10340750.ft_c = {};
+ftImp10340750.gdpr = "0";
+ftImp10340750.gdpr_consent = "";
+ftImp10340750.gdpr_pd = "";
+ftImp10340750.oob_consent = "";
+ftImp10340750.gdprStoredConsent = "";
+ftImp10340750.us_privacy = "";
+ftImp10340750.gpc = "";
+
+ftImp10340750.jsAppend = "1";
+var ftCreativeId_10340750 = "5965552";
+(function(){var tag=document.getElementById("ft_servedby_10340750")||function(s){return s[s.length-1]}(document.getElementsByTagName("script")),js=document.createElement("script");js.src="https://ajs-assets.ftstatic.com/ftUtils.js";js.id="ftscript_m10340750";js.setAttribute("name","ftscript_m10340750");tag.parentNode.insertBefore(js,tag)})();window.fTChecker=window.fTChecker||function(id){if(!id)return false;id=""+id;if(window.hasOwnProperty("ftUtils")){window["ft"+id]=Object.assign({},window.ftUtils.common);window["ft"+id].getBannerConfig(id)}else(function(id){window.setTimeout(function(){window.fTChecker(id)},50)})(id)};window.fTChecker("10340750");
+

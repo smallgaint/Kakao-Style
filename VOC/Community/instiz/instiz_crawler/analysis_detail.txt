@@ -1,0 +1,35 @@
+Found tr[id] count: 40
+
+tr[0] id=topboard, class=['list_header']
+  TD count: 1
+    td[0] class=None, id=None
+
+tr[1] id=topboard, class=None
+  TD count: 1
+    td[0] class=None, id=ingreen
+      href=https://www.instiz.net/name_beauty?category=1, text=
+
+tr[2] id=detour, class=None
+  TD count: 5
+    td[0] class=['minitext', 'listnm'], id=None
+      href=https://www.instiz.net/name_beauty?category=1, text=
+    td[1] class=['r1668005', 'listsubject'], id=None
+      href=https://www.instiz.net/name_beauty/1668005?category=1&green=1, text=익들아 혹시 네일 연장해 본 적 있어? 많이 불편해?ㅠㅠ11
+
+tr[3] id=detour, class=None
+  TD count: 5
+    td[0] class=['minitext', 'listnm'], id=None
+      href=https://www.instiz.net/name_beauty?category=34, text=
+    td[1] class=['r1668002', 'listsubject'], id=None
+      href=https://www.instiz.net/name_beauty/1668002?category=34&green=1, text=7주동안 8kg 가능해..?26
+
+tr[4] id=detour, class=None
+  TD count: 5
+    td[0] class=['minitext', 'listnm'], id=None
+      href=https://www.instiz.net/name_beauty?category=1, text=
+    td[1] class=['r1668026', 'listsubject'], id=None
+      href=https://www.instiz.net/name_beauty/1668026?category=1&green=1, text=얼굴이 냅다 큰 거는 어케 줄이지8
+
+==================================================
+PATTERN ANALYSIS:
+tr id patterns (exclude topboard/detour): set()

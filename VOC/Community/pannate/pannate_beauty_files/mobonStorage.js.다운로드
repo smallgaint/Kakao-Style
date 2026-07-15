@@ -1,0 +1,17 @@
+var mobStorage = {
+    load : function(key) {
+        return window.localStorage.getItem(key);
+    },
+    save : function(key, value) {
+        window.localStorage.setItem(key, value);
+    },
+    clear : function() {
+        window.localStorage.clear();
+    }
+}
+
+var iBot_ref_url = document.referrer;
+if(window.localStorage){
+    if(document.referrer.indexOf("mediacategory.com") == -1) mobStorage.save("iBot_ref_url", document.referrer);
+    iBot_ref_url = mobStorage.load('iBot_ref_url');
+}

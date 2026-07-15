@@ -1,0 +1,751 @@
+﻿/* UI Element */
+
+.tqu-hide {
+    display: none;
+}
+
+.tqu-hide-height {
+    height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-width: 0 !important;
+}
+
+.tqu-height-toggle {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tqu-btn {
+    display: inline-block;
+    height: 32px;
+    line-height: 32px;
+    background-color: #ffffff;
+    background: linear-gradient(to bottom, #ffffff 0%, #f3f3f3 100%);
+    padding: 0 16px;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    text-decoration: none !important;
+    color: #333333;
+    color: rgba(51, 51, 51, 0.8) !important;
+    cursor: pointer;
+    outline: none !important;
+    font-size: 12px;
+    text-align: center;
+}
+
+.tqu-btn:hover,
+.tqu-btn:focus {
+    box-shadow: 0 1px 6px rgba(55, 84, 114, 0.3);
+    border: 1px solid rgba(55, 84, 114, 0.5);
+    color: rgba(51, 51, 51, 1) !important;
+}
+
+.tqu-btn:active {
+    background-color: #fafafa;
+    background: linear-gradient(to bottom, #fafafa 0%, #eeeeee 100%);
+}
+
+.tqu-btn-sm {
+    padding: 0 6px;
+    height: 22px;
+    line-height: 22px;
+}
+
+.tqu-btn-icon {
+    width: 32px;
+    padding: 0;
+}
+
+.tqu-btn-icon > .tqu-sprite {
+    display: inline-block;
+    vertical-align: sub;
+    margin-bottom: -1px;
+}
+
+.tqu-btn-file {
+    width: 88px;
+}
+
+.tqu-btn-file > i {
+    margin-left: -1px;
+}
+
+.tqu-btn-file.no_text > i {
+    margin-left: 0;
+}
+
+.tqu-btn-url-insert.tqu-mobile-hide {
+    width: 76px;
+}
+
+.tqu-btn-file,
+.tqu-btn-url-insert.tqu-mobile-hide {
+    width: -moz-max-content;
+    width: -webkit-max-content;
+    width: -o-max-content;
+    width: max-content;
+}
+
+.tqu-btn-extend-uploader {
+    display: none;
+}
+
+.tqu-btn,
+.tqu-input-text {
+    transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition-property: box-shadow, border-color, background-color !important;
+}
+
+.tqu-input-text {
+    display: inline-block;
+    width: 100px;
+    height: 32px;
+    line-height: 32px;
+    background-color: #fafafa !important;
+    padding: 0 6px !important;
+    border: 1px solid !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+    outline: none;
+    font-size: 12px !important;
+}
+
+.tqu-input-text:hover,
+.tqu-input-text:active,
+.tqu-input-text:focus {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(55, 84, 114, 0.5) !important;
+}
+
+.tqu-input-text-setting {
+    width: 40px;
+    height: 24px;
+    text-align: right;
+}
+
+#tqu-input-url {
+    width: 100%;
+    height: 30px;
+    min-width: 66px;
+    box-sizing: border-box;
+}
+
+.tqu-radio-input {
+    display: none !important;
+}
+
+.tqu-radio-label {
+    display: inline-block !important;
+    position: relative;
+    margin-right: 16px;
+    padding: 0 0 0 24px !important;
+    cursor: pointer;
+    font-size: 12px !important;
+}
+
+.tqu-radio-label:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 0;
+    top: 50%;
+    margin-top: -9px;
+    border: 1px solid #333;
+    border-radius: 50%;
+}
+
+.tqu-radio-label:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 50%;
+    left: 8px;
+    margin-top: 0;
+    background: #375472;
+    border-radius: 50%;
+    transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tqu-radio-input:checked + .tqu-radio-label:after {
+    height: 8px;
+    width: 8px;
+    margin-top: -4px;
+    left: 5px;
+}
+
+.tqu-radio-disable {
+    opacity: 0.5;
+}
+
+.tqu-spin {
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+/* Main Style */
+
+.tqu-uploader {
+    margin-bottom: 15px;
+}
+
+.tqu-table {
+    width: 100%;
+    border-spacing: 0;
+}
+
+.tqu-table td {
+    padding-right: 5px;
+}
+
+.tqu-uploader td.tqu-last-child {
+    padding: 0;
+}
+
+.tqu-table .tqu-input-url-td {
+    width: 100%;
+}
+
+.tqu-file-selector {
+    display: inline-block;
+}
+
+.tqu-file-selector.android4 {
+    position: relative;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+
+.tqu-input-file {
+    display: none !important;
+}
+
+.tqu-input-file.android4 {
+    display: block !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 30px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -ms-filter: alpha(opacity=0);
+    -khtml-opacity: 0;
+    -moz-opacity: 0;
+}
+
+.tqu-uploading-list {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    display: none;
+}
+
+.tqu-uploading-file {
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 60px;
+    position: relative;
+    font-family: Aria;
+    transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.tqu-uploading-file:last-child {
+    border-bottom: none;
+}
+
+.tqu-uploading-file.close {
+    height: 0;
+}
+
+.tqu-uploading-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    max-width: 100%;
+    width: 0;
+    background-color: rgba(55, 84, 114, 0.05);
+    overflow: hidden;
+    transition: width 0.5s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.tqu-uploading-progress.success {
+    background-color: rgba(77, 185, 85, 0.1);
+}
+
+.tqu-uploading-progress.error {
+    background-color: rgba(185, 77, 77, 0.1);
+}
+
+.tqu-uploading-progress > span {
+    position: absolute;
+    right: 2px;
+    top: 40px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 22px;
+    font-weight: bold;
+    font-family: Arial;
+    color: rgba(55, 84, 114, 0.2);
+}
+
+.tqu-uploading-progress.success > span,
+.tqu-uploading-progress.error > span {
+    display: none;
+}
+
+.tqu-uploading-preview {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.tqu-uploading-preview-div {
+    width: 100%;
+    height: 100%;
+    background-image: url(https://img-static.theqoo.net/addon/img/image-file.png);
+    background-position: center;
+    background-size: cover;
+}
+
+.tqu-uploading-name {
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 24px;
+    position: absolute;
+    left: 70px;
+    right: 65px;
+    top: 6px;
+}
+
+.tqu-uploading-size {
+    font-size: 12px;
+    color: #888888;
+    height: 30px;
+    position: absolute;
+    left: 70px;
+    right: 65px;
+    top: 30px;
+    line-height: 1;
+    overflow: hidden;
+}
+
+.tqu-uploading-size-origin {
+    display: inline-block;
+}
+
+.tqu-uploading-status {
+    position: absolute;
+    font-size: 12px;
+    bottom: 10px;
+    right: 10px;
+}
+
+.tqu-uploading-btn {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    display: none;
+}
+
+.tqu-uploading-loading {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 10px;
+    top: 10px;
+    display: none;
+}
+
+.tqu-message {
+    display: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 5px;
+    margin-bottom: 15px;
+    font-size: 12px;
+    line-height: 18px;
+    overflow: hidden;
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-property: height, padding, margin, border;
+}
+
+.tqu-message-content {
+    margin-left: 5px;
+}
+
+.tqu-setting-list {
+    display: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-property: height, padding, margin, border;
+}
+
+.tqu-setting {
+    margin-bottom: 15px;
+}
+
+.tqu-setting-title {
+    width: 120px;
+    display: inline-block;
+    font-weight: 700;
+    text-align: right;
+    margin-right: 20px;
+    font-size: 12px;
+}
+
+.tqu-setting-input-radio {
+    vertical-align: text-bottom;
+}
+
+.tqu-text-setting-label {
+    padding: 0;
+    font-size: 12px;
+    width: auto;
+}
+
+.tqu-setting-info {
+    color: #888888 !important;
+    margin-left: 140px;
+    font-size: 12px;
+}
+
+.tqu-setting-content-area {
+    line-height: 22px;
+    margin-bottom: 5px;
+}
+
+.tqu-setting-btn-area {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.tqu-setting-version-info {
+    font-size: 12px;
+    color: #888 !important;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.tqu-debug {
+    display: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 10px;
+    margin-bottom: 15px;
+    position: relative;
+    overflow: hidden;
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-property: height, padding, margin, border;
+}
+
+.tqu-debug div {
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.tqu-debug textarea {
+    width: 100%;
+    height: 150px;
+    box-sizing: border-box;
+    padding: 5px;
+    border: 1px solid #ddd !important;
+}
+
+.tqu-mobile-only {
+    display: none !important;
+}
+
+/* THEQOO MINI UPLOADER */
+
+.tqu-mini,
+.tqu-mini-url {
+    position: absolute;
+    left: 0;
+    width: 30px;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 5px 0px;
+    color: #375472;
+    cursor: pointer;
+}
+
+.tqu-mini-url {
+    top: 33px;
+}
+
+.tqu-mini-loading {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 20px;
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .tqu-setting-title {
+        display: block;
+        margin-bottom: 5px;
+        text-align: left;
+    }
+    .tqu-setting-info {
+        margin: 0;
+    }
+    .tqu-mobile-only {
+        display: inline-block !important;
+    }
+    .comment-write .tqu-uploader {
+        padding: 0;
+    }
+    .tqu-uploader-top {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .tqu-uploader-bottom {
+        display: block;
+    }
+    .tqu-mobile-hide {
+        display: none !important;
+    }
+    .tqu-message-title {
+        display: block;
+    }
+    .tqu-message-content {
+        margin-left: 0;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Comment fix */
+
+.comment-write .tqu-uploading-list,
+.comment-write .tqu-message,
+.comment-write .tqu-setting-list,
+.comment-write .tqu-debug {
+    border: 1px solid #ddd;
+}
+
+/* Sprite feat http://www.retinaspritegenerator.com/ */
+
+.tqu-sprite {
+    background-image: url(https://img-static.theqoo.net/addon/img/icon.png);
+}
+
+@media (min--moz-device-pixel-ratio: 1.5),
+    (-o-min-device-pixel-ratio: 3/2),
+    (-webkit-min-device-pixel-ratio: 1.5),
+    (min-device-pixel-ratio: 1.5),
+    (min-resolution: 1.5dppx) {
+    .tqu-sprite {
+        background-image: url(https://img-static.theqoo.net/addon/img/icon@2x.png);
+        background-size: 130px 44px;
+    }
+}
+
+.tqu-sprite-play {
+    width: 44px;
+    height: 44px;
+    background-position: 0 0;
+}
+
+.tqu-sprite-settings-icon {
+    width: 18px;
+    height: 18px;
+    background-position: -44px 0;
+}
+
+.tqu-sprite-external-icon {
+    width: 18px;
+    height: 18px;
+    background-position: -62px 0;
+}
+
+.tqu-sprite-loading {
+    width: 20px;
+    height: 20px;
+    background-position: -80px 0;
+}
+
+.tqu-sprite-loading-large {
+    width: 30px;
+    height: 30px;
+    background-position: -100px 0;
+}
+
+/* Replacer CSS */
+
+.tqu-gif-cover {
+    display: inline-block;
+    position: relative;
+}
+
+.tqu-gif-cover > a,
+.tqu-gif-cover > a > img,
+.tqu-gif-cover > img {
+    display: block;
+    margin: 0 !important;
+}
+
+.tqu-gif-cover > a > img,
+.tqu-gif-cover > img {
+    vertical-align: bottom;
+}
+
+.tqu-gif-cover > .tqu-gif-cover-loading {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+}
+
+.tqu-gif-cover > .tqu-gif-cover-play {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    background-image: url(https://img-static.theqoo.net/addon/img/play.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    z-index: 31;
+}
+
+.tqu-frame-container {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.tqu-frame-container > div {
+    position: relative;
+    overflow: hidden;
+    height: 0;
+    padding-top: 60.4%;
+}
+
+.tqu-frame-container > div > iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.tqu-video-container {
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.tqu-video-container > video {
+    vertical-align: bottom;
+}
+
+.tqu-video-container > .tqu-btn-gif-download,
+.tqu-frame-container > .tqu-btn-gif-download {
+    position: absolute !important;
+    right: 0;
+    padding: 0 5px;
+    height: 20px;
+    line-height: 20px !important;
+    bottom: 0;
+    margin-bottom: -20px;
+}
+
+/* Gfycat Replace */
+
+.tqu-gfycat-video {
+    max-width: 100%;
+}
+
+/* Auto Rpleace */
+
+.tqu-auto-replace-cover {
+    position: relative;
+    display: inline-block;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+.tqu-auto-replace-loading {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+/* Small Fix for SVG */
+
+.tqu-mobile .theqoo_board_btn {
+    font-size: 13px;
+}
+
+.tqu-mobile .tqu-btn-file > svg {
+    margin-right: 5px;
+}
+
+/* Dark Mode Fix */
+
+body.dark_mode #container .tqu-video-container .theqoo_btn.blue {
+    background-color: #1a1a1a !important;
+}
+
+body.dark_mode .tqu-btn {
+    background: linear-gradient(to bottom, #202020 0%, #141414 100%);
+    color: #d0d0d0 !important;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.dark_mode .tqu-uploading-list {
+    border-color: #3a3a3a;
+}
+
+body.dark_mode .tqu-uploading-name a {
+    color: #d0d0d0;
+}
+
+body.dark_mode .tqu-uploading-file,
+body.dark_mode .tqu-setting-list,
+body.dark_mode .tqu-debug {
+    background-color: #1a1a1a;
+    border-color: #3a3a3a;
+}
+
+body.dark_mode .tqu-debug textarea {
+    border-color: #3a3a3a !important;
+}

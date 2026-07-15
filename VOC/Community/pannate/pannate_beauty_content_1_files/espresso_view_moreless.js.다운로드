@@ -1,0 +1,91 @@
+var MORE_LESS_DIV_NAME = 'espresso_moreLessDiv';
+var PRIFIX_MORE_LESS_OUTER = 'espresso_moreLessOuter_';
+var PRIFIX_MORE_LESS_MSG_ = 'espresso_moreLessMsg_';
+var PRIFIX_MORE_LESS_CONTENTS_ = 'espresso_moreLessContents_';
+var PRIFIX_MORE_LESS_ARROW = 'espresso_moreLessArrow_';
+var OUTER_CLASSNAME = 'espresso_more_less_outer';
+var ARROW_UP_BTN = 'http://c1img3.cyworld.co.kr/img/editor/arrow_up.gif';
+var ARROW_DOWN_BTN = 'http://c1img3.cyworld.co.kr/img/editor/arrow_down.gif';
+//var ARROW_UP = '\u25B2';
+//var ARROW_DOWN = '\u25BC';
+
+function espresso_toggleMoreLess(id) {
+    var randId = id.substring(PRIFIX_MORE_LESS_MSG_.length);
+    var arrowImg = document.getElementById(PRIFIX_MORE_LESS_ARROW+randId);
+    var contentSpan = document.getElementById(PRIFIX_MORE_LESS_CONTENTS_+randId);
+    if(contentSpan.style.display == 'none') {
+        contentSpan.style.display = 'block';
+        arrowImg.src = ARROW_UP_BTN;
+        var col = contentSpan.getElementsByTagName("iframe");
+        for (var i = 0; i < col.length; i++) {
+        	var iframe = col[i];
+        	iframe.src = iframe.src;
+        }
+    } else {
+        contentSpan.style.display = 'none';
+        arrowImg.src = ARROW_DOWN_BTN;
+    }
+    // function espresso_afterToggleMoreLess() is a service page's own function.
+    // when the service page is iframe page, then this calling would be used gracefully.
+    if(typeof(espresso_afterToggleMoreLess) != "undefined") {
+    	try {
+    		espresso_afterToggleMoreLess();
+    	} catch (e) {
+    		
+    	}
+    }
+}
+
+function espresso_convertEditorToView() {
+    var doc = document;
+    var moreLessDivs = espresso_getElementsByName(doc, MORE_LESS_DIV_NAME, 'div');
+
+    var idx;
+    var moreLessDiv;
+    var randId;
+
+    var len = moreLessDivs.length;
+    for(idx=0;idx<len;idx++) {
+        moreLessDiv = moreLessDivs[0];
+        if(!moreLessDiv)
+            return;
+            
+        randId = moreLessDiv.getAttribute('id').substring(PRIFIX_MORE_LESS_OUTER.length);
+        moreLessDiv.className = OUTER_CLASSNAME;
+        moreLessDiv.innerHTML = espresso_getViewHtml(randId, doc.getElementById(PRIFIX_MORE_LESS_MSG_+randId).innerHTML, doc.getElementById(PRIFIX_MORE_LESS_CONTENTS_+randId).innerHTML);
+         
+        moreLessDiv.removeAttribute('name');
+        moreLessDivs = espresso_getElementsByName(doc, MORE_LESS_DIV_NAME, 'div');
+    };
+}
+
+// generate html for view
+function espresso_getViewHtml(randId, moreLessMsg, moreLessContents) {
+    var imgArea = ' <img id="'+PRIFIX_MORE_LESS_ARROW+randId+'" src="'+ARROW_DOWN_BTN+'" align="absmiddle"/>';
+    return '<span id="'+PRIFIX_MORE_LESS_MSG_+randId+'" style="cursor:pointer;" onClick="espresso_toggleMoreLess(this.id);">'+moreLessMsg+imgArea+'</span>'+
+           '<div id="'+PRIFIX_MORE_LESS_CONTENTS_+randId+'" style="display:none;">'+moreLessContents+'</div>';
+}
+
+// To fix the IE7's getElementsByName bug.
+// Sometimes it doesn't work.
+function espresso_getElementsByName(doc, nameValue, tagName) {
+    var isIE = !!(window.attachEvent && !window.opera);
+    if(isIE) {
+        var allElements = doc.getElementsByTagName(tagName);
+        var matchingElements = new Array();
+        var attName;
+        for (var i = 0; i < allElements.length; i++) {
+            attName = allElements[i].name;
+            if (attName && attName == nameValue) {
+                matchingElements.push(allElements[i]);
+            }
+        }
+        return matchingElements;      
+    } else {
+        return doc.getElementsByName(nameValue);
+    }
+}
+
+// Follwing function shoud be called at the end of the page.
+// Proper position would be right before </body> or between </body> and </html>
+espresso_convertEditorToView();

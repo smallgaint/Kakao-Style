@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<!-- saved from url=(0089)https://pann.nate.com/talk/reply/editor?pann_id=375508338&dp=0&brd_type=form&cateCd=20052 -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>네이트 판 &gt; 판 댓글쓰기</title>
+<link href="./common_pann_v4.css" rel="stylesheet" type="text/css" media="all" charset="utf-8"><link href="./aticle_v3.css" rel="stylesheet" type="text/css" media="all">
+<script src="./common.js.다운로드" type="text/javascript"></script>
+<script src="./jquery-3.7.1.min.js.다운로드" type="text/javascript"></script>
+
+<script type="text/javascript">
+ var j$ = jQuery.noConflict();
+</script>
+<script src="./jquery.pann.fimgup.js.다운로드" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+	// 로그인 여부
+	IS_LOGGED = false;
+	// 로그인 한 후 리다이렉트할 페이지
+	REQUEST_URL = "https:\/\/pann.nate.com\/talk\/reply\/editor%3Fpann_id%3D375508338%26dp%3D0%26brd_type%3Dform%26cateCd%3D20052";
+	// 판사용자 글쓰기 동의 여부
+	IS_USE_AGREE = false;
+	// 실명 확인 여부
+	CONFIRMED = "3";
+
+	// NDR
+	NDR_URL = '';
+	NDRU = '';
+	NDRL = '';
+	NDRP = '177980050908589957';
+	NDRU3 = '';
+	NDRL3 = '';
+	
+var pann_id = 375508338;
+var replyId = -1;
+var DEFAULT_COMMENT_MSG = "타인을 배려 하는 마음을 담아 댓글을 달아주세요.\n내용에 따라 이용약관 및 관련 법률에 의해 임의 조치를 수행 할 수 있습니다.";
+var canWriteReply = true;
+
+var isUploading = false;
+var maxFileSize = 2097152; 	// 이미지 최대 사이즈
+var fileTypes = ["bmp","gif","png","jpg","jpeg"]; // 확장자 지정(이미지 확장자)
+var imgFileSize = 0;
+var file_nm;
+var file_link;
+var fileCount = 0;
+var tempImgSrc;
+var fid;
+
+function checkLogin(){
+	if( !parentCheckLoginAndRedirect() ) {
+		return false;
+	}
+	return true;
+}
+
+function replyCheckUserAgree() {
+	if ( !parentCheckUseAgree() ) {
+		return false;
+	}
+	return true;
+}
+
+function writeReply(prts_reply_id){
+	if( !parentCheckLoginAndRedirect() )
+		return;
+
+	if(isUploading) {
+		alert("이미지 업로드 중입니다.");
+		return false;
+	}
+
+	if ( !checkReplyRealnameConfirm(20052) ) {
+		return;
+	}
+
+	if ( !parentCheckUseAgree() ) {
+		return;
+	}
+
+	if (!canWriteReply) {
+		alert('작성자가 지정한 참여 대상만 댓글을 작성할 수 있습니다.');
+		return;
+	}
+
+	var content 	= j$('#content').val();
+	var connect_mhp = j$('#connect_mhp:checked').val();
+	var nickName 	= j$('#nickName').val();
+	var imgfileTmp 	= j$('#imgfile_tmp').val();
+	var imgOldUrl 	= j$('#imgOldUrl').val();
+	var fid	 		= j$('#fid').val();
+	var fname		= j$('#fname').attr('value');
+	var fsize		= j$('#fsize').attr('value');
+	var knto		= j$('#knto').val();
+
+	if(j$.trim(nickName).length == 0) {
+		alert('닉네임을 입력해 주세요.');
+		j$('#nickName').focus();
+		return;
+	}
+	if (j$.trim(nickName) == '날게씨') {
+		alert("날게씨(운영자용) 사용할 수 없습니다.\n다시 입력해주세요.");
+		j$("#nickName").focus();
+		return;
+	}
+	var chckMsg  = new RegExp(DEFAULT_COMMENT_MSG);
+
+	//댓글 empty 여부 확인
+	if (j$.trim(content).length == 0 || content.match(chckMsg) ){
+		alert("내용을 입력하여 주세요.");
+		j$('#content').focus();
+		return;
+	}
+
+	if ( content.match(/<img/i) != null ) {
+		alert("광고 및 악성 댓글로 인해 'Ctrl+V, 붙여넣기'시 일부내용이 노출되지 않을 수 있습니다.\n이미지는 상단 첨부 기능을 이용하세요.");
+	}
+
+	j$.ajax({
+		type: 'POST',
+		url: '/talk/reply/write',
+		data: {
+			pann_id   : pann_id,
+			content  : content,
+			hp_chk : connect_mhp,
+			nickname : nickName,
+			prts_reply_id : prts_reply_id,
+			img_file_tmp : imgfileTmp,
+			img_old_url : imgOldUrl,
+			fid	: fid,
+			fname : fname,
+			fsize : fsize,
+			knto: knto
+		}
+	}).done(function(json){
+		if ( json.resultCd == 0 )
+		{
+			if (prts_reply_id == -1) {
+				parent.loadReply(1, '', 'W');
+				parent.initTab();
+			} else {
+				parent.loadSubreply(1, prts_reply_id);
+			}
+		}
+		else if ( json.resultCd == '1' ){
+			alert(json.msg);
+		}
+		else if ( json.resultCd == '14' ){
+			alert(json.msg);
+		}
+		else if ( json.resultCd == 2 ){
+			alert('중복된 댓글입니다.');
+		}
+		else if ( json.resultCd == 3 ){
+			alert(json.msg);
+		}
+		else if ( json.resultCd == 6 ){
+			alert('유효한 데이터가 없습니다.');
+		}
+		else if ( json.resultCd == 8 ){
+			alert("현재 회원님은 글쓰기 기능이 제한되어 서비스를 이용하실 수 없는 상태 입니다.\n원활한 서비스 운영을 위한 부득이한 조치임을 양해하여 주시기 바랍니다.");
+		}
+		else if ( json.resultCd == 9 ){
+			alert('제한된 사용자입니다.');
+		}
+		else if ( json.resultCd == 10 ){
+			alert('이상패턴이 감지되어 서비스 이용이 제한되었습니다.');
+		}
+		else if ( json.resultCd == '12' ){
+			alert('이상패턴이 감지되어 서비스 이용이 제한되었습니다.');
+		}
+		else if ( json.resultCd == '21' ){
+			alert("회원님께서 접속한 IP는 운영자에 의해 차단이 되어 글쓰기 기능이 제한되었습니다.\n원활한 서비스 운영을 위한 부득이한 조치임을 양해하여 주시기 바랍니다.");
+		}
+		else if ( json.resultCd == '22' ){
+			alert("닉네임은 한글,영문,숫자만 입력 가능합니다. \n다시 입력해주세요.");
+		}
+		else if ( json.resultCd == '26' ){
+			alert("날게씨(운영자용) 사용할 수 없습니다.\n다시 입력해주세요.");
+		}
+		else if ( json.resultCd == '52' ){
+			alert('여성만 댓글 쓰기가 가능한 카테고리입니다.');
+		}
+		else if ( json.resultCd == '53' ){
+			alert('남성만 댓글 쓰기가 가능한 카테고리입니다.');
+		}
+		else if ( json.resultCd == '13') {
+			if (confirm("성별 정보가 없는 회원입니다.\n성별 정보를 입력하시겠습니까?")) {
+				genderApiPopup();	
+			} 
+		}		
+		else{
+			alert('오류가 발생하였습니다.');
+			window.location.reload();
+		}
+	});
+}
+
+function genderApiPopup() {
+	var parentUrl = 'http://pann.nate.com/talk/'+pann_id+'#commentBox';
+	var popUrl = "https://member.nate.com/modify/modifyInfo.sk"+'?type=G&rUrl='+parentUrl;		
+	var popOption = 'width=560, height=430, resizable=no, scrollbars=no, status=no;';
+	window.open(popUrl,'gender_popup',popOption);
+	window.onmessage = function(e){
+		if(e.origin === 'https://member.nate.com'){
+			alert(e.data);  
+			window.location.reload();
+		}
+	} 			
+}
+
+
+function stripHTMLtag(string) {
+	var objStrip = new RegExp();
+	objStrip = /[<][^>]*[>]/gi;
+	return string.replace(objStrip, "");
+}
+
+function editFont(){
+	j$('#toolbar').toggle();
+	ResizeIFrame();
+	setDefaultHeight();
+}
+
+function ResizeIFrame() {
+	if(parent && self.name && !window.opener) {
+		var tmp = "";
+		if(arguments.length == 1 || !window.ie) tmp = ",true";
+		setTimeout("parent.ResizeFrame('"+ self.name +"'"+ tmp +")", 50);
+	}
+}
+
+function setDefaultHeight(height) {
+	var frame = j$('#content').height();
+	var default_height = height || 300;
+	if (frame < default_height) {
+		j$('#content').height(default_height);
+	} else{
+		j$('#content').height(50);
+	}
+}
+
+function hideFontSize() {
+	j$('#fontSizeSet').hide();
+	j$('#fontNameSet').hide();
+}
+
+function fontNameSet(){
+	j$('#fontNameSet').toggle();
+	j$('#fontSizeSet').hide();
+}
+
+function fontSizeSet(){
+	j$('#fontSizeSet').toggle();
+	j$('#fontNameSet').hide();
+}
+
+function changeStyle(editcase, data){
+	if(data==''){
+		alert("접근경로 오류입니다");
+		return;
+	}
+	var fname = j$("#fname").attr("value");
+	var fsize = j$("#fsize").attr("value");
+
+	switch (editcase){
+		case 'font' :
+			fname = data;
+			j$("#fname").attr("value",fname);
+			j$("#fsize").attr("value",fsize);
+			break;
+		case 'font_size' :
+			fsize = data;
+			j$("#fsize").attr("value",fsize);
+			j$("#fname").attr("value",fname);
+			break;
+		default:
+			alert("접근경로 오류입니다");
+			return;
+	}
+
+	saveText = j$('#content').val();
+	if (fname == "-1") fname = "맑은 고딕";
+	textStyle = "font-size:"+fsize+"pt;font-family:'"+fname+"'; height:300px";
+	j$('#content').attr('style',textStyle);
+	j$('#content').val('').val(saveText);
+
+	hideFontSize();
+
+	j$('#content').focus();
+}
+
+function focusCmtContent(content){
+	hideFontSize();
+	if (j$(content).val() == DEFAULT_COMMENT_MSG) {
+		j$(content).val('');
+	}
+}
+
+var ImageApp = {
+	enable: function() {
+		j$("#formUpload a.imgadd").unbind().click( function() { j$("#imgfile").click() });
+	},
+	disable: function() {
+		j$("#formUpload a.imgadd").unbind().click( function() { alert("댓글에서 첨부파일은 1개까지 등록 가능합니다."); return false; });
+	},
+	addImg: function(obj) {
+		j$('#formUpload')[0].reset();
+		j$('#imgfile_tmp').val(obj.tempUrl);
+		j$('#imgOldUrl').val(obj.fileName);
+		j$('#fid').val(obj.fileId);
+		
+		j$('#itemImgPreview').html('<img src="https://thumb.pann.com/tc_100x70/'
+				+ obj.tempUrl + '" ondragstart="return false;" width="100" height="70" alt="" />');
+		j$('#itemImgNm').html(ImageApp.fileName(obj.fileName, 25));
+		j$('#itemImgSize').html(ImageApp.fileSize(obj.fileSize));
+		
+		j$('#previewBox').show();
+		j$('#formUpload').hide();
+		ImageApp.disable();
+		ResizeIFrame();
+	},
+	delImg: function() {
+		j$('#imgfile_tmp').val('');
+		j$('#imgOldUrl').val('');
+		j$('#fid').val('');
+		
+		j$('#previewBox').hide();
+		j$('#formUpload').show();
+		ImageApp.enable();
+		ResizeIFrame();
+	},
+	fileSize: function(bytes) {
+		var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+		if (bytes == 0) {
+			return '0 Bytes';
+		}
+		var idx = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+		if (idx == 0) {
+			return bytes + ' ' + sizes[idx];
+		}
+		return (bytes / Math.pow(1024, idx)).toFixed(1) + ' ' + sizes[idx];
+	},
+	fileName: function(fileName, offset) {
+		try {
+			if(fileName.length > offset){
+				fileName = fileName.substr(0, offset) + '...';
+			}
+		} catch(e) { }
+		return fileName;
+	}
+};
+
+j$(document).ready(function() {
+	ImageApp.enable();
+	j$('#formUpload').fimgup({
+		callbackFn: ImageApp.addImg,
+		uploadingFn: function() { isUploading = true; },
+		uploadedFn: function() { isUploading = false; }
+	});
+	j$('#imgfile').click(function(){
+		if ( !checkLogin() ) {
+			return false;
+		}
+		return true;
+	});
+});
+//]]>
+</script>
+</head>
+<body marginwidth="0" marginheight="0">
+	<!-- 댓글 입력폼 -->
+	<div class="re_write">
+		<dl class="write-wrap e-talk">
+			<dt>댓글쓰기</dt>
+			<dd class="n-name">
+				<label for="nickName">닉네임</label>
+				<input type="text" class="type-text" id="nickName" value="" onkeyup="startCheckMaxByte(this, &#39;200&#39;);" onblur="stopCheckMaxByte(this, &#39;200&#39;);" onclick="checkLogin();">
+			</dd>
+			<dd class="editor-tool">
+				<span><a href="javascript:;" onclick="editFont();">글꾸미기</a></span>
+				<span id="uploadBox" class="plus-img">
+					<form id="formUpload" method="post" enctype="multipart/form-data" class="upload">
+						<a href="javascript:;" class="imgadd">이미지 첨부</a>
+						<label class="nHide" for="imgfile">이미지 첨부</label>
+						<input type="file" id="imgfile" name="file" value="-1" class="file">
+						<input type="hidden" id="imgfile_tmp" name="imgfile_tmp" value="">
+						<input type="hidden" id="imgOldUrl" name="imgOldUrl" value="">
+						<input type="hidden" id="fid" name="fid" value="">
+					</form>
+				</span>
+			</dd>
+			
+			<dd class="text">
+				<div id="editor" class="text_editor">
+					<div id="toolbar" class="editor_toolbar" style="display:none;">
+						<dl class="toolbar01">
+							<!-- <dt></dt> -->
+							<dd>
+								<a href="javascript:;" id="" class="toolbar_font" onclick="fontNameSet();">글꼴 선택</a>
+								<span class="div_bar"></span>
+								<a href="javascript:;" id="" class="toolbar_fontsize" onclick="fontSizeSet();">글자 크기</a>
+								<span class="div_bar"></span>
+							</dd>
+						</dl>
+						<!-- 유료글꼴 레이어 -->
+						<div id="fontNameSet" class="editor_layer layer_webfont" style="left:10px; display:none;">
+							<div class="layer_wrap">
+								<p class="wrap1"></p><p class="wrap_top"></p><p class="wrap2"></p>
+							</div>
+							<div class="layer_body">
+								<ul id="fname" value="-1">
+									<li class="malgun"><a href="javascript:;" value="맑은 고딕" onclick="changeStyle(&#39;font&#39;,&#39;맑은 고딕&#39;);">맑은 고딕</a></li>
+									<li><a href="javascript:;" value="돋움" onclick="changeStyle(&#39;font&#39;,&#39;돋움&#39;);">돋움</a></li>
+									<li class="gulim over"><a href="javascript:;" value="굴림" onclick="changeStyle(&#39;font&#39;,&#39;굴림&#39;);">굴림</a></li>
+									<li class="batang"><a href="javascript:;" value="바탕" onclick="changeStyle(&#39;font&#39;,&#39;바탕&#39;);">바탕</a></li>
+									<li class="gungsuh"><a href="javascript:;" value="궁서" onclick="changeStyle(&#39;font&#39;,&#39;궁서&#39;);">궁서</a></li>
+									<li class="arial"><a href="javascript:;" value="Arial" onclick="changeStyle(&#39;font&#39;,&#39;Arial&#39;);">Arial</a></li>
+									<li class="tahoma"><a href="javascript:;" value="Tahoma" onclick="changeStyle(&#39;font&#39;,&#39;Tahoma&#39;);">Tahoma</a></li>
+									<li class="verdana"><a href="javascript:;" value="Verdana" onclick="changeStyle(&#39;font&#39;,&#39;Verdana&#39;);">Verdana</a></li>
+									<li class="times"><a href="javascript:;" value="Times" onclick="changeStyle(&#39;font&#39;,&#39;Times&#39;);">Times</a></li>
+								</ul>
+							</div>
+							<div class="layer_wrap">
+								<p class="wrap3"></p><p class="wrap_foot"></p><p class="wrap4"></p>
+							</div>
+						</div>
+						<!-- 크기 레이어 -->
+						<div id="fontSizeSet" class="editor_layer layer_fontsize" style="left:58px; display:none;">
+							<div class="layer_wrap">
+								<p class="wrap1"></p><p class="wrap_top"></p><p class="wrap2"></p>
+							</div>
+							<div class="layer_body">
+								<ul id="fsize" value="-1">
+									<li class="size7"><a href="javascript:;" value="7" onclick="changeStyle(&#39;font_size&#39;,7);">사이좋은사람들(7pt)</a></li>
+									<li class="size8"><a href="javascript:;" value="8" onclick="changeStyle(&#39;font_size&#39;,8);">사이좋은사람들(8pt)</a></li>
+									<li class="size9"><a href="javascript:;" value="9" onclick="changeStyle(&#39;font_size&#39;,9);">사이좋은사람들(9pt)</a></li>
+									<li class="size10"><a href="javascript:;" value="10" onclick="changeStyle(&#39;font_size&#39;,10);">사이좋은사람들(10pt)</a></li>
+									<li class="size12"><a href="javascript:;" value="12" onclick="changeStyle(&#39;font_size&#39;,12);">사이좋은사람들(12pt)</a></li>
+									<li class="size16"><a href="javascript:;" value="16" onclick="changeStyle(&#39;font_size&#39;,16);">사이좋은사람들(16pt)</a></li>
+									<li class="size18"><a href="javascript:;" value="18" onclick="changeStyle(&#39;font_size&#39;,18);">사이좋은사람들(18pt)</a></li>
+									<li class="size24"><a href="javascript:;" value="24" onclick="changeStyle(&#39;font_size&#39;,24);">사이좋은(24pt)</a></li>
+									<li class="size36"><a href="javascript:;" value="36" onclick="changeStyle(&#39;font_size&#39;,36);">사이(36pt)</a></li>
+								</ul>
+							</div>
+							<div class="layer_wrap">
+								<p class="wrap3"></p><p class="wrap_foot"></p><p class="wrap4"></p>
+							</div>
+						</div>
+					</div>
+					<label class="nHide" for="content">댓글 입력</label>
+					<textarea id="content" name="content" onclick="checkLogin();" onfocus="focusCmtContent(this);" style="height:50px; overflow-x:hidden; overflow-y:auto;">타인을 배려 하는 마음을 담아 댓글을 달아주세요.
+내용에 따라 이용약관 및 관련 법률에 의해 임의 조치를 수행 할 수 있습니다.</textarea>
+				</div>
+			</dd>
+			<dd class="addfile" id="previewBox" style="display:none">
+				<dl>
+					<dt>첨부파일</dt>
+					<dd>
+						<span id="itemImgPreview"></span>
+						<span class="filename" id="itemImgNm"></span>
+						<span class="filesize" id="itemImgSize"></span>
+						<a href="javascript:;" class="delete" onclick="ImageApp.delImg();">삭제</a>
+					</dd>
+				</dl>
+			</dd>
+			<dd class="re-btn">
+				<input type="hidden" id="knto" name="knto" value="">
+				<button type="button" onclick="vndr(&#39;TVI48&#39;);writeReply(-1);"></button>
+			</dd>
+		</dl>
+	</div>
+
+<iframe id="upload_iframe" name="upload_iframe" width="0" height="0" border="0" frameborder="0" title="업로드" src="./saved_resource(8).html"></iframe></body></html>

@@ -1,0 +1,215 @@
+function MobWithShopBox(param) {
+  var no = writeFrame(param);
+  var script = document.createElement('script');
+  script.src = 'https://img.mobon.net/js/common/HawkUtil.js';
+  script.onload = function () {
+    renderIframe(param.zone, param.auid, param.adid, param.height, param.width, param.adType, param.bannerType, param.pb, param.position, no);
+  }
+  script.onerror = function() {
+    renderIframe(param.zone, param.auid, param.adid, param.height, param.width, param.adType, param.bannerType, param.pb, param.position, no);
+  }
+  document.head.append(script);
+  if(param.width === "360"){
+    resizeFrame(no, param);
+    window.addEventListener("resize", () => resizeFrame(no, param));
+  }
+}
+
+var layout = function (param, no) {
+  return bottom(param, no);
+}
+
+// 화면 위치
+var bottom = function (param, no) {
+  var f = document.createElement("div");
+  f.id = "div_" + no;
+  f.style = 'width:' + param.width + 'px; margin: auto;';
+  return f;
+}
+var xhrRequest = function (method, uri, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200 && xhr.responseText.indexOf('noad') == -1) {
+        callback(xhr.responseText);
+      } else {
+        var result = {};
+        uri.replace(/[?&]{1}([^=&#]+)=([^&#]*)/g, function (s, k, v) {
+          result[k] = decodeURIComponent(v);
+        });
+        var width = result.w
+        var height = result.h
+
+        var defulatPage =
+            "<!DOCTYPE html>\n" +
+            "<html lang=\"en\">\n" +
+            "<head>\n" +
+            "    <meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">    \n"
+            +
+            "    <meta http-equiv=\"Cache-Control\" content=\"no-cache, no-store, must-revalidate\">\n"
+            +
+            "\t\t<meta http-equiv=\"Pragma\" content=\"no-cache\">\n" +
+            "\t\t<meta http-equiv=\"Expires\" content=\"0\">\n" +
+            "    <style type=\"text/css\">\n" +
+            "        body { margin: 0; padding: 0; overflow: hidden; }\n" +
+            "        a, div, img { margin: 0; padding: 0; border: 0; display: block; }\n"
+            +
+            "    </style>\n" +
+            "    <link rel=\"icon\" href=\"data:;base64,iVBORw0KGgo=\" />\n" +
+            "</head>\n" +
+            "<body>\n" +
+            "    <a href=\"https://www.mobwithad.com/click?advrtsPrdtCode=01&zone=0&ad=2468\" target=\"_blank\" style=\"width:"
+            + width + "px;\">\n" +
+            "\t\t\t<img src=\"https://img.mobwithad.com/ad/imgfile/default/shopBox/"
+            + width + "x" + height + ".png\" width=\"100%\" height=\"" + height
+            + "px\" />\n" +
+            "    </a>\n" +
+            "    <img src=\"https://www.mobwithad.com/imp?advrtsPrdtCode=01&zone=0&ad=2468\" width=\"0\" height=\"0\" />\n"
+            +
+            "</body>\n" +
+            "</html>\n" +
+            "<!-- SORTLIST : {{SORTLIST}} -->";
+
+        callback(defulatPage);
+      }
+    }
+  };
+  xhr.open(method, uri, true);
+  xhr.send();
+}
+
+var renderIframe = function (zone, auid, adid, h, w, adType, bannerType, pb, position, no) {
+  var domain = 'https://nate.mobwithad.com/';
+  if(auid === ''){
+    auid = extractAuid(auid);
+  }
+  var uri;
+  switch (adType){
+    case "cover": uri = '//www.mobwithad.com/' + adType + '?zone=' + zone + '&w=' + w + '&h='+ h + '&pb=' + pb; break;
+    case "banner": uri = domain + 'api/banner/shopBox/nate/v1/banner?zone=' + zone + '&auid=' + auid + '&adid=' + adid + '&output=script&w=' + w + '&h=' + h; break;
+    case "shopBox": uri = domain + 'api/banner/shopBox/nate/v1/shopBox?zone=' + zone + '&auid=' + auid + '&adid=' + adid + '&output=json_script&w=' + w + '&h=' + h; break;
+    default: break;
+  }
+
+  xhrRequest('GET', uri, function (result) {
+    var ifr = document.getElementById('wrap_' + no);
+    ifr.contentDocument.write(result);
+    ifr.contentDocument.close();
+  });
+}
+var gridFrame = function (no, param) {
+  const frame = document.querySelector("#wrap_" + no);
+  const container = document.querySelector("#div_" + no);
+  const ratio = 840 / 640;
+
+  if (!container) return;
+
+  var containerWidth;
+  var currentScript = document.currentScript;
+  containerWidth = currentScript.parentNode.clientWidth;
+
+  const width = containerWidth;
+  const height = (width + 160) * ratio ;
+  frame.width = width + "px";
+  frame.height = height + "px";
+
+  container.style.width = "100%";
+}
+var resizeFrame = function (no, param) {
+  const frame = document.querySelector("#wrap_" + no);
+  const container = document.querySelector("#div_" + no);
+  const ratio = 840 / 640;
+
+  if (!container) return;
+
+  var containerWidth = window.innerWidth;
+
+  const width = containerWidth;
+  const height = (width + 160) * ratio ;
+
+  var adDiv = document.querySelector("#ifr_main_banner");
+
+  if(adDiv == null) {
+    if(width <= 640){
+      frame.width = width + "px";
+      frame.height = height + "px";
+    } else {
+      frame.width = "100%";
+      frame.height = (width/2 + 160) * ratio ;
+    }
+  } else {
+    frame.width = width + "px";
+    frame.height = height + "px";
+  }
+  container.style.width = "100%";
+}
+var writeFrame = function (param) {
+
+  const script = document.currentScript;
+  const container = script.parentNode;
+  const uniqueId = param.zone + "_" + Date.now();
+
+  var a = document.createElement("iframe");
+  a.id = "wrap_" + uniqueId;
+  a.referrerPolicy = 'no-referrer';
+  a.frameBorder = 0;
+  a.scrolling = 'no';
+  a.style = 'z-index:99;overflow-x:hidden; overflow:auto; max-Height:1155px';
+  a.width = param.width;
+  a.height = param.height;
+
+  var f = layout(param, uniqueId);
+  f.appendChild(a);
+  container.appendChild(f);
+
+  observeVisible(f, param);
+  return uniqueId;
+}
+
+function observeVisible(target, param) {
+  let called = false;
+
+  const observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting && !called) {
+        called = true;
+
+        callImpressionApi(param);
+
+        observer.unobserve(target);
+        observer.disconnect();
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.15
+  });
+
+  observer.observe(target);
+}
+
+function callImpressionApi(param) {
+  fetch('https://nate.mobwithad.com/etc/incrementCount/shopBox', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      zone: param.zone
+    })
+  })
+  .then(function (res) {})
+  .catch(function (err) {
+    console.error('API error', err);
+  });
+}
+
+function extractAuid(auid) {
+  var mobonAuid = auid;
+  if(auid === '' && typeof window.getMobLoaclStorage === 'function'){
+    mobonAuid = getMobLoaclStorage();
+  }
+  return mobonAuid;
+}
+

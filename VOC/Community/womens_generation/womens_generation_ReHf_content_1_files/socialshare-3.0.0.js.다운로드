@@ -1,0 +1,2321 @@
+var useSocialShare = (function () {
+	'use strict';
+
+	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+	var check = function (it) {
+	  return it && it.Math === Math && it;
+	};
+
+	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+	var globalThis_1 =
+	  // eslint-disable-next-line es/no-global-this -- safe
+	  check(typeof globalThis == 'object' && globalThis) ||
+	  check(typeof window == 'object' && window) ||
+	  // eslint-disable-next-line no-restricted-globals -- safe
+	  check(typeof self == 'object' && self) ||
+	  check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
+	  check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
+	  // eslint-disable-next-line no-new-func -- fallback
+	  (function () { return this; })() || Function('return this')();
+
+	var objectGetOwnPropertyDescriptor = {};
+
+	var fails$a = function (exec) {
+	  try {
+	    return !!exec();
+	  } catch (error) {
+	    return true;
+	  }
+	};
+
+	var fails$9 = fails$a;
+
+	// Detect IE8's incomplete defineProperty implementation
+	var descriptors = !fails$9(function () {
+	  // eslint-disable-next-line es/no-object-defineproperty -- required for testing
+	  return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] !== 7;
+	});
+
+	var fails$8 = fails$a;
+
+	var functionBindNative = !fails$8(function () {
+	  // eslint-disable-next-line es/no-function-prototype-bind -- safe
+	  var test = (function () { /* empty */ }).bind();
+	  // eslint-disable-next-line no-prototype-builtins -- safe
+	  return typeof test != 'function' || test.hasOwnProperty('prototype');
+	});
+
+	var NATIVE_BIND$2 = functionBindNative;
+
+	var call$5 = Function.prototype.call;
+
+	var functionCall = NATIVE_BIND$2 ? call$5.bind(call$5) : function () {
+	  return call$5.apply(call$5, arguments);
+	};
+
+	var objectPropertyIsEnumerable = {};
+
+	var $propertyIsEnumerable = {}.propertyIsEnumerable;
+	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+	var getOwnPropertyDescriptor$2 = Object.getOwnPropertyDescriptor;
+
+	// Nashorn ~ JDK8 bug
+	var NASHORN_BUG = getOwnPropertyDescriptor$2 && !$propertyIsEnumerable.call({ 1: 2 }, 1);
+
+	// `Object.prototype.propertyIsEnumerable` method implementation
+	// https://tc39.es/ecma262/#sec-object.prototype.propertyisenumerable
+	objectPropertyIsEnumerable.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
+	  var descriptor = getOwnPropertyDescriptor$2(this, V);
+	  return !!descriptor && descriptor.enumerable;
+	} : $propertyIsEnumerable;
+
+	var createPropertyDescriptor$3 = function (bitmap, value) {
+	  return {
+	    enumerable: !(bitmap & 1),
+	    configurable: !(bitmap & 2),
+	    writable: !(bitmap & 4),
+	    value: value
+	  };
+	};
+
+	var NATIVE_BIND$1 = functionBindNative;
+
+	var FunctionPrototype$2 = Function.prototype;
+	var call$4 = FunctionPrototype$2.call;
+	var uncurryThisWithBind = NATIVE_BIND$1 && FunctionPrototype$2.bind.bind(call$4, call$4);
+
+	var functionUncurryThis = NATIVE_BIND$1 ? uncurryThisWithBind : function (fn) {
+	  return function () {
+	    return call$4.apply(fn, arguments);
+	  };
+	};
+
+	var uncurryThis$a = functionUncurryThis;
+
+	var toString$3 = uncurryThis$a({}.toString);
+	var stringSlice$1 = uncurryThis$a(''.slice);
+
+	var classofRaw$1 = function (it) {
+	  return stringSlice$1(toString$3(it), 8, -1);
+	};
+
+	var uncurryThis$9 = functionUncurryThis;
+	var fails$7 = fails$a;
+	var classof$3 = classofRaw$1;
+
+	var $Object$3 = Object;
+	var split = uncurryThis$9(''.split);
+
+	// fallback for non-array-like ES3 and non-enumerable old V8 strings
+	var indexedObject = fails$7(function () {
+	  // throws an error in rhino, see https://github.com/mozilla/rhino/issues/346
+	  // eslint-disable-next-line no-prototype-builtins -- safe
+	  return !$Object$3('z').propertyIsEnumerable(0);
+	}) ? function (it) {
+	  return classof$3(it) === 'String' ? split(it, '') : $Object$3(it);
+	} : $Object$3;
+
+	// we can't use just `it == null` since of `document.all` special case
+	// https://tc39.es/ecma262/#sec-IsHTMLDDA-internal-slot-aec
+	var isNullOrUndefined$2 = function (it) {
+	  return it === null || it === undefined;
+	};
+
+	var isNullOrUndefined$1 = isNullOrUndefined$2;
+
+	var $TypeError$8 = TypeError;
+
+	// `RequireObjectCoercible` abstract operation
+	// https://tc39.es/ecma262/#sec-requireobjectcoercible
+	var requireObjectCoercible$3 = function (it) {
+	  if (isNullOrUndefined$1(it)) throw new $TypeError$8("Can't call method on " + it);
+	  return it;
+	};
+
+	// toObject with fallback for non-array-like ES3 strings
+	var IndexedObject = indexedObject;
+	var requireObjectCoercible$2 = requireObjectCoercible$3;
+
+	var toIndexedObject$3 = function (it) {
+	  return IndexedObject(requireObjectCoercible$2(it));
+	};
+
+	// https://tc39.es/ecma262/#sec-IsHTMLDDA-internal-slot
+	var documentAll = typeof document == 'object' && document.all;
+
+	// `IsCallable` abstract operation
+	// https://tc39.es/ecma262/#sec-iscallable
+	// eslint-disable-next-line unicorn/no-typeof-undefined -- required for testing
+	var isCallable$c = typeof documentAll == 'undefined' && documentAll !== undefined ? function (argument) {
+	  return typeof argument == 'function' || argument === documentAll;
+	} : function (argument) {
+	  return typeof argument == 'function';
+	};
+
+	var isCallable$b = isCallable$c;
+
+	var isObject$9 = function (it) {
+	  return typeof it == 'object' ? it !== null : isCallable$b(it);
+	};
+
+	var globalThis$c = globalThis_1;
+	var isCallable$a = isCallable$c;
+
+	var aFunction = function (argument) {
+	  return isCallable$a(argument) ? argument : undefined;
+	};
+
+	var getBuiltIn$3 = function (namespace, method) {
+	  return arguments.length < 2 ? aFunction(globalThis$c[namespace]) : globalThis$c[namespace] && globalThis$c[namespace][method];
+	};
+
+	var uncurryThis$8 = functionUncurryThis;
+
+	var objectIsPrototypeOf = uncurryThis$8({}.isPrototypeOf);
+
+	var globalThis$b = globalThis_1;
+
+	var navigator = globalThis$b.navigator;
+	var userAgent$2 = navigator && navigator.userAgent;
+
+	var environmentUserAgent = userAgent$2 ? String(userAgent$2) : '';
+
+	var globalThis$a = globalThis_1;
+	var userAgent$1 = environmentUserAgent;
+
+	var process = globalThis$a.process;
+	var Deno = globalThis$a.Deno;
+	var versions = process && process.versions || Deno && Deno.version;
+	var v8 = versions && versions.v8;
+	var match, version;
+
+	if (v8) {
+	  match = v8.split('.');
+	  // in old Chrome, versions of V8 isn't V8 = Chrome / 10
+	  // but their correct versions are not interesting for us
+	  version = match[0] > 0 && match[0] < 4 ? 1 : +(match[0] + match[1]);
+	}
+
+	// BrowserFS NodeJS `process` polyfill incorrectly set `.v8` to `0.0`
+	// so check `userAgent` even if `.v8` exists, but 0
+	if (!version && userAgent$1) {
+	  match = userAgent$1.match(/Edge\/(\d+)/);
+	  if (!match || match[1] >= 74) {
+	    match = userAgent$1.match(/Chrome\/(\d+)/);
+	    if (match) version = +match[1];
+	  }
+	}
+
+	var environmentV8Version = version;
+
+	/* eslint-disable es/no-symbol -- required for testing */
+	var V8_VERSION = environmentV8Version;
+	var fails$6 = fails$a;
+	var globalThis$9 = globalThis_1;
+
+	var $String$5 = globalThis$9.String;
+
+	// eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
+	var symbolConstructorDetection = !!Object.getOwnPropertySymbols && !fails$6(function () {
+	  var symbol = Symbol('symbol detection');
+	  // Chrome 38 Symbol has incorrect toString conversion
+	  // `get-own-property-symbols` polyfill symbols converted to object are not Symbol instances
+	  // nb: Do not call `String` directly to avoid this being optimized out to `symbol+''` which will,
+	  // of course, fail.
+	  return !$String$5(symbol) || !(Object(symbol) instanceof Symbol) ||
+	    // Chrome 38-40 symbols are not inherited from DOM collections prototypes to instances
+	    !Symbol.sham && V8_VERSION && V8_VERSION < 41;
+	});
+
+	/* eslint-disable es/no-symbol -- required for testing */
+	var NATIVE_SYMBOL$1 = symbolConstructorDetection;
+
+	var useSymbolAsUid = NATIVE_SYMBOL$1
+	  && !Symbol.sham
+	  && typeof Symbol.iterator == 'symbol';
+
+	var getBuiltIn$2 = getBuiltIn$3;
+	var isCallable$9 = isCallable$c;
+	var isPrototypeOf$1 = objectIsPrototypeOf;
+	var USE_SYMBOL_AS_UID$1 = useSymbolAsUid;
+
+	var $Object$2 = Object;
+
+	var isSymbol$2 = USE_SYMBOL_AS_UID$1 ? function (it) {
+	  return typeof it == 'symbol';
+	} : function (it) {
+	  var $Symbol = getBuiltIn$2('Symbol');
+	  return isCallable$9($Symbol) && isPrototypeOf$1($Symbol.prototype, $Object$2(it));
+	};
+
+	var $String$4 = String;
+
+	var tryToString$1 = function (argument) {
+	  try {
+	    return $String$4(argument);
+	  } catch (error) {
+	    return 'Object';
+	  }
+	};
+
+	var isCallable$8 = isCallable$c;
+	var tryToString = tryToString$1;
+
+	var $TypeError$7 = TypeError;
+
+	// `Assert: IsCallable(argument) is true`
+	var aCallable$2 = function (argument) {
+	  if (isCallable$8(argument)) return argument;
+	  throw new $TypeError$7(tryToString(argument) + ' is not a function');
+	};
+
+	var aCallable$1 = aCallable$2;
+	var isNullOrUndefined = isNullOrUndefined$2;
+
+	// `GetMethod` abstract operation
+	// https://tc39.es/ecma262/#sec-getmethod
+	var getMethod$1 = function (V, P) {
+	  var func = V[P];
+	  return isNullOrUndefined(func) ? undefined : aCallable$1(func);
+	};
+
+	var call$3 = functionCall;
+	var isCallable$7 = isCallable$c;
+	var isObject$8 = isObject$9;
+
+	var $TypeError$6 = TypeError;
+
+	// `OrdinaryToPrimitive` abstract operation
+	// https://tc39.es/ecma262/#sec-ordinarytoprimitive
+	var ordinaryToPrimitive$1 = function (input, pref) {
+	  var fn, val;
+	  if (pref === 'string' && isCallable$7(fn = input.toString) && !isObject$8(val = call$3(fn, input))) return val;
+	  if (isCallable$7(fn = input.valueOf) && !isObject$8(val = call$3(fn, input))) return val;
+	  if (pref !== 'string' && isCallable$7(fn = input.toString) && !isObject$8(val = call$3(fn, input))) return val;
+	  throw new $TypeError$6("Can't convert object to primitive value");
+	};
+
+	var sharedStore = {exports: {}};
+
+	var globalThis$8 = globalThis_1;
+
+	// eslint-disable-next-line es/no-object-defineproperty -- safe
+	var defineProperty$2 = Object.defineProperty;
+
+	var defineGlobalProperty$3 = function (key, value) {
+	  try {
+	    defineProperty$2(globalThis$8, key, { value: value, configurable: true, writable: true });
+	  } catch (error) {
+	    globalThis$8[key] = value;
+	  } return value;
+	};
+
+	var globalThis$7 = globalThis_1;
+	var defineGlobalProperty$2 = defineGlobalProperty$3;
+
+	var SHARED = '__core-js_shared__';
+	var store$3 = sharedStore.exports = globalThis$7[SHARED] || defineGlobalProperty$2(SHARED, {});
+
+	(store$3.versions || (store$3.versions = [])).push({
+	  version: '3.38.0',
+	  mode: 'global',
+	  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
+	  license: 'https://github.com/zloirock/core-js/blob/v3.38.0/LICENSE',
+	  source: 'https://github.com/zloirock/core-js'
+	});
+
+	var sharedStoreExports = sharedStore.exports;
+
+	var store$2 = sharedStoreExports;
+
+	var shared$3 = function (key, value) {
+	  return store$2[key] || (store$2[key] = value || {});
+	};
+
+	var requireObjectCoercible$1 = requireObjectCoercible$3;
+
+	var $Object$1 = Object;
+
+	// `ToObject` abstract operation
+	// https://tc39.es/ecma262/#sec-toobject
+	var toObject$2 = function (argument) {
+	  return $Object$1(requireObjectCoercible$1(argument));
+	};
+
+	var uncurryThis$7 = functionUncurryThis;
+	var toObject$1 = toObject$2;
+
+	var hasOwnProperty = uncurryThis$7({}.hasOwnProperty);
+
+	// `HasOwnProperty` abstract operation
+	// https://tc39.es/ecma262/#sec-hasownproperty
+	// eslint-disable-next-line es/no-object-hasown -- safe
+	var hasOwnProperty_1 = Object.hasOwn || function hasOwn(it, key) {
+	  return hasOwnProperty(toObject$1(it), key);
+	};
+
+	var uncurryThis$6 = functionUncurryThis;
+
+	var id = 0;
+	var postfix = Math.random();
+	var toString$2 = uncurryThis$6(1.0.toString);
+
+	var uid$2 = function (key) {
+	  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString$2(++id + postfix, 36);
+	};
+
+	var globalThis$6 = globalThis_1;
+	var shared$2 = shared$3;
+	var hasOwn$7 = hasOwnProperty_1;
+	var uid$1 = uid$2;
+	var NATIVE_SYMBOL = symbolConstructorDetection;
+	var USE_SYMBOL_AS_UID = useSymbolAsUid;
+
+	var Symbol$1 = globalThis$6.Symbol;
+	var WellKnownSymbolsStore = shared$2('wks');
+	var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol$1['for'] || Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid$1;
+
+	var wellKnownSymbol$3 = function (name) {
+	  if (!hasOwn$7(WellKnownSymbolsStore, name)) {
+	    WellKnownSymbolsStore[name] = NATIVE_SYMBOL && hasOwn$7(Symbol$1, name)
+	      ? Symbol$1[name]
+	      : createWellKnownSymbol('Symbol.' + name);
+	  } return WellKnownSymbolsStore[name];
+	};
+
+	var call$2 = functionCall;
+	var isObject$7 = isObject$9;
+	var isSymbol$1 = isSymbol$2;
+	var getMethod = getMethod$1;
+	var ordinaryToPrimitive = ordinaryToPrimitive$1;
+	var wellKnownSymbol$2 = wellKnownSymbol$3;
+
+	var $TypeError$5 = TypeError;
+	var TO_PRIMITIVE = wellKnownSymbol$2('toPrimitive');
+
+	// `ToPrimitive` abstract operation
+	// https://tc39.es/ecma262/#sec-toprimitive
+	var toPrimitive$1 = function (input, pref) {
+	  if (!isObject$7(input) || isSymbol$1(input)) return input;
+	  var exoticToPrim = getMethod(input, TO_PRIMITIVE);
+	  var result;
+	  if (exoticToPrim) {
+	    if (pref === undefined) pref = 'default';
+	    result = call$2(exoticToPrim, input, pref);
+	    if (!isObject$7(result) || isSymbol$1(result)) return result;
+	    throw new $TypeError$5("Can't convert object to primitive value");
+	  }
+	  if (pref === undefined) pref = 'number';
+	  return ordinaryToPrimitive(input, pref);
+	};
+
+	var toPrimitive = toPrimitive$1;
+	var isSymbol = isSymbol$2;
+
+	// `ToPropertyKey` abstract operation
+	// https://tc39.es/ecma262/#sec-topropertykey
+	var toPropertyKey$2 = function (argument) {
+	  var key = toPrimitive(argument, 'string');
+	  return isSymbol(key) ? key : key + '';
+	};
+
+	var globalThis$5 = globalThis_1;
+	var isObject$6 = isObject$9;
+
+	var document$1 = globalThis$5.document;
+	// typeof document.createElement is 'object' in old IE
+	var EXISTS$1 = isObject$6(document$1) && isObject$6(document$1.createElement);
+
+	var documentCreateElement = function (it) {
+	  return EXISTS$1 ? document$1.createElement(it) : {};
+	};
+
+	var DESCRIPTORS$8 = descriptors;
+	var fails$5 = fails$a;
+	var createElement = documentCreateElement;
+
+	// Thanks to IE8 for its funny defineProperty
+	var ie8DomDefine = !DESCRIPTORS$8 && !fails$5(function () {
+	  // eslint-disable-next-line es/no-object-defineproperty -- required for testing
+	  return Object.defineProperty(createElement('div'), 'a', {
+	    get: function () { return 7; }
+	  }).a !== 7;
+	});
+
+	var DESCRIPTORS$7 = descriptors;
+	var call$1 = functionCall;
+	var propertyIsEnumerableModule = objectPropertyIsEnumerable;
+	var createPropertyDescriptor$2 = createPropertyDescriptor$3;
+	var toIndexedObject$2 = toIndexedObject$3;
+	var toPropertyKey$1 = toPropertyKey$2;
+	var hasOwn$6 = hasOwnProperty_1;
+	var IE8_DOM_DEFINE$1 = ie8DomDefine;
+
+	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+	var $getOwnPropertyDescriptor$1 = Object.getOwnPropertyDescriptor;
+
+	// `Object.getOwnPropertyDescriptor` method
+	// https://tc39.es/ecma262/#sec-object.getownpropertydescriptor
+	objectGetOwnPropertyDescriptor.f = DESCRIPTORS$7 ? $getOwnPropertyDescriptor$1 : function getOwnPropertyDescriptor(O, P) {
+	  O = toIndexedObject$2(O);
+	  P = toPropertyKey$1(P);
+	  if (IE8_DOM_DEFINE$1) try {
+	    return $getOwnPropertyDescriptor$1(O, P);
+	  } catch (error) { /* empty */ }
+	  if (hasOwn$6(O, P)) return createPropertyDescriptor$2(!call$1(propertyIsEnumerableModule.f, O, P), O[P]);
+	};
+
+	var objectDefineProperty = {};
+
+	var DESCRIPTORS$6 = descriptors;
+	var fails$4 = fails$a;
+
+	// V8 ~ Chrome 36-
+	// https://bugs.chromium.org/p/v8/issues/detail?id=3334
+	var v8PrototypeDefineBug = DESCRIPTORS$6 && fails$4(function () {
+	  // eslint-disable-next-line es/no-object-defineproperty -- required for testing
+	  return Object.defineProperty(function () { /* empty */ }, 'prototype', {
+	    value: 42,
+	    writable: false
+	  }).prototype !== 42;
+	});
+
+	var isObject$5 = isObject$9;
+
+	var $String$3 = String;
+	var $TypeError$4 = TypeError;
+
+	// `Assert: Type(argument) is Object`
+	var anObject$2 = function (argument) {
+	  if (isObject$5(argument)) return argument;
+	  throw new $TypeError$4($String$3(argument) + ' is not an object');
+	};
+
+	var DESCRIPTORS$5 = descriptors;
+	var IE8_DOM_DEFINE = ie8DomDefine;
+	var V8_PROTOTYPE_DEFINE_BUG = v8PrototypeDefineBug;
+	var anObject$1 = anObject$2;
+	var toPropertyKey = toPropertyKey$2;
+
+	var $TypeError$3 = TypeError;
+	// eslint-disable-next-line es/no-object-defineproperty -- safe
+	var $defineProperty = Object.defineProperty;
+	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+	var $getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+	var ENUMERABLE = 'enumerable';
+	var CONFIGURABLE$1 = 'configurable';
+	var WRITABLE = 'writable';
+
+	// `Object.defineProperty` method
+	// https://tc39.es/ecma262/#sec-object.defineproperty
+	objectDefineProperty.f = DESCRIPTORS$5 ? V8_PROTOTYPE_DEFINE_BUG ? function defineProperty(O, P, Attributes) {
+	  anObject$1(O);
+	  P = toPropertyKey(P);
+	  anObject$1(Attributes);
+	  if (typeof O === 'function' && P === 'prototype' && 'value' in Attributes && WRITABLE in Attributes && !Attributes[WRITABLE]) {
+	    var current = $getOwnPropertyDescriptor(O, P);
+	    if (current && current[WRITABLE]) {
+	      O[P] = Attributes.value;
+	      Attributes = {
+	        configurable: CONFIGURABLE$1 in Attributes ? Attributes[CONFIGURABLE$1] : current[CONFIGURABLE$1],
+	        enumerable: ENUMERABLE in Attributes ? Attributes[ENUMERABLE] : current[ENUMERABLE],
+	        writable: false
+	      };
+	    }
+	  } return $defineProperty(O, P, Attributes);
+	} : $defineProperty : function defineProperty(O, P, Attributes) {
+	  anObject$1(O);
+	  P = toPropertyKey(P);
+	  anObject$1(Attributes);
+	  if (IE8_DOM_DEFINE) try {
+	    return $defineProperty(O, P, Attributes);
+	  } catch (error) { /* empty */ }
+	  if ('get' in Attributes || 'set' in Attributes) throw new $TypeError$3('Accessors not supported');
+	  if ('value' in Attributes) O[P] = Attributes.value;
+	  return O;
+	};
+
+	var DESCRIPTORS$4 = descriptors;
+	var definePropertyModule$2 = objectDefineProperty;
+	var createPropertyDescriptor$1 = createPropertyDescriptor$3;
+
+	var createNonEnumerableProperty$5 = DESCRIPTORS$4 ? function (object, key, value) {
+	  return definePropertyModule$2.f(object, key, createPropertyDescriptor$1(1, value));
+	} : function (object, key, value) {
+	  object[key] = value;
+	  return object;
+	};
+
+	var makeBuiltIn$2 = {exports: {}};
+
+	var DESCRIPTORS$3 = descriptors;
+	var hasOwn$5 = hasOwnProperty_1;
+
+	var FunctionPrototype$1 = Function.prototype;
+	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+	var getDescriptor = DESCRIPTORS$3 && Object.getOwnPropertyDescriptor;
+
+	var EXISTS = hasOwn$5(FunctionPrototype$1, 'name');
+	// additional protection from minified / mangled / dropped function names
+	var PROPER = EXISTS && (function something() { /* empty */ }).name === 'something';
+	var CONFIGURABLE = EXISTS && (!DESCRIPTORS$3 || (DESCRIPTORS$3 && getDescriptor(FunctionPrototype$1, 'name').configurable));
+
+	var functionName = {
+	  EXISTS: EXISTS,
+	  PROPER: PROPER,
+	  CONFIGURABLE: CONFIGURABLE
+	};
+
+	var uncurryThis$5 = functionUncurryThis;
+	var isCallable$6 = isCallable$c;
+	var store$1 = sharedStoreExports;
+
+	var functionToString = uncurryThis$5(Function.toString);
+
+	// this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
+	if (!isCallable$6(store$1.inspectSource)) {
+	  store$1.inspectSource = function (it) {
+	    return functionToString(it);
+	  };
+	}
+
+	var inspectSource$1 = store$1.inspectSource;
+
+	var globalThis$4 = globalThis_1;
+	var isCallable$5 = isCallable$c;
+
+	var WeakMap$1 = globalThis$4.WeakMap;
+
+	var weakMapBasicDetection = isCallable$5(WeakMap$1) && /native code/.test(String(WeakMap$1));
+
+	var shared$1 = shared$3;
+	var uid = uid$2;
+
+	var keys = shared$1('keys');
+
+	var sharedKey$1 = function (key) {
+	  return keys[key] || (keys[key] = uid(key));
+	};
+
+	var hiddenKeys$3 = {};
+
+	var NATIVE_WEAK_MAP = weakMapBasicDetection;
+	var globalThis$3 = globalThis_1;
+	var isObject$4 = isObject$9;
+	var createNonEnumerableProperty$4 = createNonEnumerableProperty$5;
+	var hasOwn$4 = hasOwnProperty_1;
+	var shared = sharedStoreExports;
+	var sharedKey = sharedKey$1;
+	var hiddenKeys$2 = hiddenKeys$3;
+
+	var OBJECT_ALREADY_INITIALIZED = 'Object already initialized';
+	var TypeError$1 = globalThis$3.TypeError;
+	var WeakMap = globalThis$3.WeakMap;
+	var set, get, has;
+
+	var enforce = function (it) {
+	  return has(it) ? get(it) : set(it, {});
+	};
+
+	var getterFor = function (TYPE) {
+	  return function (it) {
+	    var state;
+	    if (!isObject$4(it) || (state = get(it)).type !== TYPE) {
+	      throw new TypeError$1('Incompatible receiver, ' + TYPE + ' required');
+	    } return state;
+	  };
+	};
+
+	if (NATIVE_WEAK_MAP || shared.state) {
+	  var store = shared.state || (shared.state = new WeakMap());
+	  /* eslint-disable no-self-assign -- prototype methods protection */
+	  store.get = store.get;
+	  store.has = store.has;
+	  store.set = store.set;
+	  /* eslint-enable no-self-assign -- prototype methods protection */
+	  set = function (it, metadata) {
+	    if (store.has(it)) throw new TypeError$1(OBJECT_ALREADY_INITIALIZED);
+	    metadata.facade = it;
+	    store.set(it, metadata);
+	    return metadata;
+	  };
+	  get = function (it) {
+	    return store.get(it) || {};
+	  };
+	  has = function (it) {
+	    return store.has(it);
+	  };
+	} else {
+	  var STATE = sharedKey('state');
+	  hiddenKeys$2[STATE] = true;
+	  set = function (it, metadata) {
+	    if (hasOwn$4(it, STATE)) throw new TypeError$1(OBJECT_ALREADY_INITIALIZED);
+	    metadata.facade = it;
+	    createNonEnumerableProperty$4(it, STATE, metadata);
+	    return metadata;
+	  };
+	  get = function (it) {
+	    return hasOwn$4(it, STATE) ? it[STATE] : {};
+	  };
+	  has = function (it) {
+	    return hasOwn$4(it, STATE);
+	  };
+	}
+
+	var internalState = {
+	  set: set,
+	  get: get,
+	  has: has,
+	  enforce: enforce,
+	  getterFor: getterFor
+	};
+
+	var uncurryThis$4 = functionUncurryThis;
+	var fails$3 = fails$a;
+	var isCallable$4 = isCallable$c;
+	var hasOwn$3 = hasOwnProperty_1;
+	var DESCRIPTORS$2 = descriptors;
+	var CONFIGURABLE_FUNCTION_NAME = functionName.CONFIGURABLE;
+	var inspectSource = inspectSource$1;
+	var InternalStateModule = internalState;
+
+	var enforceInternalState = InternalStateModule.enforce;
+	var getInternalState = InternalStateModule.get;
+	var $String$2 = String;
+	// eslint-disable-next-line es/no-object-defineproperty -- safe
+	var defineProperty$1 = Object.defineProperty;
+	var stringSlice = uncurryThis$4(''.slice);
+	var replace$1 = uncurryThis$4(''.replace);
+	var join = uncurryThis$4([].join);
+
+	var CONFIGURABLE_LENGTH = DESCRIPTORS$2 && !fails$3(function () {
+	  return defineProperty$1(function () { /* empty */ }, 'length', { value: 8 }).length !== 8;
+	});
+
+	var TEMPLATE = String(String).split('String');
+
+	var makeBuiltIn$1 = makeBuiltIn$2.exports = function (value, name, options) {
+	  if (stringSlice($String$2(name), 0, 7) === 'Symbol(') {
+	    name = '[' + replace$1($String$2(name), /^Symbol\(([^)]*)\).*$/, '$1') + ']';
+	  }
+	  if (options && options.getter) name = 'get ' + name;
+	  if (options && options.setter) name = 'set ' + name;
+	  if (!hasOwn$3(value, 'name') || (CONFIGURABLE_FUNCTION_NAME && value.name !== name)) {
+	    if (DESCRIPTORS$2) defineProperty$1(value, 'name', { value: name, configurable: true });
+	    else value.name = name;
+	  }
+	  if (CONFIGURABLE_LENGTH && options && hasOwn$3(options, 'arity') && value.length !== options.arity) {
+	    defineProperty$1(value, 'length', { value: options.arity });
+	  }
+	  try {
+	    if (options && hasOwn$3(options, 'constructor') && options.constructor) {
+	      if (DESCRIPTORS$2) defineProperty$1(value, 'prototype', { writable: false });
+	    // in V8 ~ Chrome 53, prototypes of some methods, like `Array.prototype.values`, are non-writable
+	    } else if (value.prototype) value.prototype = undefined;
+	  } catch (error) { /* empty */ }
+	  var state = enforceInternalState(value);
+	  if (!hasOwn$3(state, 'source')) {
+	    state.source = join(TEMPLATE, typeof name == 'string' ? name : '');
+	  } return value;
+	};
+
+	// add fake Function#toString for correct work wrapped methods / constructors with methods like LoDash isNative
+	// eslint-disable-next-line no-extend-native -- required
+	Function.prototype.toString = makeBuiltIn$1(function toString() {
+	  return isCallable$4(this) && getInternalState(this).source || inspectSource(this);
+	}, 'toString');
+
+	var makeBuiltInExports = makeBuiltIn$2.exports;
+
+	var isCallable$3 = isCallable$c;
+	var definePropertyModule$1 = objectDefineProperty;
+	var makeBuiltIn = makeBuiltInExports;
+	var defineGlobalProperty$1 = defineGlobalProperty$3;
+
+	var defineBuiltIn$1 = function (O, key, value, options) {
+	  if (!options) options = {};
+	  var simple = options.enumerable;
+	  var name = options.name !== undefined ? options.name : key;
+	  if (isCallable$3(value)) makeBuiltIn(value, name, options);
+	  if (options.global) {
+	    if (simple) O[key] = value;
+	    else defineGlobalProperty$1(key, value);
+	  } else {
+	    try {
+	      if (!options.unsafe) delete O[key];
+	      else if (O[key]) simple = true;
+	    } catch (error) { /* empty */ }
+	    if (simple) O[key] = value;
+	    else definePropertyModule$1.f(O, key, {
+	      value: value,
+	      enumerable: false,
+	      configurable: !options.nonConfigurable,
+	      writable: !options.nonWritable
+	    });
+	  } return O;
+	};
+
+	var objectGetOwnPropertyNames = {};
+
+	var ceil = Math.ceil;
+	var floor = Math.floor;
+
+	// `Math.trunc` method
+	// https://tc39.es/ecma262/#sec-math.trunc
+	// eslint-disable-next-line es/no-math-trunc -- safe
+	var mathTrunc = Math.trunc || function trunc(x) {
+	  var n = +x;
+	  return (n > 0 ? floor : ceil)(n);
+	};
+
+	var trunc = mathTrunc;
+
+	// `ToIntegerOrInfinity` abstract operation
+	// https://tc39.es/ecma262/#sec-tointegerorinfinity
+	var toIntegerOrInfinity$2 = function (argument) {
+	  var number = +argument;
+	  // eslint-disable-next-line no-self-compare -- NaN check
+	  return number !== number || number === 0 ? 0 : trunc(number);
+	};
+
+	var toIntegerOrInfinity$1 = toIntegerOrInfinity$2;
+
+	var max = Math.max;
+	var min$1 = Math.min;
+
+	// Helper for a popular repeating case of the spec:
+	// Let integer be ? ToInteger(index).
+	// If integer < 0, let result be max((length + integer), 0); else let result be min(integer, length).
+	var toAbsoluteIndex$1 = function (index, length) {
+	  var integer = toIntegerOrInfinity$1(index);
+	  return integer < 0 ? max(integer + length, 0) : min$1(integer, length);
+	};
+
+	var toIntegerOrInfinity = toIntegerOrInfinity$2;
+
+	var min = Math.min;
+
+	// `ToLength` abstract operation
+	// https://tc39.es/ecma262/#sec-tolength
+	var toLength$1 = function (argument) {
+	  var len = toIntegerOrInfinity(argument);
+	  return len > 0 ? min(len, 0x1FFFFFFFFFFFFF) : 0; // 2 ** 53 - 1 == 9007199254740991
+	};
+
+	var toLength = toLength$1;
+
+	// `LengthOfArrayLike` abstract operation
+	// https://tc39.es/ecma262/#sec-lengthofarraylike
+	var lengthOfArrayLike$2 = function (obj) {
+	  return toLength(obj.length);
+	};
+
+	var toIndexedObject$1 = toIndexedObject$3;
+	var toAbsoluteIndex = toAbsoluteIndex$1;
+	var lengthOfArrayLike$1 = lengthOfArrayLike$2;
+
+	// `Array.prototype.{ indexOf, includes }` methods implementation
+	var createMethod = function (IS_INCLUDES) {
+	  return function ($this, el, fromIndex) {
+	    var O = toIndexedObject$1($this);
+	    var length = lengthOfArrayLike$1(O);
+	    if (length === 0) return !IS_INCLUDES && -1;
+	    var index = toAbsoluteIndex(fromIndex, length);
+	    var value;
+	    // Array#includes uses SameValueZero equality algorithm
+	    // eslint-disable-next-line no-self-compare -- NaN check
+	    if (IS_INCLUDES && el !== el) while (length > index) {
+	      value = O[index++];
+	      // eslint-disable-next-line no-self-compare -- NaN check
+	      if (value !== value) return true;
+	    // Array#indexOf ignores holes, Array#includes - not
+	    } else for (;length > index; index++) {
+	      if ((IS_INCLUDES || index in O) && O[index] === el) return IS_INCLUDES || index || 0;
+	    } return !IS_INCLUDES && -1;
+	  };
+	};
+
+	var arrayIncludes = {
+	  // `Array.prototype.includes` method
+	  // https://tc39.es/ecma262/#sec-array.prototype.includes
+	  includes: createMethod(true),
+	  // `Array.prototype.indexOf` method
+	  // https://tc39.es/ecma262/#sec-array.prototype.indexof
+	  indexOf: createMethod(false)
+	};
+
+	var uncurryThis$3 = functionUncurryThis;
+	var hasOwn$2 = hasOwnProperty_1;
+	var toIndexedObject = toIndexedObject$3;
+	var indexOf = arrayIncludes.indexOf;
+	var hiddenKeys$1 = hiddenKeys$3;
+
+	var push = uncurryThis$3([].push);
+
+	var objectKeysInternal = function (object, names) {
+	  var O = toIndexedObject(object);
+	  var i = 0;
+	  var result = [];
+	  var key;
+	  for (key in O) !hasOwn$2(hiddenKeys$1, key) && hasOwn$2(O, key) && push(result, key);
+	  // Don't enum bug & hidden keys
+	  while (names.length > i) if (hasOwn$2(O, key = names[i++])) {
+	    ~indexOf(result, key) || push(result, key);
+	  }
+	  return result;
+	};
+
+	// IE8- don't enum bug keys
+	var enumBugKeys$1 = [
+	  'constructor',
+	  'hasOwnProperty',
+	  'isPrototypeOf',
+	  'propertyIsEnumerable',
+	  'toLocaleString',
+	  'toString',
+	  'valueOf'
+	];
+
+	var internalObjectKeys = objectKeysInternal;
+	var enumBugKeys = enumBugKeys$1;
+
+	var hiddenKeys = enumBugKeys.concat('length', 'prototype');
+
+	// `Object.getOwnPropertyNames` method
+	// https://tc39.es/ecma262/#sec-object.getownpropertynames
+	// eslint-disable-next-line es/no-object-getownpropertynames -- safe
+	objectGetOwnPropertyNames.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
+	  return internalObjectKeys(O, hiddenKeys);
+	};
+
+	var objectGetOwnPropertySymbols = {};
+
+	// eslint-disable-next-line es/no-object-getownpropertysymbols -- safe
+	objectGetOwnPropertySymbols.f = Object.getOwnPropertySymbols;
+
+	var getBuiltIn$1 = getBuiltIn$3;
+	var uncurryThis$2 = functionUncurryThis;
+	var getOwnPropertyNamesModule = objectGetOwnPropertyNames;
+	var getOwnPropertySymbolsModule = objectGetOwnPropertySymbols;
+	var anObject = anObject$2;
+
+	var concat = uncurryThis$2([].concat);
+
+	// all object keys, includes non-enumerable and symbols
+	var ownKeys$1 = getBuiltIn$1('Reflect', 'ownKeys') || function ownKeys(it) {
+	  var keys = getOwnPropertyNamesModule.f(anObject(it));
+	  var getOwnPropertySymbols = getOwnPropertySymbolsModule.f;
+	  return getOwnPropertySymbols ? concat(keys, getOwnPropertySymbols(it)) : keys;
+	};
+
+	var hasOwn$1 = hasOwnProperty_1;
+	var ownKeys = ownKeys$1;
+	var getOwnPropertyDescriptorModule = objectGetOwnPropertyDescriptor;
+	var definePropertyModule = objectDefineProperty;
+
+	var copyConstructorProperties$2 = function (target, source, exceptions) {
+	  var keys = ownKeys(source);
+	  var defineProperty = definePropertyModule.f;
+	  var getOwnPropertyDescriptor = getOwnPropertyDescriptorModule.f;
+	  for (var i = 0; i < keys.length; i++) {
+	    var key = keys[i];
+	    if (!hasOwn$1(target, key) && !(exceptions && hasOwn$1(exceptions, key))) {
+	      defineProperty(target, key, getOwnPropertyDescriptor(source, key));
+	    }
+	  }
+	};
+
+	var fails$2 = fails$a;
+	var isCallable$2 = isCallable$c;
+
+	var replacement = /#|\.prototype\./;
+
+	var isForced$1 = function (feature, detection) {
+	  var value = data[normalize(feature)];
+	  return value === POLYFILL ? true
+	    : value === NATIVE ? false
+	    : isCallable$2(detection) ? fails$2(detection)
+	    : !!detection;
+	};
+
+	var normalize = isForced$1.normalize = function (string) {
+	  return String(string).replace(replacement, '.').toLowerCase();
+	};
+
+	var data = isForced$1.data = {};
+	var NATIVE = isForced$1.NATIVE = 'N';
+	var POLYFILL = isForced$1.POLYFILL = 'P';
+
+	var isForced_1 = isForced$1;
+
+	var globalThis$2 = globalThis_1;
+	var getOwnPropertyDescriptor$1 = objectGetOwnPropertyDescriptor.f;
+	var createNonEnumerableProperty$3 = createNonEnumerableProperty$5;
+	var defineBuiltIn = defineBuiltIn$1;
+	var defineGlobalProperty = defineGlobalProperty$3;
+	var copyConstructorProperties$1 = copyConstructorProperties$2;
+	var isForced = isForced_1;
+
+	/*
+	  options.target         - name of the target object
+	  options.global         - target is the global object
+	  options.stat           - export as static methods of target
+	  options.proto          - export as prototype methods of target
+	  options.real           - real prototype method for the `pure` version
+	  options.forced         - export even if the native feature is available
+	  options.bind           - bind methods to the target, required for the `pure` version
+	  options.wrap           - wrap constructors to preventing global pollution, required for the `pure` version
+	  options.unsafe         - use the simple assignment of property instead of delete + defineProperty
+	  options.sham           - add a flag to not completely full polyfills
+	  options.enumerable     - export as enumerable property
+	  options.dontCallGetSet - prevent calling a getter on target
+	  options.name           - the .name of the function if it does not match the key
+	*/
+	var _export = function (options, source) {
+	  var TARGET = options.target;
+	  var GLOBAL = options.global;
+	  var STATIC = options.stat;
+	  var FORCED, target, key, targetProperty, sourceProperty, descriptor;
+	  if (GLOBAL) {
+	    target = globalThis$2;
+	  } else if (STATIC) {
+	    target = globalThis$2[TARGET] || defineGlobalProperty(TARGET, {});
+	  } else {
+	    target = globalThis$2[TARGET] && globalThis$2[TARGET].prototype;
+	  }
+	  if (target) for (key in source) {
+	    sourceProperty = source[key];
+	    if (options.dontCallGetSet) {
+	      descriptor = getOwnPropertyDescriptor$1(target, key);
+	      targetProperty = descriptor && descriptor.value;
+	    } else targetProperty = target[key];
+	    FORCED = isForced(GLOBAL ? key : TARGET + (STATIC ? '.' : '#') + key, options.forced);
+	    // contained in target
+	    if (!FORCED && targetProperty !== undefined) {
+	      if (typeof sourceProperty == typeof targetProperty) continue;
+	      copyConstructorProperties$1(sourceProperty, targetProperty);
+	    }
+	    // add a flag to not completely full polyfills
+	    if (options.sham || (targetProperty && targetProperty.sham)) {
+	      createNonEnumerableProperty$3(sourceProperty, 'sham', true);
+	    }
+	    defineBuiltIn(target, key, sourceProperty, options);
+	  }
+	};
+
+	var NATIVE_BIND = functionBindNative;
+
+	var FunctionPrototype = Function.prototype;
+	var apply$1 = FunctionPrototype.apply;
+	var call = FunctionPrototype.call;
+
+	// eslint-disable-next-line es/no-reflect -- safe
+	var functionApply = typeof Reflect == 'object' && Reflect.apply || (NATIVE_BIND ? call.bind(apply$1) : function () {
+	  return call.apply(apply$1, arguments);
+	});
+
+	var uncurryThis$1 = functionUncurryThis;
+	var aCallable = aCallable$2;
+
+	var functionUncurryThisAccessor = function (object, key, method) {
+	  try {
+	    // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+	    return uncurryThis$1(aCallable(Object.getOwnPropertyDescriptor(object, key)[method]));
+	  } catch (error) { /* empty */ }
+	};
+
+	var isObject$3 = isObject$9;
+
+	var isPossiblePrototype$1 = function (argument) {
+	  return isObject$3(argument) || argument === null;
+	};
+
+	var isPossiblePrototype = isPossiblePrototype$1;
+
+	var $String$1 = String;
+	var $TypeError$2 = TypeError;
+
+	var aPossiblePrototype$1 = function (argument) {
+	  if (isPossiblePrototype(argument)) return argument;
+	  throw new $TypeError$2("Can't set " + $String$1(argument) + ' as a prototype');
+	};
+
+	/* eslint-disable no-proto -- safe */
+	var uncurryThisAccessor = functionUncurryThisAccessor;
+	var isObject$2 = isObject$9;
+	var requireObjectCoercible = requireObjectCoercible$3;
+	var aPossiblePrototype = aPossiblePrototype$1;
+
+	// `Object.setPrototypeOf` method
+	// https://tc39.es/ecma262/#sec-object.setprototypeof
+	// Works with __proto__ only. Old v8 can't work with null proto objects.
+	// eslint-disable-next-line es/no-object-setprototypeof -- safe
+	var objectSetPrototypeOf = Object.setPrototypeOf || ('__proto__' in {} ? function () {
+	  var CORRECT_SETTER = false;
+	  var test = {};
+	  var setter;
+	  try {
+	    setter = uncurryThisAccessor(Object.prototype, '__proto__', 'set');
+	    setter(test, []);
+	    CORRECT_SETTER = test instanceof Array;
+	  } catch (error) { /* empty */ }
+	  return function setPrototypeOf(O, proto) {
+	    requireObjectCoercible(O);
+	    aPossiblePrototype(proto);
+	    if (!isObject$2(O)) return O;
+	    if (CORRECT_SETTER) setter(O, proto);
+	    else O.__proto__ = proto;
+	    return O;
+	  };
+	}() : undefined);
+
+	var defineProperty = objectDefineProperty.f;
+
+	var proxyAccessor$1 = function (Target, Source, key) {
+	  key in Target || defineProperty(Target, key, {
+	    configurable: true,
+	    get: function () { return Source[key]; },
+	    set: function (it) { Source[key] = it; }
+	  });
+	};
+
+	var isCallable$1 = isCallable$c;
+	var isObject$1 = isObject$9;
+	var setPrototypeOf$1 = objectSetPrototypeOf;
+
+	// makes subclassing work correct for wrapped built-ins
+	var inheritIfRequired$1 = function ($this, dummy, Wrapper) {
+	  var NewTarget, NewTargetPrototype;
+	  if (
+	    // it can work only with native `setPrototypeOf`
+	    setPrototypeOf$1 &&
+	    // we haven't completely correct pre-ES6 way for getting `new.target`, so use this
+	    isCallable$1(NewTarget = dummy.constructor) &&
+	    NewTarget !== Wrapper &&
+	    isObject$1(NewTargetPrototype = NewTarget.prototype) &&
+	    NewTargetPrototype !== Wrapper.prototype
+	  ) setPrototypeOf$1($this, NewTargetPrototype);
+	  return $this;
+	};
+
+	var wellKnownSymbol$1 = wellKnownSymbol$3;
+
+	var TO_STRING_TAG$1 = wellKnownSymbol$1('toStringTag');
+	var test = {};
+
+	test[TO_STRING_TAG$1] = 'z';
+
+	var toStringTagSupport = String(test) === '[object z]';
+
+	var TO_STRING_TAG_SUPPORT = toStringTagSupport;
+	var isCallable = isCallable$c;
+	var classofRaw = classofRaw$1;
+	var wellKnownSymbol = wellKnownSymbol$3;
+
+	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+	var $Object = Object;
+
+	// ES3 wrong here
+	var CORRECT_ARGUMENTS = classofRaw(function () { return arguments; }()) === 'Arguments';
+
+	// fallback for IE11 Script Access Denied error
+	var tryGet = function (it, key) {
+	  try {
+	    return it[key];
+	  } catch (error) { /* empty */ }
+	};
+
+	// getting tag from ES6+ `Object.prototype.toString`
+	var classof$2 = TO_STRING_TAG_SUPPORT ? classofRaw : function (it) {
+	  var O, tag, result;
+	  return it === undefined ? 'Undefined' : it === null ? 'Null'
+	    // @@toStringTag case
+	    : typeof (tag = tryGet(O = $Object(it), TO_STRING_TAG)) == 'string' ? tag
+	    // builtinTag case
+	    : CORRECT_ARGUMENTS ? classofRaw(O)
+	    // ES3 arguments fallback
+	    : (result = classofRaw(O)) === 'Object' && isCallable(O.callee) ? 'Arguments' : result;
+	};
+
+	var classof$1 = classof$2;
+
+	var $String = String;
+
+	var toString$1 = function (argument) {
+	  if (classof$1(argument) === 'Symbol') throw new TypeError('Cannot convert a Symbol value to a string');
+	  return $String(argument);
+	};
+
+	var toString = toString$1;
+
+	var normalizeStringArgument$1 = function (argument, $default) {
+	  return argument === undefined ? arguments.length < 2 ? '' : $default : toString(argument);
+	};
+
+	var isObject = isObject$9;
+	var createNonEnumerableProperty$2 = createNonEnumerableProperty$5;
+
+	// `InstallErrorCause` abstract operation
+	// https://tc39.es/proposal-error-cause/#sec-errorobjects-install-error-cause
+	var installErrorCause$1 = function (O, options) {
+	  if (isObject(options) && 'cause' in options) {
+	    createNonEnumerableProperty$2(O, 'cause', options.cause);
+	  }
+	};
+
+	var uncurryThis = functionUncurryThis;
+
+	var $Error = Error;
+	var replace = uncurryThis(''.replace);
+
+	var TEST = (function (arg) { return String(new $Error(arg).stack); })('zxcasd');
+	// eslint-disable-next-line redos/no-vulnerable -- safe
+	var V8_OR_CHAKRA_STACK_ENTRY = /\n\s*at [^:]*:[^\n]*/;
+	var IS_V8_OR_CHAKRA_STACK = V8_OR_CHAKRA_STACK_ENTRY.test(TEST);
+
+	var errorStackClear = function (stack, dropEntries) {
+	  if (IS_V8_OR_CHAKRA_STACK && typeof stack == 'string' && !$Error.prepareStackTrace) {
+	    while (dropEntries--) stack = replace(stack, V8_OR_CHAKRA_STACK_ENTRY, '');
+	  } return stack;
+	};
+
+	var fails$1 = fails$a;
+	var createPropertyDescriptor = createPropertyDescriptor$3;
+
+	var errorStackInstallable = !fails$1(function () {
+	  var error = new Error('a');
+	  if (!('stack' in error)) return true;
+	  // eslint-disable-next-line es/no-object-defineproperty -- safe
+	  Object.defineProperty(error, 'stack', createPropertyDescriptor(1, 7));
+	  return error.stack !== 7;
+	});
+
+	var createNonEnumerableProperty$1 = createNonEnumerableProperty$5;
+	var clearErrorStack = errorStackClear;
+	var ERROR_STACK_INSTALLABLE = errorStackInstallable;
+
+	// non-standard V8
+	var captureStackTrace = Error.captureStackTrace;
+
+	var errorStackInstall = function (error, C, stack, dropEntries) {
+	  if (ERROR_STACK_INSTALLABLE) {
+	    if (captureStackTrace) captureStackTrace(error, C);
+	    else createNonEnumerableProperty$1(error, 'stack', clearErrorStack(stack, dropEntries));
+	  }
+	};
+
+	var getBuiltIn = getBuiltIn$3;
+	var hasOwn = hasOwnProperty_1;
+	var createNonEnumerableProperty = createNonEnumerableProperty$5;
+	var isPrototypeOf = objectIsPrototypeOf;
+	var setPrototypeOf = objectSetPrototypeOf;
+	var copyConstructorProperties = copyConstructorProperties$2;
+	var proxyAccessor = proxyAccessor$1;
+	var inheritIfRequired = inheritIfRequired$1;
+	var normalizeStringArgument = normalizeStringArgument$1;
+	var installErrorCause = installErrorCause$1;
+	var installErrorStack = errorStackInstall;
+	var DESCRIPTORS$1 = descriptors;
+
+	var wrapErrorConstructorWithCause$1 = function (FULL_NAME, wrapper, FORCED, IS_AGGREGATE_ERROR) {
+	  var STACK_TRACE_LIMIT = 'stackTraceLimit';
+	  var OPTIONS_POSITION = IS_AGGREGATE_ERROR ? 2 : 1;
+	  var path = FULL_NAME.split('.');
+	  var ERROR_NAME = path[path.length - 1];
+	  var OriginalError = getBuiltIn.apply(null, path);
+
+	  if (!OriginalError) return;
+
+	  var OriginalErrorPrototype = OriginalError.prototype;
+
+	  // V8 9.3- bug https://bugs.chromium.org/p/v8/issues/detail?id=12006
+	  if (hasOwn(OriginalErrorPrototype, 'cause')) delete OriginalErrorPrototype.cause;
+
+	  if (!FORCED) return OriginalError;
+
+	  var BaseError = getBuiltIn('Error');
+
+	  var WrappedError = wrapper(function (a, b) {
+	    var message = normalizeStringArgument(IS_AGGREGATE_ERROR ? b : a, undefined);
+	    var result = IS_AGGREGATE_ERROR ? new OriginalError(a) : new OriginalError();
+	    if (message !== undefined) createNonEnumerableProperty(result, 'message', message);
+	    installErrorStack(result, WrappedError, result.stack, 2);
+	    if (this && isPrototypeOf(OriginalErrorPrototype, this)) inheritIfRequired(result, this, WrappedError);
+	    if (arguments.length > OPTIONS_POSITION) installErrorCause(result, arguments[OPTIONS_POSITION]);
+	    return result;
+	  });
+
+	  WrappedError.prototype = OriginalErrorPrototype;
+
+	  if (ERROR_NAME !== 'Error') {
+	    if (setPrototypeOf) setPrototypeOf(WrappedError, BaseError);
+	    else copyConstructorProperties(WrappedError, BaseError, { name: true });
+	  } else if (DESCRIPTORS$1 && STACK_TRACE_LIMIT in OriginalError) {
+	    proxyAccessor(WrappedError, OriginalError, STACK_TRACE_LIMIT);
+	    proxyAccessor(WrappedError, OriginalError, 'prepareStackTrace');
+	  }
+
+	  copyConstructorProperties(WrappedError, OriginalError);
+
+	  try {
+	    // Safari 13- bug: WebAssembly errors does not have a proper `.name`
+	    if (OriginalErrorPrototype.name !== ERROR_NAME) {
+	      createNonEnumerableProperty(OriginalErrorPrototype, 'name', ERROR_NAME);
+	    }
+	    OriginalErrorPrototype.constructor = WrappedError;
+	  } catch (error) { /* empty */ }
+
+	  return WrappedError;
+	};
+
+	/* eslint-disable no-unused-vars -- required for functions `.length` */
+	var $$1 = _export;
+	var globalThis$1 = globalThis_1;
+	var apply = functionApply;
+	var wrapErrorConstructorWithCause = wrapErrorConstructorWithCause$1;
+
+	var WEB_ASSEMBLY = 'WebAssembly';
+	var WebAssembly = globalThis$1[WEB_ASSEMBLY];
+
+	// eslint-disable-next-line es/no-error-cause -- feature detection
+	var FORCED$1 = new Error('e', { cause: 7 }).cause !== 7;
+
+	var exportGlobalErrorCauseWrapper = function (ERROR_NAME, wrapper) {
+	  var O = {};
+	  O[ERROR_NAME] = wrapErrorConstructorWithCause(ERROR_NAME, wrapper, FORCED$1);
+	  $$1({ global: true, constructor: true, arity: 1, forced: FORCED$1 }, O);
+	};
+
+	var exportWebAssemblyErrorCauseWrapper = function (ERROR_NAME, wrapper) {
+	  if (WebAssembly && WebAssembly[ERROR_NAME]) {
+	    var O = {};
+	    O[ERROR_NAME] = wrapErrorConstructorWithCause(WEB_ASSEMBLY + '.' + ERROR_NAME, wrapper, FORCED$1);
+	    $$1({ target: WEB_ASSEMBLY, stat: true, constructor: true, arity: 1, forced: FORCED$1 }, O);
+	  }
+	};
+
+	// https://tc39.es/ecma262/#sec-nativeerror
+	exportGlobalErrorCauseWrapper('Error', function (init) {
+	  return function Error(message) { return apply(init, this, arguments); };
+	});
+	exportGlobalErrorCauseWrapper('EvalError', function (init) {
+	  return function EvalError(message) { return apply(init, this, arguments); };
+	});
+	exportGlobalErrorCauseWrapper('RangeError', function (init) {
+	  return function RangeError(message) { return apply(init, this, arguments); };
+	});
+	exportGlobalErrorCauseWrapper('ReferenceError', function (init) {
+	  return function ReferenceError(message) { return apply(init, this, arguments); };
+	});
+	exportGlobalErrorCauseWrapper('SyntaxError', function (init) {
+	  return function SyntaxError(message) { return apply(init, this, arguments); };
+	});
+	exportGlobalErrorCauseWrapper('TypeError', function (init) {
+	  return function TypeError(message) { return apply(init, this, arguments); };
+	});
+	exportGlobalErrorCauseWrapper('URIError', function (init) {
+	  return function URIError(message) { return apply(init, this, arguments); };
+	});
+	exportWebAssemblyErrorCauseWrapper('CompileError', function (init) {
+	  return function CompileError(message) { return apply(init, this, arguments); };
+	});
+	exportWebAssemblyErrorCauseWrapper('LinkError', function (init) {
+	  return function LinkError(message) { return apply(init, this, arguments); };
+	});
+	exportWebAssemblyErrorCauseWrapper('RuntimeError', function (init) {
+	  return function RuntimeError(message) { return apply(init, this, arguments); };
+	});
+
+	(function (exports) {
+	  /* 이 파일은 자동 생성됩니다. 직접 수정 금지 */
+	  !function (a, b, c) {
+
+	    function d() {
+	      for (var a = b.querySelectorAll(p), c = 0, d = a.length; d > c; c += 1) {
+	        e(a[c]);
+	      }
+	    }
+	    function e(a) {
+	      if (!a[q]) {
+	        a[q] = !0;
+	        var b = i(a, "type"),
+	          c = i(a, "action");
+	        b && c && k(a, "click", function (d) {
+	          d.preventDefault(), f(b, c, j(a));
+	        });
+	      }
+	    }
+	    function f(a, b, d) {
+	      switch (a) {
+	        case n.DIALOG:
+	          switch (b) {
+	            case o.SHARE:
+	              g(d);
+	              break;
+	            default:
+	              c.error("bad or missing action: " + b);
+	          }
+	          break;
+	        default:
+	          c.error("bad or missing type: " + a);
+	      }
+	    }
+	    function g(b) {
+	      var d = b.link;
+	      if (!d) {
+	        throw new Error("bad or missing link: " + d);
+	      }
+	      var e = b.next || a.location.href,
+	        f = b.target || "_self",
+	        g = l + "?link=" + encodeURIComponent(d) + "&next=" + encodeURIComponent(e),
+	        i = a.open(g, f);
+	      if (a !== i.opener) {
+	        c.log("popup!");
+	        var j = setInterval(function () {
+	          h(i) && j && (clearInterval(j), j = null);
+	        }, 1e3);
+	      }
+	    }
+	    function h(a) {
+	      if (a.location.hash) {
+	        var b = m.exec(a.location.hash);
+	        if (b) {
+	          var c = b[2];
+	          if (a.confirm("등록된 글을 카페에서 확인하시겠습니까?")) {
+	            return a.location.replace(c), !0;
+	          }
+	          a.location.hash = a.location.hash.replace(m, "");
+	        }
+	      }
+	    }
+	    function i(a, b) {
+	      return a.dataset ? a.dataset[b] : a.getAttribute("data-" + b);
+	    }
+	    function j(a) {
+	      if (a.dataset) {
+	        return a.dataset;
+	      }
+	      for (var b = {}, c = a.attributes, d = 0, e = c.length; e > d; d += 1) {
+	        var f = c[d],
+	          g = r.exec(f.name);
+	        g && (b[g[1]] = f.value);
+	      }
+	      return b;
+	    }
+	    function k(a, b, c) {
+	      a.addEventListener ? a.addEventListener(b, c, !1) : a.attachEvent && a.attachEvent("on" + b, c);
+	    }
+	    var l = a.__CAFE_SHARE_DIALOG_ENDPOINT__ || "http://m.cafe.daum.net/_dialogs/share",
+	      m = /(#|&)__cafe_link__=(.+)/,
+	      n = {
+	        DIALOG: "dialog"
+	      },
+	      o = {
+	        SHARE: "share"
+	      },
+	      p = ".cafe-widget",
+	      q = "__cafe_widget__";
+	    setTimeout(function () {
+	      h(a) || d();
+	    }, 1);
+	    var r = /^data-(\w+)$/i;
+	    a.DaumCafe = a.DaumCafe || {}, a.DaumCafe.Widget = a.DaumCafe.Widget || {}, a.DaumCafe.Widget.connect = f;
+	  }(window, document, console);
+	})();
+
+	function kakaoTalk() {
+	  //카카오링크4.0 api
+	  function kakaoLinkShareHandler(context) {
+	    // if (ua.platform === 'pc') {
+	    //     alert('모바일 기기에서 이용 가능한 기능입니다.\n카카오톡이 설치된 스마트폰에서 이용해 주세요.');
+	    // } else {
+	    //     Kakao.Link.sendScrap(context.kakaoAPI.kakaoLinkData);
+	    // }
+	    const kakaoLinkContext = context.kakaoLinkData;
+	    Kakao.Share[kakaoLinkContext.shareType](kakaoLinkContext.shareData);
+	  }
+	  return {
+	    share: function share(context) {
+	      kakaoLinkShareHandler(context);
+	    }
+	  };
+	}
+
+	var classof = classofRaw$1;
+
+	// `IsArray` abstract operation
+	// https://tc39.es/ecma262/#sec-isarray
+	// eslint-disable-next-line es/no-array-isarray -- safe
+	var isArray$1 = Array.isArray || function isArray(argument) {
+	  return classof(argument) === 'Array';
+	};
+
+	var DESCRIPTORS = descriptors;
+	var isArray = isArray$1;
+
+	var $TypeError$1 = TypeError;
+	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+	// Safari < 13 does not throw an error in this case
+	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
+	  // makes no sense without proper strict mode support
+	  if (this !== undefined) return true;
+	  try {
+	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+	    Object.defineProperty([], 'length', { writable: false }).length = 1;
+	  } catch (error) {
+	    return error instanceof TypeError;
+	  }
+	}();
+
+	var arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
+	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
+	    throw new $TypeError$1('Cannot set read only .length');
+	  } return O.length = length;
+	} : function (O, length) {
+	  return O.length = length;
+	};
+
+	var $TypeError = TypeError;
+	var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF; // 2 ** 53 - 1 == 9007199254740991
+
+	var doesNotExceedSafeInteger$1 = function (it) {
+	  if (it > MAX_SAFE_INTEGER) throw $TypeError('Maximum allowed index exceeded');
+	  return it;
+	};
+
+	var $ = _export;
+	var toObject = toObject$2;
+	var lengthOfArrayLike = lengthOfArrayLike$2;
+	var setArrayLength = arraySetLength;
+	var doesNotExceedSafeInteger = doesNotExceedSafeInteger$1;
+	var fails = fails$a;
+
+	var INCORRECT_TO_LENGTH = fails(function () {
+	  return [].push.call({ length: 0x100000000 }, 1) !== 4294967297;
+	});
+
+	// V8 <= 121 and Safari <= 15.4; FF < 23 throws InternalError
+	// https://bugs.chromium.org/p/v8/issues/detail?id=12681
+	var properErrorOnNonWritableLength = function () {
+	  try {
+	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+	    Object.defineProperty([], 'length', { writable: false }).push();
+	  } catch (error) {
+	    return error instanceof TypeError;
+	  }
+	};
+
+	var FORCED = INCORRECT_TO_LENGTH || !properErrorOnNonWritableLength();
+
+	// `Array.prototype.push` method
+	// https://tc39.es/ecma262/#sec-array.prototype.push
+	$({ target: 'Array', proto: true, arity: 1, forced: FORCED }, {
+	  // eslint-disable-next-line no-unused-vars -- required for `.length`
+	  push: function push(item) {
+	    var O = toObject(this);
+	    var len = lengthOfArrayLike(O);
+	    var argCount = arguments.length;
+	    doesNotExceedSafeInteger(len + argCount);
+	    for (var i = 0; i < argCount; i++) {
+	      O[len] = arguments[i];
+	      len++;
+	    }
+	    setArrayLength(O, len);
+	    return len;
+	  }
+	});
+
+	// 티아라 로그 관련 코드
+	const clickLog = (category, service) => {
+	  const tiaraTracker = window.TiaraTracker;
+	  const {
+	    _tiq
+	  } = window;
+	  if (tiaraTracker && tiaraTracker.getInstance()) {
+	    const eventProps = {
+	      te1: "util",
+	      te2: category
+	    };
+	    if (service) {
+	      eventProps.te3 = service;
+	    }
+	    tiaraTracker.getInstance().trackEvent('clickLog').customProps(eventProps).track();
+	  } else if (_tiq) {
+	    const arr = ['__trackEvent', 'util', category];
+	    if (service) {
+	      arr.push(service);
+	    }
+	    _tiq.push(arr);
+	  }
+	};
+
+	const userAgent = function userAgent() {
+	  const ua = window.navigator.userAgent.toString().toLowerCase();
+	  function checkUserAgent(ua) {
+	    var browser = {};
+	    var match = /(dolfin)[ \/]([\w.]+)/.exec(ua) || /(edge)[ \/]([\w.]+)/.exec(ua) || /(chrome)[ \/]([\w.]+)/.exec(ua) || /(opera)(?:.*version)?[ \/]([\w.]+)/.exec(ua) || /(webkit)(?:.*version)?[ \/]([\w.]+)/.exec(ua) || /(msie) ([\w.]+)/.exec(ua) || ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+))?/.exec(ua) || ['', 'unknown'];
+	    if (match[1] === 'webkit') {
+	      match = /(iphone|ipad|ipod)[\S\s]*os ([\w._\-]+) like/.exec(ua) || /(android)[ \/]([\w._\-]+);/.exec(ua) || [match[0], 'safari', match[2]];
+	    } else if (match[1] === 'mozilla') {
+	      if (/trident/.test(ua)) {
+	        match[1] = 'msie';
+	      } else {
+	        match[1] = 'firefox';
+	      }
+	    } else if (match[1] === 'edge') {
+	      match[1] = 'spartan';
+	    } else if (/polaris|natebrowser|([010|011|016|017|018|019]{3}\d{3,4}\d{4}$)/.test(ua)) {
+	      match[1] = 'polaris';
+	    }
+	    browser[match[1]] = true;
+	    browser.name = match[1];
+	    browser.version = setVersion(match[2]);
+	    return browser;
+	  }
+	  function setVersion(versionString) {
+	    var version = {};
+	    var versions = versionString ? versionString.split(/\.|-|_/) : ['0', '0', '0'];
+	    version.info = versions.join('.');
+	    version.major = versions[0] || '0';
+	    version.minor = versions[1] || '0';
+	    version.patch = versions[2] || '0';
+	    return version;
+	  }
+	  function checkPlatform(ua) {
+	    if (isPc(ua)) {
+	      return 'pc';
+	    } else if (isTablet(ua)) {
+	      return 'tablet';
+	    } else if (isMobile(ua)) {
+	      return 'mobile';
+	    } else {
+	      return '';
+	    }
+	  }
+	  function isPc(ua) {
+	    if (ua.match(/linux|windows (nt|98)|macintosh|cros/) && !ua.match(/android|mobile|polaris|lgtelecom|uzard|natebrowser|ktf;|skt;/)) {
+	      return true;
+	    }
+	    return false;
+	  }
+	  function isTablet(ua) {
+	    if (ua.match(/ipad/) || ua.match(/android/) && !ua.match(/mobi|mini|fennec/)) {
+	      return true;
+	    }
+	    return false;
+	  }
+	  function isMobile(ua) {
+	    if (!!ua.match(/ip(hone|od)|android.+mobile|windows (ce|phone)|blackberry|bb10|symbian|webos|firefox.+fennec|opera m(ob|in)i|polaris|iemobile|lgtelecom|nokia|sonyericsson|dolfin|uzard|natebrowser|ktf;|skt;/)) {
+	      return true;
+	    } else {
+	      return false;
+	    }
+	  }
+	  function checkOs(ua) {
+	    var os = {},
+	      match = /(iphone|ipad|ipod)[\S\s]*os ([\w._\-]+) like/.exec(ua) || /(android)[ \/]([\w._\-]+);/.exec(ua) || (/android/.test(ua) ? ['', 'android', '0.0.0'] : false) || (/polaris|natebrowser|([010|011|016|017|018|019]{3}\d{3,4}\d{4}$)/.test(ua) ? ['', 'polaris', '0.0.0'] : false) || /(windows)(?: nt | phone(?: os){0,1} | )([\w._\-]+)/.exec(ua) || (/(windows)/.test(ua) ? ['', 'windows', '0.0.0'] : false) || /(mac) os x ([\w._\-]+)/.exec(ua) || (/(linux)/.test(ua) ? ['', 'linux', '0.0.0'] : false) || (/webos/.test(ua) ? ['', 'webos', '0.0.0'] : false) || /(cros)(?:\s[\w]+\s)([\d._\-]+)/.exec(ua) || /(bada)[ \/]([\w._\-]+)/.exec(ua) || (/bada/.test(ua) ? ['', 'bada', '0.0.0'] : false) || (/(rim|blackberry|bb10)/.test(ua) ? ['', 'blackberry', '0.0.0'] : false) || ['', 'unknown', '0.0.0'];
+	    if (match[1] === 'iphone' || match[1] === 'ipad' || match[1] === 'ipod') {
+	      match[1] = 'ios';
+	    } else if (match[1] === 'windows' && match[2] === '98') {
+	      match[2] = '0.98.0';
+	    }
+	    if (match[1] === 'cros') {
+	      match[1] = 'chrome';
+	    }
+	    os[match[1]] = true;
+	    os.name = match[1];
+	    os.version = setVersion(match[2]);
+	    return os;
+	  }
+	  function checkApp(ua) {
+	    var app = {},
+	      match = /(crios)[ \/]([\w.]+)/.exec(ua) || /(daumapps)[ \/]([\w.]+)/.exec(ua) || ['', ''];
+	    if (match[1]) {
+	      app.isApp = true;
+	      app.name = match[1];
+	      app.version = setVersion(match[2]);
+	    } else {
+	      app.isApp = false;
+	    }
+	    return app;
+	  }
+	  return {
+	    ua: ua,
+	    browser: checkUserAgent(ua),
+	    platform: checkPlatform(ua),
+	    os: checkOs(ua),
+	    app: checkApp(ua)
+	  };
+	};
+
+	/**
+	   오브젝트의 key-value 데이터를 주어진 separator 값으로 연결된 스트링 값으로 변환한다.
+
+	   @method queryStringify
+	   @static
+	   @param obj {Object} data object
+	   @param separator {String} data key-value 값들을 연결한 구분자 (Optional, 기본값 '&')
+	   @return {String} data object의 key-value 값들을 구분자로 연결한 스트링 데이터
+	   **/
+	const queryStringify = function queryStringify(obj) {
+	  var pairs = [];
+	  if (typeof obj === 'object') {
+	    for (var key in obj) {
+	      if (obj.hasOwnProperty(key)) {
+	        var value = obj[key];
+	        if (typeof value === 'object' && value.length) {
+	          pairs.push(toValuesString(key, value));
+	        } else {
+	          pairs.push(key + '=' + value.toString());
+	        }
+	      }
+	    }
+	  }
+	  return pairs.join('&');
+	};
+	function toValuesString(key, values) {
+	  return values.map(function (value) {
+	    return key + '=' + value;
+	  }).join('&');
+	}
+
+	const util = {
+	  type: function type(target) {
+	    return Object.prototype.toString.call(target);
+	  },
+	  throwError: function throwError(messages) {
+	    throw new Error(messages);
+	  },
+	  userAgent,
+	  queryStringify,
+	  clickLog
+	};
+
+	function facebook(isMobile) {
+	  return {
+	    share: function share(context) {
+	      const link = context.link;
+	      const ua = util.userAgent().platform;
+	      const device = ua === 'mobile' ? 'm' : 'www';
+	      const address = 'https://' + device + '.facebook.com/sharer.php?u=' + encodeURIComponent(link);
+	      const option = 'width=580, height=255, resizable=no, scrollbars=no, status=no';
+	      if (isMobile) {
+	        window.open(address, '', '');
+	      } else {
+	        window.open(address, '', option);
+	      }
+	    }
+	  };
+	}
+
+	function twitter(isMobile) {
+	  return {
+	    share: function share(context) {
+	      const link = context.link;
+	      const param = {
+	        url: encodeURIComponent(link),
+	        text: encodeURIComponent(context.prefix)
+	      };
+	      let webIntent = 'https://twitter.com/intent/tweet?' + util.queryStringify(param);
+	      if (context.service_name) {
+	        webIntent += encodeURIComponent(' | ' + context.service_name);
+	      }
+	      if (isMobile) {
+	        top.location.href = webIntent;
+	      } else {
+	        let option = 'width=580, height=255, resizable=no, scrollbars=yes, status=no';
+	        let popWindow = window.open('', '', option);
+	        popWindow.location.href = webIntent;
+	      }
+	    }
+	  };
+	}
+
+	function daumCafe(isMobile) {
+	  return {
+	    share: function share(context) {
+	      if (isMobile) {
+	        DaumCafe.Widget.connect('dialog', 'share', {
+	          link: context.link
+	        });
+	      } else {
+	        if (context.cafe) {
+	          window.open(encodeURI(context.cafe), '', 'width=620, height=450, resizable=yes, scrollbars=yes');
+	        } else {
+	          DaumCafe.Widget.connect('dialog', 'share', {
+	            link: context.link
+	          });
+	        }
+	      }
+	    }
+	  };
+	}
+
+	function mail(isMobile) {
+	  return {
+	    share: function share(context) {
+	      const link = context.link,
+	        param = {
+	          'opentype': 'compose',
+	          'serviceId': 'socialshareRenewal',
+	          'menubar': 'true',
+	          'SUBJECT': encodeURIComponent(context.prefix),
+	          'BODY': encodeURIComponent('"' + context.prefix + '"\r\n' + link),
+	          'LINK': encodeURIComponent(link)
+	        };
+	      if (isMobile) {
+	        top.location.href = 'https://m.mail.daum.net/goto?type=write&' + util.queryStringify(param);
+	      } else {
+	        let option = 'width=1000, height=550, resizable=yes, scrollbars=yes';
+	        let popWindow = window.open('', '', option);
+	        const isBetaService = context.isBetaService ? context.isBetaService : false;
+	        const mailUrl = isBetaService ? 'https://beta-mail.daum.net/goto/compose?' : 'https://mail.daum.net/goto/compose?';
+	        popWindow.location.href = mailUrl + util.queryStringify(param);
+	      }
+	    }
+	  };
+	}
+
+	const SNS_MODULE = {
+	  kakaoTalk: 'kakaotalk',
+	  facebook: 'facebook',
+	  x: 'x',
+	  cafe: 'cafe',
+	  mail: 'mail'
+	};
+	const snsFactory = isMobile => {
+	  return {
+	    create: function (snsName) {
+	      let sns = null;
+	      switch (snsName) {
+	        case SNS_MODULE.kakaoTalk:
+	          sns = kakaoTalk();
+	          break;
+	        case SNS_MODULE.facebook:
+	          sns = facebook(isMobile);
+	          break;
+	        case SNS_MODULE.x:
+	          sns = twitter(isMobile);
+	          break;
+	        case SNS_MODULE.cafe:
+	          sns = daumCafe(isMobile);
+	          break;
+	        case SNS_MODULE.mail:
+	          sns = mail(isMobile);
+	          break;
+	        default:
+	          sns = null;
+	      }
+	      return sns;
+	    }
+	  };
+	};
+
+	const socialSharer = function (shareData) {
+	  let apiInfo = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	  let isMobile = arguments.length > 2 ? arguments[2] : undefined;
+	  {
+	    if (!snsFactory) throw new Error('sns 팩토리 함수가 주입이 되어야 합니다.');
+	  }
+	  if (!shareData) {
+	    throw new Error(socialSharer.messages.noShareData);
+	  }
+	  // 카카오톡 쉐어랑 관련된 코드
+	  const Kakao = window.Kakao || shareData.Kakao || null;
+	  if (Kakao) {
+	    if (Kakao.Auth) ; else {
+	      try {
+	        Kakao.init(apiInfo.appkey, apiInfo.extraAppkey);
+	      } catch (e) {
+	        throw new Error(e.message + ' 및 ' + socialSharer.messages.confirmKakaoApi);
+	      }
+	    }
+	  }
+	  return {
+	    shareSns(snsName) {
+	      if (!snsName) throw new Error(socialSharer.messages.noSnsName);
+	      const sns = snsFactory(isMobile).create(snsName);
+	      if (!sns) {
+	        throw new Error(socialSharer.noSnsModule(snsName));
+	      }
+	      sns.share(shareData);
+	    }
+	  };
+	};
+	socialSharer.messages = {
+	  noSnsName: 'sns 이름을 인자로 받아야 합니다.',
+	  noSnsModule: '_ 이란 sns모듈은 없습니다. sns 이름을 확인하세요',
+	  noShareData: 'sns 모듈에 전달할 data를 넣어야 합니다. 옵션값의 두번째 인자를 확인하세요',
+	  confirmKakaoApi: 'Kakao api data가 필요합니다.'
+	};
+	socialSharer.noSnsModule = name => {
+	  return socialSharer.messages.noSnsModule.replace('_', name);
+	};
+
+	const htmlElement$2 = typeof HTMLElement !== 'undefined' ? HTMLElement : Element;
+	function eventBind(type, listener, target) {
+	  target.addEventListener(type, listener, false);
+	}
+	function eventRemove(type, listener, target) {
+	  target.removeEventListener(type, listener, false);
+	}
+	function eventHelper(type, listener, target, setEvent) {
+	  if (target && target.length && target[0] instanceof htmlElement$2) {
+	    for (let i = 0, len = target.length; i < len; i++) {
+	      setEvent(type, listener, target[i]);
+	    }
+	  } else {
+	    setEvent(type, listener, target);
+	  }
+	}
+	function on(type, listener, target) {
+	  eventHelper(type, listener, target, eventBind);
+	}
+	function off(type, listener, target) {
+	  eventHelper(type, listener, target, eventRemove);
+	}
+	const TYPE = {
+	  CLICK: 'click',
+	  LONGPRESS: 'contextmenu',
+	  TOUCH_MOVE: 'touchmove',
+	  HOVER: 'mouseenter'
+	};
+	var event = {
+	  on,
+	  off,
+	  TYPE
+	};
+
+	/**
+	 *
+	 * @param {*} socialSharer
+	 * @param {NodeList} snsItemList
+	 * @return {Object} 
+	 */
+	const htmlElement$1 = typeof HTMLElement !== 'undefined' ? HTMLElement : Element;
+	const bindSocialEvent = (socialSharer, snsItemList) => {
+	  {
+	    if (!socialSharer) util.throwError('socialSharer 모듈이 주입이 되어야 합니다.');
+	    if (!(snsItemList && snsItemList.length && snsItemList[0] instanceof htmlElement$1)) {
+	      util.throwError('snsItemEl의 인자는 NodeList 의 인스턴스 이어야 합니다.');
+	    }
+	  }
+	  const view = {
+	    share(socialName) {
+	      socialSharer.shareSns(socialName);
+	      util.clickLog('layer', socialName);
+	    }
+	  };
+	  const handleClick = e => {
+	    e.preventDefault();
+	    const targetEl = e.currentTarget;
+	    const socialName = targetEl.getAttribute('data-handler');
+	    view.share(socialName);
+	  };
+	  event.on(event.TYPE.CLICK, handleClick, snsItemList);
+	  return view;
+	};
+
+	const DEFAULT_SNS_LIST = ['kakaotalk', 'facebook', 'x', 'mail', 'cafe'];
+	const SNS_DATA = {
+	  kakaotalk: {
+	    className: 'ico_talk',
+	    name: '카카오톡'
+	  },
+	  facebook: {
+	    className: 'ico_facebook',
+	    name: '페이스북'
+	  },
+	  x: {
+	    className: 'ico_x',
+	    name: '엑스'
+	  },
+	  mail: {
+	    className: 'ico_mail',
+	    name: '다음메일'
+	  },
+	  cafe: {
+	    className: 'ico_cafe',
+	    name: '다음카페'
+	  }
+	};
+	var viewData = {
+	  SNS_LIST: DEFAULT_SNS_LIST,
+	  SNS_DATA: SNS_DATA,
+	  link: ''
+	};
+
+	const htmlElement = typeof HTMLElement !== 'undefined' ? HTMLElement : Element;
+	const madeElList = elInfoList => {
+	  return elInfoList.map(elInfo => elInfo instanceof htmlElement ? elInfo : madeEl(elInfo));
+	};
+	const madeEl = _ref => {
+	  let {
+	    name,
+	    text = '',
+	    attrInfo = [],
+	    prepend = [],
+	    append = []
+	  } = _ref;
+	  const newEl = document.createElement(name);
+	  attrInfo.forEach(attr => {
+	    newEl.setAttribute(attr.key, attr.value);
+	  });
+	  newEl.textContent = text;
+	  newEl.prepend(...madeElList(prepend));
+	  newEl.append(...madeElList(append));
+	  return newEl;
+	};
+
+	const madeSnsInfo = (socialList, _ref) => {
+	  let {
+	    SNS_LIST,
+	    SNS_DATA
+	  } = _ref;
+	  const baseList = socialList || SNS_LIST;
+	  // foreach로 한번만?
+	  const madeList = baseList.map(social => {
+	    const {
+	      className = '',
+	      name = ''
+	    } = SNS_DATA[social] || {};
+	    return {
+	      className,
+	      name,
+	      socialId: social
+	    };
+	  });
+	  return madeList.filter(social => social.name !== '');
+	};
+
+	// 데이터로만 그릴 수 있게 수정 검토
+	// shadow dom 생성
+	const drawLayer = _ref2 => {
+	  let {
+	    targetEl,
+	    socialList,
+	    // isDarkMode,
+	    link
+	  } = _ref2;
+	  targetEl.innerHTML = '';
+	  const socialListEl = madeEl({
+	    name: 'ul',
+	    attrInfo: [{
+	      key: 'class',
+	      value: 'list_sns'
+	    }],
+	    append: madeSnsInfo(socialList, viewData).map(social => ({
+	      name: 'li',
+	      append: [{
+	        name: 'button',
+	        attrInfo: [{
+	          key: 'type',
+	          value: 'button'
+	        }, {
+	          key: 'class',
+	          value: 'btn_share'
+	        }, {
+	          key: 'data-handler',
+	          value: social.socialId
+	        }],
+	        text: social.name,
+	        prepend: [{
+	          name: 'i',
+	          attrInfo: [{
+	            key: 'class',
+	            value: `ico_share ${social.className}`
+	          }]
+	        }]
+	      }]
+	    }))
+	  });
+	  const closeButtonEl = madeEl({
+	    name: 'button',
+	    attrInfo: [{
+	      key: 'class',
+	      value: 'btn_close'
+	    }],
+	    append: [{
+	      name: 'i',
+	      attrInfo: [{
+	        key: 'type',
+	        value: 'button'
+	      }, {
+	        key: 'class',
+	        value: 'ico_share ico_close'
+	      }],
+	      text: '닫기'
+	    }]
+	  });
+	  const copyTextEl = madeEl({
+	    name: 'span',
+	    attrInfo: [{
+	      key: 'class',
+	      value: 'txt_url'
+	    }],
+	    text: link
+	  });
+	  const copyButtonEl = madeEl({
+	    name: 'a',
+	    attrInfo: [{
+	      key: 'title',
+	      value: 'URL을 눌러서 복사하세요.'
+	    }, {
+	      key: 'onclick',
+	      value: 'return false;'
+	    }, {
+	      key: 'href',
+	      value: link
+	    }, {
+	      key: 'class',
+	      value: 'btn_copyurl'
+	    }],
+	    append: [{
+	      name: 'span',
+	      attrInfo: [{
+	        key: 'class',
+	        value: 'screen_out'
+	      }],
+	      text: '현재페이지 URL복사'
+	    }, copyTextEl, {
+	      name: 'span',
+	      attrInfo: [{
+	        key: 'class',
+	        value: 'txt_copy'
+	      }],
+	      text: '복사'
+	    }]
+	  });
+	  const toastEl = madeEl({
+	    name: 'div',
+	    attrInfo: [{
+	      key: 'aria-live',
+	      value: 'polite'
+	    }, {
+	      key: 'class',
+	      value: 'layer_tostmessage'
+	    }],
+	    append: [{
+	      name: 'p',
+	      attrInfo: [{
+	        key: 'class',
+	        value: 'txt_copymessage'
+	      }],
+	      text: '링크가 복사 되었습니다.'
+	    }]
+	  });
+	  targetEl.append(madeEl({
+	    name: 'div',
+	    attrInfo: [{
+	      key: 'class',
+	      value: 'inner_layer'
+	    }],
+	    append: [{
+	      name: 'div',
+	      attrInfo: [{
+	        key: 'class',
+	        value: 'layer_head'
+	      }],
+	      append: [{
+	        name: 'strong',
+	        attrInfo: [{
+	          key: 'class',
+	          value: 'tit_layer'
+	        }],
+	        text: '공유하기'
+	      }]
+	    }, {
+	      name: 'div',
+	      attrInfo: [{
+	        key: 'class',
+	        value: 'layer_body'
+	      }],
+	      append: [
+	      // 소셜 리스트
+	      socialListEl,
+	      // 복사하기 버튼
+	      copyButtonEl]
+	    },
+	    // 닫기 버튼
+	    closeButtonEl]
+	  }),
+	  // 토스트 메시지
+	  toastEl);
+	  return {
+	    shadowRoot: targetEl,
+	    socialList: socialListEl,
+	    closeButton: closeButtonEl,
+	    copyButton: copyButtonEl,
+	    copyText: copyTextEl,
+	    toast: toastEl
+	  };
+	};
+
+	const elementName = 'social-share';
+	const isMobile = userAgent().platform === 'mobile';
+	const madeBaseEl = _ref => {
+	  let {
+	    targetEl,
+	    externalCss,
+	    internalCss
+	  } = _ref;
+	  targetEl.prepend(...externalCss.map(css => madeEl({
+	    name: 'link',
+	    attrInfo: [{
+	      key: 'rel',
+	      value: 'stylesheet'
+	    }, {
+	      key: 'href',
+	      value: css
+	    }]
+	  })), internalCss && madeEl({
+	    name: 'style',
+	    text: internalCss
+	  }), madeEl({
+	    name: 'div',
+	    attrInfo: [{
+	      key: 'class',
+	      value: 'layer_socialshare'
+	    }]
+	  }));
+	};
+	const copyOther = copyText => {
+	  const temp = document.createElement('textarea');
+	  temp.value = copyText;
+	  document.body.appendChild(temp);
+	  temp.select();
+	  document.execCommand('copy');
+	  document.body.removeChild(temp);
+	};
+	const onCopyUrl = async textEl => {
+	  const {
+	    clipboard
+	  } = window.navigator;
+	  const copyText = textEl.innerText;
+	  if (!(clipboard !== null && clipboard !== void 0 && clipboard.writeText(copyText))) {
+	    copyOther(copyText);
+	  }
+	};
+	const onViewMessage = (viewEl, className) => {
+	  viewEl.classList.add(className);
+	  window.setTimeout(() => {
+	    viewEl.classList.remove(className);
+	  }, 2000);
+	};
+	const onTriggerCopyLog = () => {
+	  clickLog('layer', 'copyUrl');
+	};
+	const bindBaseEvent = (targetEl, bindEvent) => {
+	  // 1회만 실행 되는 형태라, bindBaseEvent 내부에 위치
+	  const onCheckHide = e => {
+	    e.stopPropagation();
+	    if (e.target === targetEl) {
+	      bindEvent();
+	    }
+	  };
+	  isMobile && event.on(event.TYPE.TOUCH_MOVE, onCheckHide, targetEl);
+	  event.on(event.TYPE.CLICK, onCheckHide, targetEl);
+	};
+	const useSocialShare = _ref2 => {
+	  let {
+	    internalCss,
+	    externalCss,
+	    kakaoApi
+	    // isDarkMode,
+	  } = _ref2;
+	  !customElements.get(elementName) && customElements.define('social-share', class extends HTMLElement {
+	    constructor() {
+	      super();
+	      this.data = {};
+	      this.shadowEl = null;
+	      this.shadowWrapEl = null;
+	      this.shareFn = () => {};
+	      this.hide();
+	      // 이벤트 제거용
+	      this.bindShowEvent = this.show.bind(this);
+	    }
+	    connectedCallback() {
+	      this.attachShadow({
+	        mode: 'open'
+	      });
+
+	      // baseEl 생성
+	      madeBaseEl({
+	        targetEl: this.shadowRoot,
+	        externalCss,
+	        internalCss
+	      });
+	      // wrapEl 캐시
+	      this.shadowWrapEl = this.shadowRoot.querySelector('.layer_socialshare');
+	      bindBaseEvent(this.shadowWrapEl, this.hide.bind(this));
+	    }
+
+	    // 레이어 열기
+	    show() {
+	      const {
+	        onShow
+	      } = this.data;
+	      this.removeAttribute('hidden');
+	      clickLog('btn_share');
+	      onShow && onShow(this);
+	    }
+
+	    // 레이어 닫기
+	    hide() {
+	      const {
+	        onHide
+	      } = this.data;
+	      this.setAttribute('hidden', '');
+	      onHide && onHide(this);
+	    }
+	    share(snsName) {
+	      this.shareFn.shareSns(snsName);
+	    }
+	    onCopyUrl() {
+	      onCopyUrl(this.shadowEl.copyText);
+	      onViewMessage(this.shadowEl.toast, 'show');
+	      onTriggerCopyLog();
+	    }
+	    copyUrl(_ref3) {
+	      let {
+	        onCopy
+	      } = _ref3;
+	      this.onCopyUrl();
+	      onCopy && onCopy();
+	    }
+	    updateLink(link) {
+	      this.setSocialShare(Object.assign(this.data, {
+	        link
+	      }));
+	    }
+	    bindEvent() {
+	      event.on(event.TYPE.CLICK, this.bindShowEvent, this.data.buttonEl);
+	      event.on(event.TYPE.CLICK, this.hide.bind(this), this.shadowEl.closeButton);
+	      event.on(event.TYPE.CLICK, this.onCopyUrl.bind(this), this.shadowEl.copyButton);
+	      isMobile && event.on(event.TYPE.LONGPRESS, onTriggerCopyLog, this.shadowEl.copyButton);
+	      bindSocialEvent(this.shareFn, this.shadowEl.socialList.querySelectorAll('.list_sns button'));
+	    }
+	    setSocialShare(props) {
+	      // 기존 버튼 이벤트 제거
+	      const beforeButtonEl = this.data.buttonEl;
+	      beforeButtonEl && event.off(event.TYPE.CLICK, this.bindShowEvent, beforeButtonEl);
+	      this.data = props;
+	      this.shadowEl = drawLayer({
+	        targetEl: this.shadowWrapEl,
+	        internalCss,
+	        externalCss,
+	        socialList: this.data.socialList,
+	        link: this.data.link
+	      });
+	      this.shareFn = socialSharer(this.data, kakaoApi, isMobile);
+	      this.bindEvent();
+	    }
+	  });
+	};
+
+	return useSocialShare;
+
+})();

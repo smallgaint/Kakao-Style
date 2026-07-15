@@ -1,0 +1,195 @@
+var cafe = cafe || {};
+cafe.handlebars = cafe.handlebars || {};
+
+(function () {
+	var registerCompare = function () {
+		Handlebars.registerHelper('compare', function (lvalue, operator, rvalue, options) {
+			var operators, result;
+
+			if (arguments.length < 4) {
+				throw new Error("Handlerbars Helper 'compare' needs 3 parameters");
+			}
+
+			operators = {
+				'==': function (l, r) { return l == r; },
+				'===': function (l, r) { return l === r; },
+				'!=': function (l, r) { return l !== r; },
+				'!==': function (l, r) { return l !== r; },
+				'<': function (l, r) { return l < r; },
+				'>': function (l, r) { return l > r; },
+				'<=': function (l, r) { return l <= r; },
+				'>=': function (l, r) { return l >= r; },
+				'typeof': function (l, r) { return typeof l === r; }
+			};
+
+			if (!operators[operator]) {
+				throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
+			}
+
+			result = operators[operator](lvalue, rvalue);
+
+			if (result) {
+				return options.fn(this);
+			}
+			return options.inverse(this);
+		});
+	};
+
+	var registerIsQNA = function () {
+		Handlebars.registerHelper('isQNA', function (v1) {
+			if(v1 === "U"){
+				return "<span class='qna_board'>Q </span>";
+			} else {
+				return "";
+			}
+		});
+	};
+
+	var registerLocale = function () {
+		Handlebars.registerHelper('locale', function (n) {
+			return (n.toLocaleString()).split('.')[0];
+		});
+	};
+
+	var DESIGNATED_AS_NOTICE = '2';	
+	var registerIsSetNotice = function () {
+        Handlebars.registerHelper('isSetNotice', function (noticeStatus) {
+			return (noticeStatus === DESIGNATED_AS_NOTICE) ? 'ico_ok' : '';
+        });
+    };
+
+    var registerIsReserved = function () {
+		Handlebars.registerHelper('isReserved', function (reservedyn) {
+			return (reservedyn === 'Y') ? 'ico_ok' : '';
+        });
+	};
+
+	var registerIsMustReadNotice = function () {
+		Handlebars.registerHelper('isMustReadNotice', function (mustreadyn) {
+			return (mustreadyn === 'Y') ? 'ico_ok' : '';
+		});
+	};
+
+	var registerScreenReaderTextOfNoticeOption = function () {
+		Handlebars.registerHelper('getScreenReaderTextOfNoticeOption', function (ynFlag) {
+			return (ynFlag === 'Y') ? '지정': '해제'
+		});
+	};
+
+	var registerNoticeType = function () {
+		Handlebars.registerHelper('getNoticeType', function (noticeFlag) {
+			return (noticeFlag === 'H') ? '전체 공지' : '게시판 공지';
+		});
+	};
+
+	var math = function () {
+		Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
+			lvalue = parseFloat(lvalue);
+			rvalue = parseFloat(rvalue);
+
+			return {
+				"+": lvalue + rvalue,
+				"-": lvalue - rvalue,
+				"*": lvalue * rvalue,
+				"/": lvalue / rvalue,
+				"%": lvalue % rvalue
+			}[operator];
+		});
+	};
+
+	var registerAll = function () {
+		for(var registerFunction in cafe.handlebars.helper) {
+			if (cafe.handlebars.helper.hasOwnProperty(registerFunction)
+				&& registerFunction !== 'registerAll') {
+				cafe.handlebars.helper[registerFunction]();
+			}
+		}
+	};
+
+	var registerSlice = function () {
+		Handlebars.registerHelper('slice', function(length, string) {
+			return string.slice(length);
+		});
+	};
+
+	var registerSliceRange = function () {
+		Handlebars.registerHelper('sliceRange', function(start, length, string) {
+			if (!string) {
+				return '';
+			}
+
+			return string.slice(start, length);
+		});
+	};
+
+	var registerMomentFormat = function () {
+		Handlebars.registerHelper('momentFormat', function (momentTime, format) {
+			return momentTime.format(format);
+		});
+	};
+
+	var registerMomentTimezoneFormat = function () {
+		Handlebars.registerHelper('momentTimezoneFormat', function (momentTime, timezone, format) {
+			return momentTime.clone().tz(timezone).format(format);
+		});
+	};
+
+	var registerMomentYesterdayFormat = function () {
+		Handlebars.registerHelper('momentYesterdayFormat', function (momentTime, format) {
+			return momentTime.clone().subtract(1, 'days').format(format);
+		});
+	};
+	
+	var registerArticleTimeFormat = function () { 
+		Handlebars.registerHelper('momentArticleTimeFormat', function (dateTime, dateTimeFormat, todayFormat, anotherDayFormat) {
+			var momentTime = moment(dateTime, dateTimeFormat);
+			if (momentTime.isSame(moment(), 'day')) {
+				return momentTime.clone().format(todayFormat);
+			}
+			return momentTime.clone().format(anotherDayFormat);
+		});
+	};
+
+	var registerThumbnail = function () {
+		Handlebars.registerHelper('thumbnail', function (str, size) {
+			if (str.indexOf('beta.') > 0) {
+				return '//img1-sandbox.kakaocdn.net/thumb/' + size + '/?fname=' + encodeURIComponent(str);
+			}
+			if (str.indexOf('sandbox.') > 0) {
+				return '//img1-sandbox.kakaocdn.net/thumb/' + size + '/?fname=' + encodeURIComponent(str);
+			}
+			return '//img1.daumcdn.net/thumb/' + size + '/?fname=' + encodeURIComponent(str);
+		});
+	};
+
+	var toFixed = function () {
+		Handlebars.registerHelper('tofixed', function (num, size) {
+			var fixedNum = num.toFixed(size);
+			if(parseInt(fixedNum.split('.')[1]) === 0){
+				fixedNum = fixedNum.split('.')[0];
+			}
+			return fixedNum;
+		});
+	};
+
+	cafe.handlebars.helper = {
+		registerAll: registerAll,
+		registerCompare: registerCompare,
+		registerThumbnail: registerThumbnail,
+		registerIsQNA: registerIsQNA,
+		registerLocale: registerLocale,
+		registerIsSetNotice: registerIsSetNotice,
+		registerIsMustReadNotice: registerIsMustReadNotice,
+		registerScreenReaderTextOfNoticeOption: registerScreenReaderTextOfNoticeOption,
+		registerNoticeType: registerNoticeType,
+		registerSlice: registerSlice,
+		registerSliceRange: registerSliceRange,
+		registerMomentFormat: registerMomentFormat,
+		registerMomentTimezoneFormat: registerMomentTimezoneFormat,
+		registerMomentYesterdayFormat: registerMomentYesterdayFormat,
+		registerArticleTimeFormat: registerArticleTimeFormat,
+		registerIsReserved: registerIsReserved,
+		toFixed: toFixed,
+		math: math
+	};
+})();

@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+.nrBox{
+  position: absolute;
+  bottom: 0;
+  left:0;
+  width: 100%;
+  background-color: rgba(0,0,0,0.5);
+  -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr=#e6000000,endColorStr=#e6000000)";
+  color: #fff;
+  font-size: 14px;
+  z-index: 9999;
+  padding:4px 0;
+  text-align: center;
+  word-break: keep-all;
+}
+
+.nrBox div {
+  display: inline-block;
+}
+
+.icon1{
+  width:10px;
+  height:13px;
+  margin-top:1px;
+  background-image:url('//img.mobon.net/Frtb/images/ic_location.png'); background-repeat:no-repeat;
+}
+
+
+.nrBox2 {
+  width:30%;
+  height:100%;
+  z-index:9999;
+  background-color: rgba(0,0,0,0.5);
+  -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr=#e6000000,endColorStr=#e6000000)";
+  color: #fff;
+  display:table;
+  position:absolute;
+  font-size: 14px;
+  left:79%;
+  padding:0 3px;
+  text-align:center;
+}
+.nrBox2 .center { display:table-cell; vertical-align:middle;}
+.nrBox2 .center div { display:inline-block;}
+
+.nrBox-m {
+  left:68%;
+  font-size:12px;
+}
+
+.nrBox-W20{
+  width:20%;
+}
+
+.font-12{
+  font-size:12px;
+}

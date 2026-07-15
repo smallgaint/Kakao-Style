@@ -1,0 +1,8 @@
+try{if(!CyadLib)var CyadLib={};CyadLib.hasOwnProperty("prefixUrl")||(CyadLib.prefixUrl=function(t){var r=location.protocol;return/^http[s]?:/.test(r)&&(t=t.replace(/http:/g,r).replace(/https:/g,r)),/^\/\/\w+?/.test(t)&&(t=r+t),/^http[s]?\/\//.test(t)&&(t=t.replace(/http\/\//g,r+"//").replace(/https\/\//g,r+"//")),t})}catch(t){}
+
+try{
+  var img_path  = CyadLib.prefixUrl('https://adimg.nate.com/img/2026/04/DB/DB_Sband_0429_250X70.jpg');	//이미지 소재 경로 
+  var adsEl = '<a href="//cyad1.nate.com/click.kti/saad/pann@band_x12?ads_no=228325&cmp_no=30234&img_no=423400" target="_blank">\
+  <img src="'+img_path+'" width="250" height="70" border="0" alt="광고"></a>';
+  document.write(adsEl);
+} catch (e) {}

@@ -1,0 +1,46 @@
+SUCCESS: https://www.instiz.net/bbs/list.php?{'id': 'name_beauty', 'page': '1', 'category': '12'}
+  Content length: 94597
+  First 200 chars: <!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<link rel="canonical" href="https://www.instiz.net/name_beauty">	<meta name="apple-mobile-web-app-title" content="인스티즈" />
+	<meta nam
+
+SUCCESS: https://www.instiz.net/bbs/list.php?{'board': 'name_beauty', 'page': '1', 'cat': '12'}
+  Content length: 8616
+  First 200 chars: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-T
+
+SUCCESS: https://www.instiz.net/bbs/list.php?{'name': 'name_beauty', 'p': '1', 'c': '12'}
+  Content length: 8616
+  First 200 chars: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-T
+
+SUCCESS: https://www.instiz.net/api/list?{'id': 'name_beauty', 'page': '1', 'category': '12'}
+  Content length: 94593
+  First 200 chars: <!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<link rel="canonical" href="https://www.instiz.net/name_beauty">	<meta name="apple-mobile-web-app-title" content="인스티즈" />
+	<meta nam
+
+SUCCESS: https://www.instiz.net/api/list?{'board': 'name_beauty', 'page': '1', 'cat': '12'}
+  Content length: 8664
+  First 200 chars: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-T
+
+SUCCESS: https://www.instiz.net/api/list?{'name': 'name_beauty', 'p': '1', 'c': '12'}
+  Content length: 8664
+  First 200 chars: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-T
+

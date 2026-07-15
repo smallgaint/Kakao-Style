@@ -1,0 +1,14 @@
+tables_count: 9
+tr[id]: 40
+tr#greenv: 0
+table.mboard tr: 8
+table.green_mainboard tr: 0
+div.listsubject: 0
+td.listsubject: 35
+table.mboard2 tr: 15
+article: 0
+div[class*='post']: 0
+.post-item: 0
+.article: 0
+total_tr_tags: 48
+found_tr_ids: ['detour', 'topboard']

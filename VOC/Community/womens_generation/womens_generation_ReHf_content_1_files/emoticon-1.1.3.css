@@ -1,0 +1,81 @@
+@charset "utf-8";
+
+/* emoticon keyboard */
+.emoticon_keyboard {display:block;margin:0;padding:0;border:1px solid #bdbdbd;border-radius: 2px;background:#fff;font-size:14px;line-height:1.5;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;color:#333;height:323px;}
+.emoticon_keyboard img {border:0 none;vertical-align:top;}
+.emoticon_keyboard div, .emoticon_keyboard ul, .emoticon_keyboard li {margin: 0;padding:0;}
+.emoticon_keyboard ul, .emoticon_keyboard li {list-style: none;}
+.emoticon_keyboard button {margin:0;padding:0;font-size:14px;line-height:1.5;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;color:#333;border:0 none;background-color:transparent;cursor:pointer;vertical-align: middle;outline: 0 none;}
+.emoticon_keyboard a {color: #333;text-decoration: none;}
+.emoticon_keyboard.na {height:231px;}
+.emoticon_keyboard.et {height:212px;}
+.emoticon_keyboard.loading {background:url('//mk.kakaocdn.net/dn/emoticon/static/images/sdk/spinner.gif') no-repeat 50% 50%;background-color:#f2f2f2;}
+
+/* 키보드 상단 탭 */
+.emoticon_keyboard .emoticon_control {position:relative;height:46px;overflow:hidden;padding:0 42px;background-color:#fff;}
+.emoticon_keyboard .emoticon_control .emt_ctrl_paging {position:absolute;width:42px;height:45px;top:0;background-color:#fff;border-bottom:1px solid #e1e1e1;}
+.emoticon_keyboard .emoticon_control .emt_ctrl_prev, .emoticon_keyboard .emoticon_control .emt_ctrl_prev_on {left:0;border-right:1px solid #d8d8d8;}
+.emoticon_keyboard .emoticon_control .emt_ctrl_next, .emoticon_keyboard .emoticon_control .emt_ctrl_next_on {right:0;border-left:1px solid #d8d8d8;}
+.emoticon_keyboard .emoticon_control .emt_ctrl_paging span {text-indent:-9999px;overflow:hidden;display:block;width:10px;height:18px;margin:13px 16px;}
+.emoticon_keyboard .emoticon_control .emt_ctrl_prev span {background:url('//mk.kakaocdn.net/dn/emoticon/static/images/sdk/prev_tab_disabled.png') no-repeat 0 0;}
+.emoticon_keyboard .emoticon_control .emt_ctrl_next span {background:url('//mk.kakaocdn.net/dn/emoticon/static/images/sdk/next_tab_disabled.png') no-repeat 0 0;}
+.emoticon_keyboard .emoticon_control .emt_ctrl_prev.on span {background:url('//mk.kakaocdn.net/dn/emoticon/static/images/sdk/prev_tab.png') no-repeat 0 0;}
+.emoticon_keyboard .emoticon_control .emt_ctrl_next.on span {background:url('//mk.kakaocdn.net/dn/emoticon/static/images/sdk/next_tab.png') no-repeat 0 0;}
+.emoticon_keyboard .emoticon_tab {border-bottom: 1px solid #e1e1e1;height:45px;}
+.emoticon_keyboard .emoticon_tab li {position:relative;width:60px;float:left;}
+.emoticon_keyboard .emoticon_tab .emt_tab_item {display:block;width:60px;height:45px;text-decoration:none;}
+.emoticon_keyboard .emoticon_tab .on .emt_tab_item {background-color:#f2f2f2;height:46px;line-height:27px;border-right:1px solid #d8d8d8;border-left:1px solid #d8d8d8;}
+.emoticon_keyboard .emoticon_tab:after {display: block;clear: both;height: 0;content: '';zoom: 1;}
+
+/* 키보드 하단 아이템 */
+.emoticon_keyboard .emoticon_item_list {position:relative;height:277px;padding:0;background-color:#f2f2f2;overflow:hidden;}
+.emoticon_keyboard .emoticon_item_list.loading {background:url('//mk.kakaocdn.net/dn/emoticon/static/images/sdk/spinner.gif') no-repeat 50% 118px;}
+
+.emoticon_keyboard .emt_il {padding:0 16px 1px;}
+.emoticon_keyboard .emt_il ul {overflow: hidden;padding: 17px 0 0;}
+.emoticon_keyboard .emt_il ul:after {display:block;clear:both;height:0;content:'';zoom:1;}
+.emoticon_keyboard .emt_il li {float:left;margin:0 9px 16px;text-align:center;}
+.emoticon_keyboard .emt_il .emt_il_item {display: block;position: relative;width: 70px;height: 70px;margin: 0 auto;outline: 0 none;cursor:default;}
+.emoticon_keyboard .emt_il .emt_il_item:hover {background-color:#e2e2e2;border-radius:5px;}
+.emoticon_keyboard .emt_il .emt_il_item.emt_selected {background-color:#a9a9a9;border-radius:1px; -moz-box-shadow: 0 0 0 5px #a9a9a9; -webkit-box-shadow: 0 0 0 5px #a9a9a9; box-shadow: 0 0 0 5px #a9a9a9;}
+.emoticon_keyboard .emt_il .emt_il_item.emt_selected:hover {background-color:#a9a9a9;border-radius:1px;}
+.emoticon_keyboard .emt_il img {width: 70px;height: 70px;text-align: center;vertical-align: top;}
+.emoticon_keyboard .emt_il .emt_il_empty {text-align:center;padding-top:102px;color:#666;font-size:13px;letter-spacing:-0.5px;}
+
+/* 애니콘 */
+.emoticon_keyboard .emt_il .emt_il_ani .emt_il_item {width:92px;height:71px;}
+.emoticon_keyboard .emt_il .emt_il_ani img {width:92px;height:71px;}
+.emoticon_keyboard .emt_il .emt_il_ani li {margin:0 13px 16px 12px;}
+
+/* 추가동의 */
+.emoticon_keyboard .emt_agree .emt_a_inner {width:278px;padding:45px 53px;background-color:#f2f2f2;}
+.emoticon_keyboard .emt_agree .emt_a_need_agree img {display:block;margin:0 auto;}
+.emoticon_keyboard .emt_agree .emt_a_tit_agree, .emoticon_keyboard .emt_agree .emt_a_tit_expire {display:block;padding: 14px 0 20px;text-align: center;font-size: 13px;font-weight: normal;color: #666;letter-spacing: -0.25px;}
+.emoticon_keyboard .emt_agree .emt_a_submit {display:block;width:131px;padding:6px 0;margin:0 auto;background-color:#fbe901;border:1px solid #eddc00;text-align:center;border-radius:2px;letter-spacing: -0.5px;color: #493334;text-decoration:none;}
+
+/* 사용 가이드 */
+.emoticon_keyboard .emt_connect {position:absolute;top:0;left:0;width:100%;height:277px;background: url('//mk.kakaocdn.net/dn/emoticon/static/images/sdk/connect_bg.png') no-repeat bottom right; background-size: 142px;}
+.emoticon_keyboard .emt_connect .emt_c_title {text-align: center;margin-top: 75px;color: #666;font-size: 13px;letter-spacing: -.2px;background: url('//mk.kakaocdn.net/dn/emoticon/static/images/sdk/emoticon_title.png') no-repeat top;background-size: 135px;padding-top: 33px;}
+.emoticon_keyboard .emt_connect .emt_c_connect {display: block;width: 131px;height: 34px;margin: 20px auto 0;background-color: #fbe901;border: 1px solid #eddc00;}
+
+/* new 사용 가이드 */
+.emoticon_keyboard .emt_guide {position:absolute;top:0;left:0;width:100%;height:100%;background-color:#ffed76;box-shadow: 0 0 0 1px #ebd760 inset;z-index:1;}
+.emoticon_keyboard .emt_guide .emt_g_inner {margin:50px 15px 0;text-align: center;color:#333;}
+.emoticon_keyboard .emt_guide img {display:block;margin:0 auto;}
+.emoticon_keyboard .emt_guide .emt_g_title {display:block;margin-bottom: 19px;font-size:18px;font-weight: 200;letter-spacing: -0.5px;line-height:1.3;}
+.emoticon_keyboard .emt_guide .emt_g_title strong {display:block;margin-top:4px;font-weight:500;}
+.emoticon_keyboard .emt_guide .emt_g_close {width:131px;height:34px;margin-top:23px;border:1px solid #a59949;}
+
+/* 하단 탭메뉴 */
+.bottom .emoticon_keyboard .emoticon_item_list, .bottom .emoticon_keyboard .emoticon_tab, .bottom .emoticon_keyboard .emoticon_control .emt_ctrl_paging {border-bottom:none;}
+.bottom .emoticon_keyboard .emoticon_control .emt_ctrl_paging {border-top:1px solid #e1e1e1;}
+.bottom .emoticon_keyboard .emoticon_control {border-bottom:none;}
+.bottom .emoticon_keyboard .emoticon_tab {border-top:1px solid #e1e1e1;}
+.bottom .emoticon_keyboard .emoticon_tab li {height:45px;}
+.bottom .emoticon_keyboard .emoticon_tab li.on:before {position:absolute;top:-1px;left:0;width:60px;height:1px;content:'';zoom:1;background-color:#f2f2f2;}
+
+.compact .emoticon_keyboard .emt_il li {margin: 0 13px 16px;}
+.compact .emoticon_keyboard .emt_il .emt_il_ani li {margin:0 27px 16px;}
+
+/* 아이템 상세보기 */
+.view_emot_detail {display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:url('//mk.kakaocdn.net/dn/emoticon/static/images/sdk/detail_view.png') no-repeat center center;background-size:contain;text-indent:-9999px;}

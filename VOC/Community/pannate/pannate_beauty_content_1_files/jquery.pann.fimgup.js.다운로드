@@ -1,0 +1,87 @@
+(function(factory) {
+	if (typeof define === 'function' && define.amd) {
+		define(['jquery'], factory);
+	} else {
+		factory(window.jQuery);
+	}
+}(function($) {
+	$.fn.fimgup = function(options) {
+		var defaults = {
+			actionUrl: '/fimgsvr/new/uploadTempImage4PC?UserID=-1&FileCount=1&ServiceCode=2',
+			callbackFn: function(data) { console.log(data); },
+			allowedExts: ["gif","png","jpg","jpeg"],
+			maxFileSize: 2097152,
+			uploadingFn: function() {},
+			uploadedFn: function() {},
+			uploadIframe: 'upload_iframe',
+			fimgCallback: 'parseFimgSrvData',
+			legacyCallback: false,
+			file: undefined
+		};
+		var options = $.extend(defaults, options);
+		
+		var form = $(this);
+		var file = options.file || form.find('input:file:first');
+		var iframe = $('<iframe id="' + options.uploadIframe
+						 + '" name="' + options.uploadIframe + '" width="0" height="0" border="0" frameborder="0" title="업로드"></iframe>',
+				{ css: {'display': 'none', 'width': 0, 'height': 0, 'border': 0, 'frameborder': 0} } );
+		$('body').append(iframe);
+		
+		return this.each(function() {
+			$(file).change( function() {
+				if($(file).val() == '') {
+					return false;
+				}
+				if ($.inArray(
+						$(file).val().substring($(file).val().lastIndexOf('.') + 1).toLowerCase(),
+						options.allowedExts) >= 0) {
+					options.uploadingFn();
+					setTimeout(function(){
+						form.attr('target', options.uploadIframe)
+							.attr('action', options.actionUrl + '&callback=' + options.fimgCallback + '&dummy=' + new Date().getTime())
+							.submit();
+					}, 100);
+				} else {
+					alert("이미지 파일 확장자는 " + options.allowedExts.join(", ") + "만 가능합니다.");
+					return false;
+				}
+			});
+			window[options.fimgCallback] = function(obj) {
+				options.uploadedFn();
+				if (options.legacyCallback) {
+					options.callbackFn(obj);
+					return;
+				}
+				var params = eval("({" + obj + "})");
+				if(params.ret_code == 1) {
+					for(strKey in params) {
+						if(strKey.indexOf('fileinfo') >= 0) {
+							var fileinfo = params[strKey].split('|');
+							var imgSrvObj = {
+								fileType: fileinfo[0],
+								fileName: fileinfo[1],
+								tempUrl: fileinfo[2],
+								fileSize: fileinfo[3],
+								fileId: fileinfo[4]
+							};
+							setTimeout(function() {
+								if( imgSrvObj.fileSize > options.maxFileSize) {
+									alert('선택하신 이미지 파일은 전체 허용 최대크기인 ' + options.maxFileSize / (1024 * 1024) + 'MB 를 초과하였습니다.');
+									return false;
+								} else {
+									options.callbackFn(imgSrvObj);
+								}
+							}, 100);
+						}
+					}
+				} else {
+					if(params.err_code == 2) {
+						alert('선택하신 이미지 파일은 전체 허용 최대크기인 ' + options.maxFileSize / (1024 * 1024) + 'MB 를 초과하였습니다.');
+					} else {
+						alert("이미지 업로드 오류입니다");
+					}
+				}
+			};
+		});
+	};
+}));

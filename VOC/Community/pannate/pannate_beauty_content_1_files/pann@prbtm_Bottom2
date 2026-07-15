@@ -1,0 +1,11 @@
+try {
+  WiderPlanetAdRendererVar = {
+    type: "script",
+    passback: "PASSBACK_URL",
+    category: "PAGE_CATEGORY",
+    width: "300",
+    height: "250",
+    zoneid: "18481"
+  };
+  document.write('<script src="//cdn-aitg.widerplanet.com/js/adr.js" type="text/javascript"></script>');
+}catch(e){}

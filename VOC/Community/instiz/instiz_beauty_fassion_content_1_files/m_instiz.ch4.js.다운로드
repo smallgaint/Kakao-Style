@@ -1,0 +1,70 @@
+function handle_naver_ads_response4(response) {
+    var contData = response.ads;
+    var targetSlots = typeof rand1 !== 'undefined' ? [rand1, rand2, rand3, rand4, rand5, rand6, rand7, rand8] : [];
+
+    if (contData && contData.length > 0) {
+        for (var i = 0; i < targetSlots.length; i++) {
+            var slotId = targetSlots[i];
+            var adData = contData[i];
+            var urlElements = document.querySelectorAll("a.ad" + slotId);
+
+            if (adData) {
+                var titleElements = document.querySelectorAll("#thumb_id" + slotId + " .tit");
+                var disUrlElements = document.querySelectorAll("#thumb_id" + slotId + " .url");
+                var descElements = document.querySelectorAll("#thumb_id" + slotId + " .desc");
+
+                for (var k = 0; k < urlElements.length; k++) {
+                    if (titleElements[k]) titleElements[k].textContent = adData.headline;
+                    if (disUrlElements[k]) disUrlElements[k].textContent = adData.displayUrl;
+                    if (descElements[k]) descElements[k].textContent = adData.description;
+                    if (urlElements[k]) urlElements[k].href = adData.clickUrl;
+                }
+            } else {
+                for (var j = 0; j < urlElements.length; j++) {
+                    var adContainer = urlElements[j].closest('.powerlink_m4');
+                    if (!adContainer) continue;
+
+                    var currentSlide = adContainer.closest('.swiper-slide');
+                    
+                    var allItems = Array.from(document.querySelectorAll('.howabout_item')).filter(function(item) {
+                        return !item.querySelector('.naver_powerlink') && item.closest('.powerlink_m4') === null;
+                    });
+
+                    var validItems = allItems.map(function(item) {
+                        return item.closest('a');
+                    }).filter(function(aTag) {
+                        return aTag && aTag.closest('.swiper-slide') !== currentSlide;
+                    });
+
+                    if (validItems.length > 0) {
+                        var randomIndex = Math.floor(Math.random() * validItems.length);
+                        var clonedItem = validItems[randomIndex].cloneNode(true);
+                        
+                        var adItemNode = adContainer.querySelector('.howabout_item');
+                        var isRight = adItemNode && adItemNode.classList.contains('howabout_item_right');
+                        var clonedInnerItem = clonedItem.querySelector('.howabout_item');
+                        
+                        if (clonedInnerItem) {
+                            if (isRight) clonedInnerItem.classList.add('howabout_item_right');
+                            else clonedInnerItem.classList.remove('howabout_item_right');
+                        }
+
+                        adContainer.parentNode.replaceChild(clonedItem, adContainer);
+                    }
+                }
+            }
+        }
+    }
+}
+
+function execute_mobile_naver_ad4() {
+    var current_url = window.location.href;
+
+    NAVER_ADPOST_V2({
+        channel: "m_instiz.ch4", 
+        pageSize: 8, 
+        keywordGroup: "모바일인스티즈_공통", 
+        url: current_url, 
+        callback: "handle_naver_ads_response4",
+    });
+}

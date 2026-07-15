@@ -1,0 +1,546 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  color: transparent;
+  text-decoration: none;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner {
+  width: 260px;
+  height: 723px;
+}
+
+/* tabs */
+.tabs {
+  display: flex;
+  height: 52px;
+}
+
+.tabs .tab {
+  width: 100%;
+  height: 100%;
+  background: #f8f8f8;
+  border-right: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.tabs .tab.on {
+  background: #fff;
+  border-bottom: none;
+}
+
+.tabs .tab:last-of-type {
+  border-right: none;
+}
+
+.tabs .tab > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: #3b3b3b;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.tabs .tab > a span {
+  display: inline-block;
+  position: relative;
+  padding-top: 21px;
+}
+
+.tabs .tab > a span::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 18px;
+  height: 18px;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--logo-url) no-repeat center / contain;
+}
+
+.tabs .tab1 > a span::before {
+  background: url(https://img.mobwithad.com/ad/imgfile/logo/shopBox/shopBox_icon.png) no-repeat center / contain;
+}
+
+.tabs .tab2 > a span {
+  --logo-url: url("");
+}
+
+/* conts */
+.conts .cont {
+  display: none;
+}
+
+.cont > .title {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.72px;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+
+.conts .cont.on {
+  display: block;
+}
+
+/* banner */
+.box {
+  height: 48px;
+  margin-bottom: 13px;
+}
+
+.box .banner-img {
+  width: 100%;
+  height: 48px;
+  cursor: pointer;
+}
+
+.show {
+  display: flex !important;
+}
+
+.fade {
+  display: none !important;
+}
+
+/*banner 임시 레이아웃*/
+.banner-img {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* coupang banner */
+.banner-box {
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+}
+.logo-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo-list .logo {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  cursor: pointer;
+}
+
+.logo-list .logo.coupang {
+  width: 57px;
+  height: 48px;
+  background-image: url(https://img.mobwithad.com/ad/imgfile/logo/shopBox/coupang-ico.png);
+}
+
+.logo-list .logo.gmarket {
+  width: 54px;
+  height: 48px;
+  background-image: url(https://img.mobwithad.com/ad/imgfile/logo/shopBox/gmarket-ico.png);
+}
+
+.logo-list .logo.today {
+  width: 60px;
+  height: 48px;
+  background-image: url(https://img.mobwithad.com/ad/imgfile/logo/shopBox/today-ico.png);
+}
+
+.logo-list .logo.aliexpress {
+  width: 64px;
+  height: 48px;
+  background-image: url(https://img.mobwithad.com/ad/imgfile/logo/shopBox/ali-ico.png);
+}
+
+
+/* arrow-box */
+.arrow-box {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 15px;
+}
+
+.arrow-box::before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 195px;
+  height: 1px;
+  background: #ececec;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.arrow-box .pageNum {
+  font-size: 12px;
+  line-height: 16px;
+  color: #b5b5b5;
+}
+
+.arrow-box .pageNum span {
+  color: #898a8f;
+}
+
+.arrow-box .btn-box {
+  display: flex;
+  align-items: center;
+  height: 14px;
+}
+
+.arrow-box .btn-box > button {
+  width: 14px;
+  height: 14px;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  border: 1px solid #ccc;
+  background: url(https://img.mobwithad.com/ad/imgfile/arrow.png) no-repeat center / contain;
+  background-size: 4px;
+}
+
+.arrow-box .btn-box > button.next {
+  transform: rotate(180deg);
+}
+
+/* item-box */
+.item-wrap {
+}
+
+.item-wrap .item-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px 4px;
+}
+
+.item-wrap .item-box .item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.page0 .item-box .item .img {
+  width: 82px;
+  height: 99px;
+  background-position: center;
+  background-repeat: no-repeat;
+  /*background-size: contain !important;*/
+}
+
+.item-wrap .item-box .item .img {
+  width: 82px;
+  height: 99px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.item-wrap .item-box .item .text {
+  font-size: 11px;
+  line-height: 15px;
+  color: #61646e;
+  text-align: center;
+  min-height: 32px;
+}
+
+.item-wrap .item-box .item .text span {
+  display: block;
+  width: 82px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.item-wrap .item-box .item:hover .text {
+  color: #f84701;
+}
+
+.item-wrap .item-box .item > a {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.item-wrap .item-box .item:hover > a {
+  border: 2px solid #f84701;
+}
+
+
+/* coupang banner */
+.coupang-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 0 15px;
+  background: #f6f6fa;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.coupang-banner .logo {
+  position: relative;
+  width: 70px;
+  height: 16px;
+  background: url(https://img.mobwithad.com/ad/imgfile/logo/coupang/coupang-ico.png) no-repeat center / contain;
+  margin-right: 31px;
+}
+
+.coupang-banner .logo::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 1px;
+  height: 16px;
+  background: #c7c7c7;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -16px;
+}
+
+.coupang-banner .text {
+  font-size: 12px;
+  line-height: 18px;
+  color: #3b3b3b;
+  max-width: 110px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.coupang-banner .text span {
+  padding-right: 9px;
+  color: #ff0000;
+}
+
+.coupang-banner .arrow-top {
+  position: absolute;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 8px;
+}
+
+.arrow-top span {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 5px;
+  height: 5px;
+}
+
+.arrow-top span:before {
+  left: 0;
+  transform: skewY(40deg);
+}
+
+.arrow-top span:after {
+  right: 0;
+  width: 50%;
+  transform: skewY(-40deg);
+}
+
+.coupang-banner .arrow-top {
+  border-radius: 100%;
+  box-sizing: border-box;
+}
+
+.coupang-banner .arrow-top::before {
+  position: absolute;
+  top: 4px;
+  left: 1px;
+  display: block;
+  content: "";
+  width: 2px;
+  height: 8px;
+  background: #f00;
+}
+
+.coupang-banner .arrow-top::after {
+  position: absolute;
+  display: block;
+  content: "";
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-right: 4px solid #f00;
+  transform: rotate(90deg);
+}
+
+.coupang-banner > a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.coupang-banner .list {
+  display: block;
+  width: 130px;
+  height: 17px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}

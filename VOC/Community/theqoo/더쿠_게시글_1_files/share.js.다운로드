@@ -1,0 +1,19 @@
+$(document).ready(function($) {
+	$("#share_theqoo").click(function(event){
+		console.log('test');
+		if($('.share_container').is(':visible')){
+			$('.share_container').css('display', 'none');
+			return;
+		}
+		$('.share_container').css('display', 'flex');
+	});
+
+	// 외부영역 클릭 시 팝업 닫기
+	$(document).mouseup(function (e){
+		var LayerPopup = $(".share_container");
+		if(LayerPopup.has(e.target).length === 0){
+			LayerPopup.css('display', 'none');
+		}
+	});
+	
+});

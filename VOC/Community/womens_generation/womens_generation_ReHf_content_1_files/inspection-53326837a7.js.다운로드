@@ -1,0 +1,96 @@
+function argosInspection(grpid, fileUsageType) {
+	if(!Array.prototype.includes){
+		Array.prototype.includes = function(search){
+			return !!~this.indexOf(search);
+		}
+	}
+	if(!Array.prototype.indexOf){
+		Array.prototype.indexOf = (function(Object, max, min){
+			"use strict";
+			return function indexOf(member, fromIndex) {
+				if(this===null||this===undefined)throw TypeError("Array.prototype.indexOf called on null or undefined");
+
+				var that = Object(this), Len = that.length >>> 0, i = min(fromIndex | 0, Len);
+				if (i < 0) i = max(0, Len+i); else if (i >= Len) return -1;
+
+				if(member===void 0){ for(; i !== Len; ++i) if(that[i]===void 0 && i in that) return i; // undefined
+				}else if(member !== member){   for(; i !== Len; ++i) if(that[i] !== that[i]) return i; // NaN
+				}else                           for(; i !== Len; ++i) if(that[i] === member) return i; // all else
+
+				return -1; // if the value was not found, then return -1
+			};
+		})(Object, Math.max, Math.min);
+	}
+
+	function isInspectionMimeType(mimeType) {
+		var inspectionMimeTypeList = ['image/gif', 'image/webp', 'image/apng'];
+		return inspectionMimeTypeList.includes(mimeType);
+	}
+
+	function inspectionPolling(data, success, fail, key, times, interval) {
+		if (times <= 0) {
+			success(data);
+			return;
+		}
+
+		jQuery.ajax({
+			url: '/_c21_/file-legality-status/common/recheck?grpid=' + grpid + '&checkId=' + key
+		}).done(function (res) {
+			if (res.resultStatus.toUpperCase() === 'BLACK') {
+				alert('전기통신사업법에 따라 불법촬영물등에 해당하는 파일이 포함되어 등록할 수 없습니다.');
+				return;
+			}
+
+			if (res.resultStatus.toUpperCase() === 'GRAY') {
+				setTimeout(function () {
+					inspectionPolling(data, success, fail, key, times - 1, interval);
+				}, interval);
+				return;
+			}
+
+			success(data);
+		}).fail(function () {
+			fail();
+		});
+	}
+
+	function sendInspection(data, success, fail) {
+		jQuery.ajax({
+			url: '/_c21_/file-legality-status/common/check?grpid=' + grpid,
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({
+				fileUsageType: fileUsageType,
+				fileUrl: data.image,
+				mimeType: data.mimeType,
+				fileName: data.filename
+			})
+		}).done(function (res) {
+			if (res.resultStatus.toUpperCase() === 'WHITE') {
+				success(data);
+				return;
+			}
+
+			if (res.resultStatus.toUpperCase() === 'GRAY') {
+				inspectionPolling(data, success, fail, res.checkId, res.recheckStrategy.count, res.recheckStrategy.interval);
+				return;
+			}
+
+			alert('전기통신사업법에 따라 불법촬영물등에 해당하는 파일이 포함되어 등록할 수 없습니다.');
+		}).fail(function () {
+			fail();
+		});
+	}
+
+	function inspectionImage(data, success, fail) {
+		if (isInspectionMimeType(data.mimeType)) {
+			sendInspection(data, success, fail);
+			return;
+		}
+		success(data);
+	}
+
+	return {
+		inspectionImage: inspectionImage
+	};
+}

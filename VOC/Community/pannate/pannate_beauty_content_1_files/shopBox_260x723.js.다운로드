@@ -1,0 +1,67 @@
+var paging = function (type) {
+  let pageNum = Number($('.pageNum span:first').text());
+  var target;
+
+  const setPage = (num, showIdx) => {
+    $('.pageNum span:first').text(num);
+    $('.cont .page').removeClass('show').addClass('fade');
+    $('.cont .page' + showIdx).removeClass('fade').addClass('show');
+  };
+  const setBanner = (num) => {
+    $('.cont .box').removeClass('show').addClass('fade');
+    if (num >= 5) {
+      var targetNum = (num - 5);
+      $(`.cont .banner-box${targetNum}`).removeClass('fade').addClass('show');
+    } else {
+      $('.cont .banner-box').removeClass('fade').addClass('show');
+    }
+  };
+  if (type === 'prev') {
+    if (pageNum !== 1) {
+      setPage(pageNum - 1, pageNum - 2);
+      setBanner(pageNum - 2);
+    } else {
+      setPage(8, 7);
+      setBanner(7);
+    }
+
+    if (pageNum !== 1) {
+      target = (`.page${(pageNum - 2)} .impTag`);
+    } else {
+      target = (`.page7 .impTag`);
+    }
+  } else { // next
+    if (pageNum !== 8) {
+      // 탭 1번이고 페이지 < 5일 때
+      setPage(pageNum + 1, pageNum);
+      setBanner(pageNum);
+    } else {
+      // 탭 1번이고 페이지 == 5일 때 → 다음 탭으로
+      setPage(1, 0);
+      setBanner(0);
+
+    }
+    target = (`.page${pageNum} .impTag`);
+  }
+  if (!$(target).attr('src')) {
+    $(target).attr('src', $(target).data('src'));
+  }
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+  $(`.coupang-banner`).click(function () {
+    window.open("https://link.coupang.com/a/dLdZuk", "_blank")
+  });
+})
+function pageTimer(pageIndex) {
+  const currentPage = (pageIndex % 8) + 1;
+  const sec = currentPage === 1 ? 15000 : 6000;
+
+  setTimeout(function () {
+    paging('next');
+    const nextPageIndex = pageIndex + 1;
+    pageTimer(nextPageIndex);
+  }, sec);
+}
+
+pageTimer(0);

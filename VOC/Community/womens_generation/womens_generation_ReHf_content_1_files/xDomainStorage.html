@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://api-item.kakao.com/xDomainStorage.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <script type="text/javascript">
+    (function(){
+      var EXPIRES_DAY = 9999;
+
+      var util = {
+        setCookie : function (name, value) {
+          var d = new Date(), day = "";
+          var expires = EXPIRES_DAY;
+
+          if (expires) {
+            d.setDate(d.getDate() + expires);
+            day = "expires=" + d.toGMTString() + ";";
+          }
+          document.cookie = name + "=" + escape(value) + "; path=/;" + day;
+        },
+        getCookie : function (name) {
+          var _name = name + "=",
+                  cookie = document.cookie + ";",
+                  start = cookie.indexOf(_name), end;
+          if (start != -1) {
+            end = cookie.indexOf(";", start);
+            return unescape(cookie.substring(start + _name.length, end));
+          }
+          return ;
+        },
+        delCookie : function (name) {
+          document.cookie = name + "=;expires=Fri, 31 Dec 1987 23:59:59 GMT;";
+        },
+        urlParameter : function(){
+          var r = {}, t = [], i,
+                  a = location.search.substr(1).split('&');
+
+          for (i = 0; i < a.length; i += 1) {
+            t = a[i].split("=");
+            r[t[0]] = t[1];
+          }
+          return r;
+        }(),
+        Array : {
+          indexOf : function (/*a, _find*/) {
+            if ([].indexOf) {
+              return function (a, _find) {
+                return a.indexOf(_find);
+              };
+            } else {
+              return function (a, _find) {
+                for (var i = 0; i < a.length; i += 1) {
+                  if (a[i] === _find) {
+                    return i;
+                  }
+                }
+                return -1;
+              };
+            }
+          }(),
+          contains: function (a, _find) {
+            if( !!a.indexOf ) {
+              return a.indexOf(_find) > -1;
+            } else {
+              for( var i=0, len=a.length ; i<len ; ++i ) {
+                if( a[i] == _find ) {
+                  return true;
+                }
+              }
+              return false;
+            }
+          },
+          uniq : function(a){
+            var ret = [], i;
+            for(i=0;i<a.length;i++){
+              if(!util.Array.contains(ret, a[i])){ret.push(a[i]);}
+            }
+            return ret;
+          }
+        }
+      };
+
+      var storage = function() {
+        var set = util.setCookie,
+                get = util.getCookie,
+                remove = util.delCookie;
+
+        if (!!window.localStorage) {
+          set = function (key, value) {
+            window.localStorage.removeItem(key);
+            window.localStorage.setItem(key, value);
+          };
+          get = function(key) {
+            return window.localStorage.getItem(key);
+          };
+          remove = function(key) {
+            window.localStorage.removeItem(key);
+          };
+        }
+        return {
+          set : set,
+          get : get,
+          remove : remove
+        };
+      }();
+
+      /*************************************************************
+       *
+       * cross domain message
+       *
+       *************************************************************/
+      window.onmessage = function (e) {
+        var postData = JSON.parse(e.data);
+
+        if (/(kakao\.com)|(daum\.net)|(melon\.com)/.test(e.origin)) {
+          switch (postData.action) {
+            case 'get':
+              var data = storage.get(postData.name) || '';
+              parent.postMessage("get:" + data, e.origin);
+              break;
+            case 'set':
+              storage.set(postData.name, postData.value);
+              parent.postMessage("set:" + postData.value, e.origin);
+              break;
+          }
+        }
+      };
+    })();
+  </script>
+</head>
+<body>
+
+</body></html>

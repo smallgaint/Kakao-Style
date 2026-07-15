@@ -1,0 +1,48 @@
+document.domain="daum.net"; 
+
+if (getTopWindow().flag != null) {
+	getTopWindow().flag=true;
+}
+
+function popup(szURL, szName, iWidth, iHeight) {
+	window.open(szURL, szName, 'width=' + iWidth + ',height=' + iHeight + ',resizable=yes,scrollbars=yes,');
+}
+
+function caller(url) {
+    getTopWindow().status='';
+	if (getTopWindow().flag != null) {
+		getTopWindow().deflag();
+	}
+    location.href=url;
+}
+
+function article_write(url) {
+	caller(url);
+}
+
+function clearStatus() {
+   //top.status='';
+}
+
+function resizeIntroFrame(w, h) {
+	document.getElementById('user').width = w;
+	document.getElementById('user').height = h;
+	getTopWindow().status='';
+	if (CAFEAPP.ui.SCROLL_TO_MEMO) {
+		try {
+			scrollToMemo();
+		} catch (e) {}
+	}
+}
+
+function scrollToMemo() {
+	window.scrollTo(0, document.getElementById("memo_iframe").offsetTop);
+}
+
+if(CAFEAPP.ui.ISPREVIEW) {
+	if(getTopWindow().document && getTopWindow().document.getElementById("hidden")){
+		getTopWindow().document.getElementById("hidden").src="";
+	}
+}
+
+

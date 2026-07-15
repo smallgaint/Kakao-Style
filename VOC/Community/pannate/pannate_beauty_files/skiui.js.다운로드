@@ -1,0 +1,225 @@
+/**
+* SK Communications Interaction UI Flash embed Javascript object
+* 
+* @since 2008.04.28
+* @auther pureye4u
+* @version 1.0.1
+* @copyright SK Communications UI Development Interaction UI Parts
+*/
+var skiui={}
+skiui.ua=navigator.userAgent.toLowerCase();
+skiui.isIE=skiui.ua.indexOf('msie')!=-1;
+skiui.isWin=skiui.ua.indexOf('win')!=-1;
+skiui.isOpera=skiui.ua.indexOf('opera')!=-1;
+skiui.ver=null;
+skiui.getVer=function(){
+	if(skiui.ver!=null) return skiui.ver;
+	var axo;
+	var e;
+	try{
+		axo=new ActiveXObject('ShockwaveFlash.ShockwaveFlash.7');
+		skiui.ver=axo.GetVariable('$version');
+	}catch(e){
+	}
+	if(!skiui.ver){
+		try{
+			axo=new ActiveXObject('ShockwaveFlash.ShockwaveFlash.6');
+			skiui.ver='WIN 6,0,21,0';
+			alo.AllowScriptAccess='always';
+			skiui.ver=axo.GetVariable('$version');
+		}catch(e){
+		}
+	}
+	if(!skiui.ver){
+		try{
+			axo=new ActiveXObject('ShockwaveFlash.ShockwaveFlash.3');
+			skiui.ver=axo.GetVariable('$version');
+		}catch(e){
+		}
+	}
+	if(!skiui.ver){
+		try{
+			axo=new ActiveXObject('ShockwaveFlash.ShockwaveFlash.3');
+			skiui.ver='WIN 2,0,0,11';
+		}catch(e){
+			skiui.ver=-1;
+		}
+	}
+};
+skiui.getSwfVer=function(){
+		var flVer=-1;
+	if(navigator.plugins!=null&&navigator.plugins.length>0){
+		if(navigator.plugins['Shockwave Flash 2.0']||navigator.plugins['Shockwave Flash']){
+			var swVer2=navigator.plugins['Shockwave Flash 2.0']?' 2.0': '';
+			var flDesc=navigator.plugins['Shockwave Flash'+swVer2].description;
+			var descArr=flDesc.split(' ');
+			var tempArrMajor=descArr[2].split('.');
+			var verMajor=tempArrMajor[0];
+			var verMinor=tempArrMajor[1];
+			var verRev=descArr[3];
+			if(verRev=='') verRev=descArr[4];
+			if(verRev[0]=='d') verRev=verRev.substring(1);
+			else if(verRev[0]=='r'){
+				verRev=verRev.substring(1);
+				if(verRev.indexOf('d')>0) verRev=verRev.substring(0, verRev.indexOf('d'));
+			}
+			flVer=verMajor+'.'+verMinor+'.'+verRev;
+		}
+	}else if(skiui.ua.indexOf('webtv/2.6')!=-1) flVer=4;
+	else if(skiui.ua.indexOf('webtv/2.5')!=-1) flVer=3;
+	else if(skiui.ua.indexOf('webtv')!=-1) flVer=2;
+	else if(skiui.isIE&&skiui.isWin&&!skiui.isOpera) flVer=getVer();
+	return flVer;
+};
+skiui.detectFlVer=function(reqMajorVer, reqMinorVer, reqRev){
+	var verStr=getSwfVer();
+	var tmpArr;
+	var tmpStr;
+	var verArr;
+	if(verStr==-1) return false;
+	else if(verStr!=0){
+		if(skiui.isIE&&skiui.isWin&&!skiui.isOpera){
+			tmpArr=verStr.split(' ');
+			tmpStr=tmpArr[1];
+			verArr=tmpStr.split(',');
+		}else verArr=verStr.split('.');
+		var verMajor=verArr[0];
+		var verMin=verArr[1];
+		var verRev=verArr[2];
+		if(verMajor>parseFloat(reqMajorVer)) return true;
+		else if(verMajor==parseFloat(reqMajorVer)){
+			if(verMinor>parseFloat(reqMinorVer)) return true;
+			else if(verMinor==parseFloat(reqMinorVer)) if(verRev>=parseFloat(reqVer)) return true;
+		}
+		return false;
+	}
+};
+skiui.getHTML=function(ieAttrs, params, ffAttrs){
+	var str='';
+	if(skiui.isIE&&skiui.isWin&&!skiui.isOpera){
+		str+='<object ';
+		for(var p in ieAttrs) str+=p+'="'+ieAttrs[p]+'" ';
+		str+='>';
+		for(var p in params) str+='<param name="'+p+'" value="'+params[p]+'" />';
+		str+='<h1>Alternative content</h1><p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://wwwimages.adobe.com/www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>';
+		str+='</object>';
+	}else{
+		str+='<object ';
+		if(/Firefox\/3/.test(navigator.userAgent)){
+			str+='style="outline:none;"';
+		}
+		for(var p in ffAttrs) str+=p+'="'+ffAttrs[p]+'" ';
+		str+='>';
+		str+='<h1>Alternative content</h1><p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://wwwimages.adobe.com/www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>';
+		str+='</object>';
+	}
+	return str;
+};
+skiui.getArgs=function(src, id, width, height, wmode, flashvars, option){
+	var ret={};
+	ret.ieAttrs={};
+	ret.params={};
+	ret.ffAttrs={};
+	if(option==null) option={};
+	if(option['quality']==null) option['quality']='high';
+	if(option['align']==null) option['align']='middle';
+	if(option['play']==null) option['play']='true';
+	if(option['loop']==null) option['loop']='true';
+	if(option['scale']==null) option['scale']='noscale';
+	if(option['devicefont']==null) option['devicefont']='false';
+	if(option['bgcolor']==null) option['bgcolor']='#ffffff';
+	if(option['menu']==null) option['menu']='true';
+	if(option['allowFullScreen']==null) option['allowFullScreen']='false';
+	if(option['allowScriptAccess']==null) option['allowScriptAccess']='always';
+	ret.ieAttrs['codebase']='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0';
+	ret.ieAttrs['id']=ret.ffAttrs['id']=ret.ffAttrs['name']=id;
+	ret.ieAttrs['classid']='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000';
+	ret.ffAttrs['type']='application/x-shockwave-flash';
+	ret.ffAttrs['pluginspage']='http://www.macromedia.com/go/getflashplayer';
+	ret.ffAttrs['data']=ret.params['movie']=src;
+	ret.ffAttrs['width']=ret.ieAttrs['width']=width;
+	ret.ffAttrs['height']=ret.ieAttrs['height']=height;
+	ret.ffAttrs['wmode']=ret.params['wmode']=wmode;
+	ret.ffAttrs['flashvars']=ret.params['flashvars']=flashvars;
+	for(var p in option){
+		switch (p){
+			case "classid":
+				break;
+			case "onafterupdate":
+			case "onbeforeupdate":
+			case "onblur":
+			case "oncellchange":
+			case "onclick":
+			case "ondblclick":
+			case "ondrag":
+			case "ondragend":
+			case "ondragenter":
+			case "ondragleave":
+			case "ondragover":
+			case "ondrop":
+			case "onfinish":
+			case "onfocus":
+			case "onhelp":
+			case "onmousedown":
+			case "onmouseup":
+			case "onmouseover":
+			case "onmousemove":
+			case "onmouseout":
+			case "onkeypress":
+			case "onkeydown":
+			case "onkeyup":
+			case "onload":
+			case "onlosecapture":
+			case "onpropertychange":
+			case "onreadystatechange":
+			case "onrowsdelete":
+			case "onrowenter":
+			case "onrowexit":
+			case "onrowsinserted":
+			case "onstart":
+			case "onscroll":
+			case "onbeforeeditfocus":
+			case "onactivate":
+			case "onbeforedeactivate":
+			case "ondeactivate":
+			case "type":
+			case "codebase":
+				ret.ieAttrs[p]=option[p];
+				break;
+			case "align":
+			case "vspace": 
+			case "hspace":
+			case "class":
+			case "title":
+			case "accesskey":
+			case "tabindex":
+				ret.ffAttrs[p]=ret.ieAttrs[p]=option[p];
+				break;
+			default:
+				ret.ffAttrs[p]=ret.params[p]=option[p];
+		}
+	}
+	return ret;
+};
+skiui.addFlash=function(src, id, width, height, wmode, flashvars, option){
+	if(width==null) width='100%';
+	if(height==null) height='100%';
+	if(wmode==null) wmode='window';
+	else{
+		wmode=wmode.toLowerCase();
+		if(wmode!='window'&&wmode!='opaque'&&wmode!='transparent') wmode='window';
+	}
+	var ret=skiui.getArgs(src, id, width, height, wmode, flashvars, option);
+	document.write(skiui.getHTML(ret.ieAttrs, ret.params, ret.ffAttrs));
+};
+skiui.getEmbed=function(src, id, width, height, wmode, flashvars, option){
+	if(width==null) width='100%';
+	if(height==null) height='100%';
+	if(wmode==null) wmode='window';
+	else{
+		wmode=wmode.toLowerCase();
+		if(wmode!='window'&&wmode!='opaque'&&wmode!='transparent') wmode='window';
+	}
+	var ret=skiui.getArgs(src, id, width, height, wmode, flashvars, option);
+	return skiui.getHTML(ret.ieAttrs, ret.params, ret.ffAttrs);
+};

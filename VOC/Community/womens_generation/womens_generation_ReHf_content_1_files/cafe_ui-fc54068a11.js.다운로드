@@ -1,0 +1,422 @@
+var cafe = cafe || {};
+cafe.ui = cafe.ui || {};
+
+(function ($) {
+	var SELECT_BOX_EVENTS = {
+		SELECT_CHANGE: 'select_change',
+		SHOW_LAYER: 'show_layer',
+		HIDE_LAYER: 'hide_layer'
+	};
+
+	var optionTemplate = {
+		defaultOption: '<li role="option" aria-selected="true" data-value="{{value}}" class="select_box-layer-list"><a href="javascript:;" role="button" class="select_box-layer-list-select select_box-layer-list-select--selected">{{text}}</a></li>',
+		option: '<li role="option" aria-selected="false" data-value="{{value}}" class="select_box-layer-list"><a href="javascript:;" role="button" class="select_box-layer-list-select">{{text}}</a></li>'
+	};
+
+	(function () {
+		$(document).on('click', function () {
+			hideAllLayerExceptThis();
+		});
+	})();
+
+	cafe.ui.selectbox = (function () {
+		var wrap, select, layer, selectButton;
+
+		var removeSelectAll = function () {
+			layer.find('.select_box-layer-list').attr('aria-selected', false);
+			layer.find('.select_box-layer-list-select--selected').removeClass('select_box-layer-list-select--selected');
+		};
+
+		var setValue = function (value) {
+			if (select.val() === value) {
+				return;
+			}
+			select.val(value);
+			wrap.trigger(SELECT_BOX_EVENTS.SELECT_CHANGE, value);
+		};
+
+		var setState = function (listItem) {
+			var itemSelect = listItem.find('.select_box-layer-list-select');
+
+			itemSelect.addClass('select_box-layer-list-select--selected');
+			listItem.attr('aria-selected', 'true');
+			selectButton.html(itemSelect.html());
+		};
+
+		var setSelect = function (listItem) {
+			if (listItem === undefined || listItem.length === 0) {
+				return;
+			}
+
+			removeSelectAll();
+			setState(listItem);
+			setValue(listItem.attr('data-value'));
+			selectButton.data('fldtype', listItem.data('fldtype'));
+		};
+
+		var toggleLayer = function (e) {
+			e.stopPropagation();
+			hideAllLayerExceptThis(wrap);
+			if (layer.is(':visible')) {
+				selectButton.removeClass('select_box-button--press');
+				hideLayer();
+				return;
+			}
+
+			selectButton.addClass('select_box-button--press');
+			showLayer();
+		};
+
+		var listSelected = function (e) {
+			setSelect($(e.currentTarget).closest('.select_box-layer-list'));
+		};
+
+		var attachEvent = function () {
+			selectButton.on('click', toggleLayer);
+			layer.on('click', '.select_box-layer-list-select', listSelected);
+		};
+
+		var detachEvent = function () {
+			selectButton.off('click');
+			layer.off('click', '.select_box-layer-list-select');
+		};
+
+		var cacheElements = function (config) {
+			wrap = $(config.wrap);
+			select = $(config.select);
+			layer = wrap.find('.select_box-layer');
+			selectButton = wrap.find('.select_box-button');
+		};
+
+		var makeOptionTemplate = function (template, option) {
+			return template.replace(/{{value}}/g, option.value).replace(/{{text}}/g, option.text);
+		};
+
+		var hasDataOptions = function (options) {
+			return options !== undefined && options.length > 0;
+		};
+
+		var setOptions = function (options) {
+			if (!hasDataOptions(options)) {
+				selectItem(layer.find('[aria-selected="true"]').data('value'));
+				return;
+			}
+
+			layer.empty().append(options.map(function (option, index) {
+				if (index === 0) {
+					return makeOptionTemplate(optionTemplate.defaultOption, option);
+				}
+
+				return makeOptionTemplate(optionTemplate.option, option);
+			}));
+
+			selectItem(options[0].value);
+		};
+
+		/**
+		 * @typedef {Object} SelectOption
+		 * @property {String} value
+		 * @property {String} text
+		 */
+
+		/**
+		 * @param {Object} config
+		 * @param {String|jQuery} config.wrap
+		 * @param {String|jQuery} config.select
+		 * @param {SelectOption[]=} config.options
+		 */
+		var init = function (config) {
+			cacheElements(config);
+			if (hasDataOptions(config.options)) {
+				destroy();
+			}
+			attachEvent();
+			setOptions(config.options);
+			return selectBox;
+		};
+
+		var destroy = function () {
+			detachEvent();
+			layer.empty();
+			selectButton.html('');
+		};
+
+		var selectItem = function (value) {
+			if (value === undefined) {
+				return;
+			}
+
+			setSelect(layer.find('.select_box-layer-list').filter(function (index, item) {
+				return $(item).data('value') + '' === value.toString();
+			}));
+		};
+
+		var getSelectValue = function () {
+			return select.val();
+		};
+
+		var show = function () {
+			wrap.show();
+		};
+
+		var hide = function () {
+			wrap.hide();
+		};
+
+		var showLayer = function () {
+			layer.show();
+			wrap.trigger(SELECT_BOX_EVENTS.SHOW_LAYER);
+		};
+
+		var hideLayer = function () {
+			layer.hide();
+			wrap.trigger(SELECT_BOX_EVENTS.HIDE_LAYER);
+		};
+
+		var focus = function () {
+			selectButton.click();
+		};
+
+		var enable = function () {
+			detachEvent();
+			attachEvent();
+			selectButton.attr('aria-disabled', false);
+		};
+
+		var disable = function () {
+			detachEvent();
+			selectButton.attr('aria-disabled', true);
+		};
+
+		var selectBox = {
+			init: init,
+			destroy: destroy,
+			selectItem: selectItem,
+			val: getSelectValue,
+			show: show,
+			hide: hide,
+			showLayer: showLayer,
+			hideLayer: hideLayer,
+			focus: focus,
+			enable: enable,
+			disable: disable
+		};
+
+		return selectBox;
+	});
+
+	cafe.ui.selectbox.events = SELECT_BOX_EVENTS;
+	cafe.ui.selectbox.hideAllSelectLayer = hideAllLayerExceptThis;
+
+	function hideAllLayerExceptThis(wrap) {
+		var selectBoxButton = $('.select_box-button');
+		var selectBoxLayer = $('.select_box-layer');
+
+		if (wrap === undefined) {
+			selectBoxButton.removeClass('select_box-button--press');
+			selectBoxLayer.hide();
+			return;
+		}
+
+		selectBoxButton.not(wrap.find('.select_box-button')).removeClass('select_box-button--press');
+		selectBoxLayer.not(wrap.find('.select_box-layer')).hide();
+	}
+})(jQuery);
+
+(function ($) {
+	var area, checkAllWrap, checkAlls;
+
+	var init = function (checkBoxArea, allCheckBoxWrap) {
+		area = $(checkBoxArea);
+		checkAllWrap = $(allCheckBoxWrap);
+		checkAlls = checkAllWrap.find('input[type="checkbox"]');
+
+		checkAllWrap.on('click', 'input[type="checkbox"]', function (e) {
+			var isChecked = $(e.currentTarget).is(':checked');
+			var checkboxes = area.find('input[type="checkbox"]');
+
+			checkboxes.each(function (index, checkbox) {
+				$(checkbox).prop('checked', isChecked);
+			});
+
+			checkAlls.each(function (index, checkAll) {
+				$(checkAll).prop('checked', isChecked);
+			});
+		});
+
+		area.on('click', 'input[type="checkbox"]', reset);
+	};
+	
+	var reset = function () {
+		checkAlls.each(function (index, checkAll) {
+			$(checkAll).prop('checked', false);
+		});
+	};
+
+	cafe.ui.checkAll = {
+		init: init,
+		reset: reset
+	};
+})(jQuery);
+
+(function ($) {
+	cafe.ui.textCounter = (function () {
+		var text, counter, maxLength;
+		var init = function (textElementSelector, counterElementSelector, length, emptyClass) {
+			text = $(textElementSelector);
+			counter = $(counterElementSelector);
+			maxLength = parseInt(length);
+			setCounter();
+			text.on('keyup', function () {
+				counter.addClass(emptyClass || '');
+				if (text.val().length > 0) {
+					counter.removeClass(emptyClass || '');
+				}
+
+				if (text.val().length > maxLength) {
+					text.val(text.val().slice(0, maxLength));
+				}
+				setCounter();
+			});
+		};
+
+		var setCounter = function () {
+			counter.text(text.val().length);
+		};
+
+		return {
+			init: init,
+			resetCounter: setCounter
+		};
+	});
+})(jQuery);
+
+(function ($) {
+	cafe.ui.byteCounter = (function () {
+		var text, counter, maxLength;
+		var init = function (textElementSelector, counterElementSelector, length, emptyClass) {
+			text = $(textElementSelector);
+			counter = $(counterElementSelector);
+			maxLength = parseInt(length);
+			setCounter(0);
+			text.on('keyup keydown', function() {
+				counter.addClass(emptyClass || '');
+				var textValue = text.val();
+				if (textValue.length > 0) {
+					counter.removeClass(emptyClass || '');
+				}
+
+				var count = calculateCount(textValue);
+				if (count > maxLength) {
+					text.val(sliceTextByMaxLength(textValue, maxLength));
+				}
+				setCounter(count);
+			});
+		};
+
+		var calculateCount = function (text) {
+			var count = 0;
+
+			var i;
+			var tempStr;
+			for (i = 0; i < text.length; i++) {
+				tempStr = text.charAt(i);
+				if (escape(tempStr).length > 4) count += 1;
+				else count += 0.5;
+			}
+			return count;
+		};
+
+		var sliceTextByMaxLength = function (text, maxLength) {
+			var result = '';
+			var count = 0;
+			var tempStr;
+			for(var i = 0; i < text.length; i++) {
+				tempStr = text.charAt(i);
+				if(escape(tempStr).length > 4) count += 1;
+				else count += 0.5;
+				if (count > maxLength) {
+					if(escape(tempStr).length > 4) count -= 1;
+					else count -= 0.5 ;
+					break;
+				}
+				else result += tempStr;
+			}
+			return result;
+		};
+
+		var setCounter = function (count) {
+			counter.text(parseInt(count));
+		};
+
+		return {
+			init: init,
+			resetCounter: setCounter
+		};
+	});
+})(jQuery);
+
+(function ($) {
+	var DEFAULT_VISIBLE_PAGE = 5;
+	var DEFAULT_START_PAGE = 1;
+	var DEFAULT_TOTAL_PAGES = 100;
+
+	cafe.ui.pagination = (function() {
+		var pagination;
+
+		var isAbleToInit = function (config) {
+			return $().twbsPagination !== undefined && config.totalPages !== undefined && config.totalPages !== 0;
+		};
+
+		var init = function (wrapSelector, config) {
+			if (!isAbleToInit(config)) {
+				return;
+			}
+
+			var currentPage = getCurrentPage();
+			var startPage = config.startPage || config.totalPages >= currentPage ? currentPage : config.totalPages;
+
+			pagination = $(wrapSelector);
+			pagination.twbsPagination('destroy');
+			pagination.twbsPagination({
+				totalPages: config.totalPages || DEFAULT_TOTAL_PAGES,
+				visiblePages: config.visiblePages || DEFAULT_VISIBLE_PAGE,
+				startPage: startPage,
+				first: '',
+				last: '',
+				prevClass: 'btn_page btn_prev',
+				nextClass: 'btn_page btn_next',
+				prev: '<span class="ico_admin"></span> 이전',
+				next: '다음 <span class="ico_admin"></span>',
+				activeClass: 'on',
+				disabledClass: 'page_disabled',
+				paginationClass: 'bundle_page'
+			}).on('page', config.onPageClick);
+
+			return paginationObject;
+		};
+
+		var getCurrentPage = function () {
+			if (!pagination) {
+				return DEFAULT_START_PAGE;
+			}
+
+			return pagination.twbsPagination('getCurrentPage');
+		};
+
+		var paginationObject = {
+			init: init,
+			getCurrentPage: getCurrentPage,
+			enable: function () {
+				pagination.twbsPagination('enable');
+			},
+			disable: function () {
+				pagination.twbsPagination('disable');
+			},
+			page: function (toPage) {
+				pagination.twbsPagination('show', toPage);
+			}
+		};
+		return paginationObject;
+	});
+})(jQuery);

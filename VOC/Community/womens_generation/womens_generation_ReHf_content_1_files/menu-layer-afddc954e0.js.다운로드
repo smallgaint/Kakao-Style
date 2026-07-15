@@ -1,0 +1,69 @@
+(function ($, Handlebars) {
+	cafe.handlebars.helper.registerCompare();
+
+	var layer = $('#more-menu-container');
+	var context = {};
+
+	var types = {
+		MEMBER: Handlebars.compile($('#handlebars-user-more-menu').html()),
+		ANONYMOUS_MEMBER: Handlebars.compile($('#handlebars-anonymous-user-more-menu').html()),
+		ARTICLE: Handlebars.compile($('#handlebars-article-more-menu').html()),
+		COMMENT: Handlebars.compile($('#handlebars-comment-more-menu').html()),
+
+		LIST_COUNT: Handlebars.compile($('#handlebars-list-count-menu').html()),
+
+		BOARD_ADMIN_LIST: Handlebars.compile($('#handlebars-board-admin-list').html()),
+		HEAD_CONT_LIST: Handlebars.compile($('#handlebars-head-cont-list').html()),
+
+		MOVE_BOARD_LIST: Handlebars.compile($('#handlebars-move-board-list').html()),
+		CHANGE_ROLE_LIST: Handlebars.compile($('#handlebars-change-role-list').html()),
+		NOTI_LIST: Handlebars.compile($('#handlebars-noti-list').html()),
+
+		FAV_SORT_ORDER: Handlebars.compile($('#handlebars-fav-sort-order').html()),
+		FAV_WEEK_LIST: Handlebars.compile($('#handlebars-fav-week-selector').html()),
+
+		TITLE_EDIT: Handlebars.compile($('#handlebars-title-edit').html()),
+
+		ALBUM_BOARD: Handlebars.compile($('#handlebars-album-board').html()),
+	};
+
+	var show = function (render, offset, _context) {
+		context = _context || {};
+
+		layer.html(render(context)).css(offset);
+
+		layer.find('.menu_item').on('mouseenter', function (e) {
+			$(e.target).closest('.menu_item').addClass('open_sub');
+		}).on('mouseleave', function (e) {
+			$(e.target).closest('.menu_item').removeClass('open_sub');
+		});
+
+		// fixme
+		if (window.translateService) {
+			window.translateService.closeByAnotherLayer();
+		}
+		if (window.shareLayer) {
+			window.shareLayer.closeByAnotherLayer();
+		}
+
+		layer.find('.opt_more_g, .layer_posi').addClass('open_layer');
+	};
+	var hide = function () {
+		context = {};
+
+		layer.off('mouseenter', '.menu_item');
+		layer.off('mouseleave', '.menu_item');
+		layer.find('.opt_more_g, .layer_posi').removeClass('open_layer');
+	};
+
+	$('body').on('click', function (e) {
+		if ($(e.target).hasClass('link_item')) return;
+		hide();
+	});
+
+	window.MoreMenuLayer = {
+		types: types,
+		show: show,
+		hide: hide
+	};
+})(jQuery, Handlebars);

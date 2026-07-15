@@ -1,0 +1,49 @@
+(function () {
+    var _adArea = document.querySelectorAll('body')[0];
+
+    // ===== 0. 먼저 재고 판정 =====
+    var _pb = document.createElement('script');
+    _pb.src = '//www.mediacategory.com/servlet/passbackWebServlet?s=995154';
+    _pb.onload = function () {
+        if (window.ad_data && window.ad_data.ad_exist === true) {
+            loadHawkEyes();   // 광고 있음 → 정상 광고
+        } else {
+            loadPassback();   // 광고 없음 → 2순위 패스백
+        }
+    };
+    _pb.onerror = loadPassback;  // 서블릿 자체가 죽으면 패스백으로
+    _adArea.prepend(_pb);
+
+    // ===== 1. HawkEyes 정상 광고 =====
+    function loadHawkEyes() {
+        var _div = document.createElement('div');
+        var _lib = document.createElement('script');
+        var _script = document.createElement('script');
+        _lib.src = '//img.mobon.net/js/common/HawkEyesMaker.js?ver=260703000000';
+        _div.appendChild(_lib);
+        _adArea.prepend(_div);
+        _script.type = 'text/javascript';
+        _script.innerHTML =
+            'new HawkEyes({"type":"banner","responsive":"N","platform":"W","scriptCode":"995154","frameCode":"69","width":"160","height":"600","settings":{"cntad":"1","cntsr":"1"}});';
+        _lib.onload = function () {
+            _div.prepend(_script);
+            _adArea.style.display = 'block';
+        };
+    }
+
+    // ===== 2. 2순위 패스백 (iframe 격리) =====
+    function loadPassback() {
+        var iframe = document.createElement('iframe');
+        iframe.width = 160;
+        iframe.height = 600;
+        iframe.scrolling = 'no';
+        iframe.frameBorder = '0';
+        iframe.style.border = '0';
+        iframe.style.overflow = 'hidden';
+        iframe.srcdoc =
+            '<!doctype html><html><head></head><body style="margin:0">' +
+            '<script src="//cyad1.nate.com/js.kti/nate/mob@prblank_x24"><\/script>' +
+            '</body></html>';
+        _adArea.prepend(iframe);
+    }
+})();
