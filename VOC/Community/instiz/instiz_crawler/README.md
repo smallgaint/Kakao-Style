@@ -57,7 +57,7 @@ cd instiz_crawler
 ```bash
 python -m venv venv
 # Windows
-venv\Scripts\activate
+.\.venv\Scripts\activate
 # macOS/Linux
 source venv/bin/activate
 ```
@@ -73,7 +73,7 @@ pip install -r requirements.txt
 Playwright가 Chromium 브라우저를 사용하려면 다음을 실행하세요:
 
 ```bash
-playwright install chromium
+python -m playwright install chromium
 ```
 
 > ⚠️ **중요**: 이 단계를 완료해야 크롤러가 정상 작동합니다!
@@ -89,14 +89,11 @@ python main.py
 ### CLI 옵션으로 실행
 
 ```bash
-# 특정 게시판 크롤링
-python main.py --board name_beauty --category 12 --start 1 --end 20
+# 여러 게시판에서 기간 내 키워드 검색
+python main.py --target name:1 name_beauty --keywords 지그재그 29cm --start-date 2026-01-01 --end-date 2026-06-30
 
-# 본문만 수집 (댓글 제외)
-python main.py --board name_fashion --no-comments
-
-# 큰 범위로 크롤링
-python main.py --board name_beauty --start 1 --end 100
+# 본문 없이 검색 결과 목록만 수집
+python main.py --target name:1 --keyword 지그재그 --start-date 2026-01-01 --end-date 2026-06-30 --no-content
 
 # 상세 로그 출력
 python main.py --verbose
@@ -114,10 +111,11 @@ python main.py --no-content
 ### 옵션 설명
 
 ```
---board BOARD_NAME       크롤링할 게시판 (기본값: config.py의 BOARDS)
---category NUM           카테고리 번호 (기본값: 12)
---start PAGE             시작 페이지 (기본값: config.py의 START_PAGE)
---end PAGE               종료 페이지 (기본값: config.py의 END_PAGE)
+--target BOARD[:CATEGORY] [..]  검색 게시판들 (기본값: config.py의 BOARDS)
+--keyword KEYWORD               키워드 1개
+--keywords KEYWORD [..]         키워드 여러 개
+--start-date YYYY-MM-DD         기간 시작일 (포함)
+--end-date YYYY-MM-DD           기간 종료일 (포함)
 --no-content             본문 및 댓글 수집 안 함
 --no-comments            댓글만 수집 안 함
 --save-html              HTML 파일 저장
@@ -145,15 +143,13 @@ BROWSER_TIMEOUT = 30000   # 페이지 로드 타임아웃 (밀리초)
 ```python
 # 크롤링 대상 게시판
 BOARDS = [
-    {
-        "board": "name_beauty",
-        "category": 12
-    }
+    {"board": "name", "category": 1},
+    {"board": "name_beauty"},
 ]
 
-# 페이지 범위
-START_PAGE = 1
-END_PAGE = 20
+# 검색 기간 (양끝 포함)
+SEARCH_START_DATE = "2026-01-01"
+SEARCH_END_DATE = "2026-06-30"
 
 # 수집 옵션
 CRAWL_CONTENT = True      # 본문 수집

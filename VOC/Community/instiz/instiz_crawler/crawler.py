@@ -6,7 +6,7 @@ import time
 from playwright.sync_api import sync_playwright, Browser, BrowserContext, Page
 from typing import Optional, List, Set
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, date
 import logging
 from urllib.parse import urlencode
 
@@ -31,6 +31,7 @@ class InstizCrawler:
         # parameters: 캐시
         self.url_cache: dict = {}
         self.processed_posts: Set[object] = set()
+        self.posts_by_url: dict[str, Post] = {}
         
         # parameters: 통계
         self.crawl_log = CrawlLog(start_time=datetime.now())
@@ -64,7 +65,10 @@ class InstizCrawler:
             logger.info("브라우저 시작 완료")
         
         except Exception as e:
-            logger.error(f"브라우저 시작 실패: {str(e)}")
+            message = str(e)
+            if "Executable doesn't exist" in message:
+                message += "\nChromium 설치: .\\.venv\\Scripts\\python.exe -m playwright install chromium"
+            logger.error(f"브라우저 시작 실패: {message}")
             raise
     
     def close_browser(self) -> None:
@@ -298,11 +302,11 @@ class InstizCrawler:
         """회원 전용 검색 페이지 접근 가능 여부로 로그인 상태를 보조 판정."""
         try:
             board_config = config.BOARDS[0] if getattr(config, "BOARDS", []) else {}
-            board = board_config.get("board", "name_beauty")
-            params = {"k": "test"}
-            if not getattr(config, "SEARCH_ALL_BOARDS", False):
-                params["id"] = board
-            url = f"{config.BASE_URL}/popup_search.htm?{urlencode(params)}"
+            board = board_config.get("board", "name")
+            params = {"page": 1, "k": "test", "stype": config.SEARCH_TYPE}
+            if board_config.get("category") is not None:
+                params["category"] = board_config["category"]
+            url = f"{config.BASE_URL}/{board}?{urlencode(params)}"
             page.goto(url, wait_until="domcontentloaded", timeout=config.BROWSER_TIMEOUT)
             self._wait_for_login_ready(page)
             body_text = page.locator("body").inner_text(timeout=5000)
@@ -347,7 +351,7 @@ class InstizCrawler:
             return username[0] + "*"
         return username[:2] + "*" * max(len(username) - 2, 1)
     
-    def _goto_with_retry(self, url: str) -> Optional[str]:
+    def _goto_with_retry(self, url: str, ready_selector: str = "body") -> Optional[str]:
         """페이지 이동 후 렌더링된 HTML 반환 (재시도 로직 포함)
         
         Args:
@@ -374,8 +378,11 @@ class InstizCrawler:
                 # parameters: 페이지 이동
                 page.goto(url, wait_until="domcontentloaded", timeout=config.BROWSER_TIMEOUT)
                 
-                # parameters: 네트워크 안정화 대기
-                page.wait_for_load_state("networkidle", timeout=config.BROWSER_TIMEOUT)
+                # 광고 및 지속 연결이 있어 networkidle은 기다리지 않습니다.
+                try:
+                    page.wait_for_selector(ready_selector, timeout=5000)
+                except Exception:
+                    logger.debug("준비 selector 대기 timeout, 현재 DOM으로 진행: %s", ready_selector)
                 
                 logger.debug(f"페이지 렌더링 완료: {url}")
                 
@@ -648,7 +655,8 @@ class InstizCrawler:
         logger.debug(f"게시글 상세 요청: {post_url}")
         
         # parameters: 페이지 이동 및 HTML 획득
-        html = self._goto_with_retry(post_url)
+        detail_selector = ", ".join(InstizParser.SELECTORS["detail"]["content"])
+        html = self._goto_with_retry(post_url, ready_selector=detail_selector)
         if not html:
             return None, 0, []
         
@@ -665,6 +673,100 @@ class InstizCrawler:
             self.url_cache[post_url] = result
         
         return result
+
+    def build_board_search_url(self, board: str, category: Optional[int], keyword: str, page: int) -> str:
+        """게시판별 시간순 검색 결과 URL을 생성합니다."""
+        params = {"page": page, "k": keyword, "stype": config.SEARCH_TYPE}
+        if category is not None:
+            params["category"] = category
+        return f"{config.BASE_URL}/{board}?{urlencode(params)}"
+
+    def fetch_board_search_page(
+        self, board: str, category: Optional[int], keyword: str, page: int
+    ) -> List[tuple]:
+        """한 페이지의 게시판 검색 결과를 가져옵니다."""
+        url = self.build_board_search_url(board, category, keyword, page)
+        if config.USE_CACHE and url in self.url_cache:
+            return self.url_cache[url]
+        html = self._goto_with_retry(url)
+        posts = InstizParser.parse_board_search_results(html, board) if html else []
+        if config.USE_CACHE:
+            self.url_cache[url] = posts
+        return posts
+
+    @staticmethod
+    def _resolve_search_datetime(raw_date: str, previous: Optional[datetime]) -> datetime:
+        """최신순 ``MM.DD HH:MM`` 목록의 연도를 보정합니다."""
+        month, day_value, hour, minute = map(int, raw_date.replace(".", " ").replace(":", " ").split())
+        today = datetime.now()
+        year = previous.year if previous else today.year
+        candidate = datetime(year, month, day_value, hour, minute)
+        if previous:
+            if candidate > previous:
+                candidate = candidate.replace(year=year - 1)
+        elif candidate > today:
+            candidate = candidate.replace(year=year - 1)
+        return candidate
+
+    def crawl_board_search(
+        self,
+        board: str,
+        category: Optional[int],
+        keyword: str,
+        start_date: date,
+        end_date: date,
+    ) -> List[Post]:
+        """게시판 검색을 최신 페이지부터 기간 시작일까지 순회합니다."""
+        posts: List[Post] = []
+        previous_datetime: Optional[datetime] = None
+        page = 1
+        logger.info("게시판 검색 시작: board=%s, category=%s, keyword=%s", board, category, keyword)
+
+        while True:
+            page_posts = self.fetch_board_search_page(board, category, keyword, page)
+            self.crawl_log.pages += 1
+            if not page_posts:
+                logger.info("검색 결과 종료: board=%s, keyword=%s, page=%s", board, keyword, page)
+                break
+
+            dated_posts = []
+            for post_info in page_posts:
+                *post_values, raw_date, has_image = post_info
+                created_at = self._resolve_search_datetime(raw_date, previous_datetime)
+                previous_datetime = created_at
+                dated_posts.append((post_values, created_at, has_image))
+
+            if dated_posts and all(created_at.date() < start_date for _, created_at, _ in dated_posts):
+                logger.info("기간 시작일 이전 검색 결과에서 종료: board=%s, keyword=%s, page=%s", board, keyword, page)
+                break
+
+            for post_values, created_at, has_image in dated_posts:
+                post_id, title, author, post_url, comment_count, view_count, like_count = post_values
+                if not start_date <= created_at.date() <= end_date:
+                    continue
+                existing = self.posts_by_url.get(post_url)
+                if existing:
+                    keywords = set(filter(None, existing.search_keywords.split(",")))
+                    keywords.add(keyword)
+                    existing.search_keywords = ",".join(sorted(keywords))
+                    continue
+
+                post = Post(
+                    post_id=post_id, board=board, category=category or 0, title=title,
+                    author=author, comment_count=comment_count, view_count=view_count,
+                    like_count=like_count, created_date=created_at.strftime("%Y-%m-%d %H:%M"),
+                    has_image=has_image, image_count=0, post_url=post_url,
+                    search_keywords=keyword, search_boards=board,
+                )
+                self.posts_by_url[post_url] = post
+                self.processed_posts.add(post_url)
+                posts.append(post)
+
+            page += 1
+
+        self.crawl_log.posts += len(posts)
+        logger.info("게시판 검색 완료: board=%s, keyword=%s, posts=%s", board, keyword, len(posts))
+        return posts
     
     def crawl_board(
         self,
