@@ -1,0 +1,118 @@
+window.cyui={};
+cyui.event={};
+cyui.event.hnd=[];
+cyui.browser={};
+cyui.browser.userAgent=navigator.userAgent.toLowerCase();
+cyui.browser.isOpera=(cyui.browser.userAgent.indexOf('opera')!=-1);
+cyui.browser.isSafari=(cyui.browser.userAgent.indexOf('safari')!=-1);
+cyui.browser.isIE=(cyui.browser.userAgent.indexOf('msie')!=-1&&!cyui.browser.isOpera);
+cyui.browser.isFF=(cyui.browser.userAgent.indexOf('firefox')!=-1);
+
+cyui.event.remove=function(hnd){
+	if (window.removeEventListener) hnd[0].removeEventListener(hnd[1], hnd[2], false);
+	else if (window.detachEvent) hnd[0].detachEvent('on'+hnd[1], hnd[2]);
+};
+cyui.event.add=function(obj, evt, fnc){
+	if (window.addEventListener) obj.addEventListener(evt, fnc, false);
+	else if (window.attachEvent) obj.attachEvent( 'on'+evt, fnc );
+	return [obj, evt, fnc];
+};
+cyui.cancelBubble=false;
+
+cyui.event.add(window, 'load', hndOnLoad);
+
+function hndOnLoad(){
+    if (cyui.browser.isIE) {
+        // IE Flicker Bug위한 Hack
+        (function(){
+         var m = document.uniqueID /*IE*/
+            && document.compatMode /*>=IE6*/
+            && !window.XMLHttpRequest /*<=IE6*/
+            && document.execCommand ;
+
+        try{
+            if (!!m) {
+                m("BackgroundImageCache", false, true) /* = IE6 only */
+            }
+        } catch(oh) {};
+        })();
+    }
+}
+
+//이모티콘 탭
+
+function emoticon_Tab(obj) {
+	var objWrap = obj.parentNode;
+	var arrHL = objWrap.getElementsByTagName('strong')
+	var arrBQ = objWrap.getElementsByTagName('table')
+	for (var i = 0, len = arrHL.length; i < len; i++) {	
+		if (arrHL[i] == obj) {
+				arrHL[i].className = 'selected'
+				arrBQ[i].style.display = 'block'
+		} else {
+				arrHL[i].className = ''
+				arrBQ[i].style.display = 'none'
+		}
+	}
+}
+
+
+function emoticon_select(index) {
+    var emoticonObj1 = document.getElementById('espresso_emoticon1');
+    var emoticonObj2 = document.getElementById('espresso_emoticon2');
+    var emoticonObj3 = document.getElementById('espresso_emoticon3');
+
+    for (i=1; i<=3; i++) {
+        if (index == i) {
+            emoticonObj[i].style.display = "block";
+        } else {
+            emoticonObj[i].style.display = "none";
+        }    
+    }
+    return false;
+}
+
+// 특수기호 탭
+function charset_Table(obj) {
+	var objWrap = obj.parentNode;
+	var arrHL = objWrap.getElementsByTagName('strong')
+	var arrBQ = objWrap.getElementsByTagName('table')
+	for (var i = 0, len = arrHL.length; i < len; i++) {	
+		if (arrHL[i] == obj) {
+				arrHL[i].className = 'selected'
+				arrBQ[i].style.display = 'block'
+		} else {
+				arrHL[i].className = ''
+				arrBQ[i].style.display = 'none'
+		}
+	}
+}
+
+
+function charsetTable_select(index) {
+    var charsetObj1 = document.getElementById('espresso_charset1');
+    var charsetObj2 = document.getElementById('espresso_charset2');
+    var charsetObj3 = document.getElementById('espresso_charset3');
+	var charsetObj4 = document.getElementById('espresso_charset4');
+	var charsetObj5 = document.getElementById('espresso_charset5');
+	var charsetObj6 = document.getElementById('espresso_charset6');
+
+    for (i=1; i<=3; i++) {
+        if (index == i) {
+            emoticonObj[i].style.display = "block";
+        } else {
+            emoticonObj[i].style.display = "none";
+        }    
+    }
+    return false;
+}
+
+// IE에서 png의 반투명 표현을 위한 스크립트
+function setPng24(obj) {
+	obj.width=obj.height=1;
+	obj.className=obj.className.replace(/\bpng24\b/i,'');
+	var src=obj.getAttribute('png:src');
+	if (!src) { src=obj.src; obj.src='about:blank';}
+	obj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+ src+"', sizingMethod='image');"
+	return '';
+}

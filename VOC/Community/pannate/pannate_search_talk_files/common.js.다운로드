@@ -1,0 +1,393 @@
+String.prototype.trim = function() {
+		return this.replace(/^\s+|\s+$/g,"");
+}
+String.prototype.ltrim = function() {
+		return this.replace(/^\s+/,"");
+}
+String.prototype.rtrim = function() {
+		return this.replace(/\s+$/,"");
+}
+
+function getDomain() {
+	var domain = document.domain;
+	var pattern = /([a-zA-Z]*)\.com$/;
+	if ( (result = pattern.exec(domain)) != null ) {
+		return result[0];
+	}
+}
+
+function checkUseAgree() {
+	if(checkLoginAndRedirect()) {
+		if (IS_USE_AGREE == true) {
+			return true;
+		}
+		window.open('/pannUser/pannAgree?redirectUrl='+REQUEST_URL,'user_agree','status=1,scrollbars=1,width=500,height=450');
+	}
+	return false;
+}
+
+function parentCheckUseAgree() {
+	if(parentCheckLoginAndRedirect()) {
+		if (IS_USE_AGREE == true) {
+			return true;
+		}
+		window.open('/pannUser/pannAgree?redirectUrl='+REQUEST_URL,'user_agree','status=1,scrollbars=1,width=500,height=450');
+	}
+	return false;
+}
+
+function checkReplyRealnameConfirm(cateCd) {
+	var today = new Date(),
+		startDate = new Date(2014, 4, 21),
+		endDate = new Date(2014, 5, 5);
+	
+	if ( !(startDate <= today && today < endDate) ) {
+		return true;
+	}
+	
+	if ( CONFIRMED == '3' && cateCd == 20016 ) {
+		window.open('/pannUser/realName','real_name','status=1,scrollbars=1,width=480,height=600');
+		return false;
+	}
+	
+	return true;
+}
+
+function checkTalkRealnameConfirm() {
+	
+	var category = j$('#cateCd'),
+		today = new Date(),
+		startDate = new Date(2014, 4, 21),
+		endDate = new Date(2014, 5, 5);
+	
+	if ( !(startDate <= today && today < endDate) ) {
+		return true;
+	}
+	
+	if ( CONFIRMED == '3' && category.val() == 20016 ) {
+		window.open('/pannUser/realName','real_name','status=1,scrollbars=1,width=480,height=600');
+		return false;
+	}
+	
+	return true;
+}
+
+function checkLoginAndRedirect()
+{
+	if ( !IS_LOGGED )
+	{
+		if (confirm("로그인 하시겠습니까?"))
+		{
+			location.href="https://xo.nate.com/Login.sk?redirect="+REQUEST_URL+"&cpurl="+encodeURIComponent(NDR_URL);
+		}
+
+		return false;
+	}
+
+	return true;
+}
+
+function parentCheckLoginAndRedirect()
+{
+	if ( !IS_LOGGED )
+	{
+		if (confirm("로그인 하시겠습니까?"))
+		{
+			parent.location.href="https://xo.nate.com/Login.sk?redirect="+parent.REQUEST_URL+"&cpurl="+encodeURIComponent(parent.NDR_URL);
+		}
+
+		return false;
+	}
+
+	return true;
+}
+
+/****************************************************************************************************
+ * S : 기본홈으로 이동
+ ****************************************************************************************************/
+
+/*  인프라 임시점검 관련 추가 - Begin */
+function checkTime()
+{
+	// 2010.12.01 00시 ~ 08시까지 time 체크
+	var start_date 	= new Date('2010', '11', '01', '00', '00', '000' );
+	var end_date 	= new Date('2010', '11', '01', '08', '00', '000' );	
+	var cur_date 	= new Date();
+ 
+	if( cur_date >= start_date && cur_date < end_date ){
+		return true;
+	} else {
+		return false;
+	}	
+}
+/*  인프라 임시점검 관련 추가 - End */
+
+/****************************************************************************************************
+ * E : 기본홈으로 이동
+ ****************************************************************************************************/
+
+
+/****************************************************************************************************
+ * S : 글자수(byte 기반) 체크 메서드 (IE에서 버그 있음 : checkMaxByte -> isOverflow로 대체)
+ ****************************************************************************************************/
+var time = null;
+function checkMaxByte(obj, maxByte)
+{
+	var content = obj.value;
+	var length = getByteLength(content);
+
+	if ( length > maxByte )
+	{
+		content = subStrByByte(content, maxByte);
+		
+		obj.value = '';
+		alert(maxByte + 'byte까지 작성가능합니다.');
+		obj.value = content;
+		obj.focus();
+		
+		return false;
+	}
+	
+	return true;
+}
+/* deprecated */
+function isOverflow(obj, maxByte){
+	var content = obj.val();
+	if(getByteLength(content) > maxByte){
+		content = subStrByByte(content, maxByte);
+		obj.clear();
+		alert(maxByte + 'byte까지 작성가능합니다.');
+		obj.setValue(content);
+		obj.focus();
+		return true;
+	}
+	return false;
+}
+/* deprecated */
+
+function startCheckMaxByte(obj, maxByte)
+{
+	checkMaxByte(obj, maxByte);
+	
+	clearTimeout(time);
+	time = window.setTimeout(function() { startCheckMaxByte(obj, maxByte); }, 200);
+}
+
+function stopCheckMaxByte(obj, maxByte)
+{
+	clearTimeout(time);
+	time = null;
+	
+	checkMaxByte(obj, maxByte);
+}
+
+function subStrByByte( str, maxByte )
+{
+	var cutPos = maxByte;
+	for (var i = 0; (i < str.length) && (i < maxByte); i++)
+	{
+		if(str.charCodeAt(i) > 127)
+		{
+			cutPos--;
+			maxByte--;
+		}
+	}
+	return str.substr(0, cutPos);
+}
+
+function getByteLength( strData )
+{
+	var nLen = 0;
+	var nLoop;
+	for (var nLoop = 0; nLoop < strData.length; nLoop++)
+	{
+		if(strData.charCodeAt(nLoop) > 127)
+			nLen += 2;
+		else
+			nLen++;
+	}
+
+	return nLen;
+}
+/****************************************************************************************************
+ * E : 글자수(byte 기반) 체크 메서드
+ ****************************************************************************************************/
+
+/* deprecated */
+function ResizeImage( obj , max)
+{
+	var maxWidth = 610;
+	if (max) {
+		maxWidth = max;
+	}
+	var tmpImg = new Image();
+	tmpImg.src = obj.src;
+	tmpImg.width = obj.width;
+	tmpImg.height = obj.height;
+	
+	if ( tmpImg.width > maxWidth )
+	{
+		/*try {
+			Element.extend(obj);
+			obj.writeAttribute('style');
+		} catch(e) {
+			//ignore
+		}*/
+		obj.width = maxWidth;
+		obj.height = tmpImg.height * maxWidth / tmpImg.width;
+	}
+}
+/* deprecated */
+
+function copyToClipboard(val)
+{
+	try {
+		var el = document.createElement('input');
+		el.value = val;
+		el.style = 'position:absolute;top:-9999em;';
+		document.body.appendChild(el);
+		el.select();
+		document.execCommand("copy");
+		el.setSelectionRange(0,0);
+		return true;
+	}
+	catch(e) {
+		alert("지원하지 않는 브라우저입니다.");
+		return false;
+	}
+
+	return false;
+} 
+
+
+function toggleCheckbox( obj, checkboxName )
+{
+	var isChecked = obj.checked;
+	var checkBoxList = j$("input[type=checkbox][name='"+checkboxName+"']");
+	j$(checkBoxList).each(function(i, e){ e.checked = !e.checked; });
+}
+
+
+/* deprecated */
+function checkAllElement( isChecked , checkboxName )
+{
+	var checkboxList = $$('input[type="checkbox"][name="'+checkboxName+'"]');
+	checkboxList.each( function(x) { x.checked = isChecked; });
+}
+/* deprecated */
+
+function getCheckedArr(checkboxName){
+	var checkboxList = $$('input[type="checkbox"][name="'+checkboxName+'"]');
+	var checkedArr = [];
+	checkboxList.each( function(x) { if(x.checked){checkedArr[checkedArr.length] = x;} });
+	return checkedArr;
+}
+
+function vndr(code)
+{
+	if( code != '' && code != null )
+	 {
+		pndrpageid = 'npann01';
+		var rand = new Date().getTime();
+		i = new Image();
+		i.src =  "https://statclick.nate.com/stat/statclick.tiff?cp_url=[click_ndr.nate.com/??ndrpageid=" + pndrpageid + "&ndrregionid=" + code + "&ndru=" + NDRU + "&ndrl=" + NDRL + "&ndrp=" + NDRP + "&ndru3=" + NDRU3 + "&ndrl3=" + NDRL3 + "]" + rand;
+	 }
+}
+
+/* deprecated */
+function defThumb(img)
+{
+	img.src='http://img.cyworld.com/img/video_v3/images/noimg.jpg';
+	img.onerror=null;
+	return;
+}
+
+function defTrendThumb(img)
+{
+	//imageSize : 85x70 px
+	img.src='http://fimg2.pann.com/new/download.jsp?FileID=26689745';
+	img.onerror=null;
+	return;
+}
+
+/* deprecated */
+function mt_rand(m1,m2){
+    return m1+parseInt(Math.random()*(m2+1-m1));
+}
+
+
+
+var Util = {
+	Validator:{
+		isDateYYYYMMDD:function(txtDate){
+			if (txtDate.length !== 8 || isNaN(txtDate)) {
+				return false;
+			}
+			var year = txtDate.substring(0, 4); 
+			var month = txtDate.substring(4, 6);
+			var day = txtDate.substring(6, 8);
+			return Util.Validator.isDate(year, month, day);
+		},
+		isDateYYYYMMDDHH:function(txtDate){
+			if (txtDate.length !== 10 || isNaN(txtDate)) {
+				return false;
+			}
+			var hour = txtDate.substring(8, 10);
+			if(hour>24||hour<0){
+				return false;
+			}
+			var yyyymmdd = txtDate.substring(0, 8); 
+			return Util.Validator.isDateYYYYMMDD(yyyymmdd);
+		},
+		isDate:function(strYear,strMonth,strDay){
+			// 윤년을 고려한 올바른 연도,월,일자를 입력했는지 검사한다.
+			var month = strMonth - 1; // 0~11
+			var day = strDay - 0;	 
+			var year = strYear - 0; 
+			if (year < 1000 || year > 3000) {
+				return false;
+			}
+			var mSeconds = (new Date(year, month, day)).getTime();
+			var objDate = new Date();
+			objDate.setTime(mSeconds); 
+
+			if (objDate.getFullYear() !== year ||
+					objDate.getMonth() !== month ||
+					objDate.getDate() !== day) {
+				return false;
+			}
+			return true; 
+		}
+	}
+}
+
+//입력된 char 가 한글인지 판별(유니코드 기반)
+function isKor( charCode )
+{
+	if( (charCode >= 4352 && charCode <= 4607) || (charCode >= 12592 && charCode <= 12687) || (charCode >= 43360 && charCode <= 57251) || (charCode >= 44032 && charCode <= 55203) || (charCode >= 55216 && charCode <= 55295) )
+		return true;
+	else
+		return false;
+}
+
+//입력된 char 가 영문인지 판별(유니코드 기반)
+function isEng( charCode )
+{
+	if( (charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122) )
+		return true;
+	else
+		return false;
+}
+
+//입력된 char 가 숫자인지 판별(유니코드 기반)
+function isNum( charCode )
+{
+	if( charCode >= 48 && charCode <= 57 )
+		return true;
+	else
+		return false;
+}
+
+Number.prototype.number_format = function(round_decimal) {
+	return this.toFixed(round_decimal).replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+}
