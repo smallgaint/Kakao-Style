@@ -12,7 +12,25 @@ BOARDS = [
 
 # parameters: 페이지 범위
 START_PAGE = 1
-END_PAGE = 1
+END_PAGE = 2
+
+# parameters: 검색 설정
+# CLI에서 --keyword 또는 --keywords를 넘기면 게시판 페이지 순회 대신 검색 결과를 수집합니다.
+SEARCH_KEYWORDS = ["지그재그", "직잭", "무신사","에이블리","직쟄", "직젝", "직젴", "zigzag", "29cm", "29CM"]
+SEARCH_ALL_BOARDS = True  # True면 board/category를 무시하고 전체 검색 결과만 수집
+SEARCH_TYPE = 9  # 1=제목, 5=내용, 9=제목+내용
+SEARCH_ENDPOINT = "popup"  # popup=더보기형 검색, board=게시판 list.php 검색
+MAX_MORE_CLICKS = 10
+MAX_SEARCH_POSTS = 0  # 0이면 제한 없음
+
+# parameters: 로그인 설정
+# 비밀번호를 파일에 저장하지 않도록 INSTIZ_ID / INSTIZ_PASSWORD 환경변수 사용을 권장합니다.
+LOGIN_ENABLED = True
+LOGIN_USERNAME = "smallgaint"
+LOGIN_PASSWORD = "2848hohoho"
+LOGIN_STORAGE_STATE = "auth/instiz_storage_state.json"
+SAVE_LOGIN_STATE = True
+MANUAL_LOGIN_WAIT_SECONDS = 0  # 0이면 수동 로그인 대기 없음
 
 # parameters: 수집 옵션
 CRAWL_CONTENT = True

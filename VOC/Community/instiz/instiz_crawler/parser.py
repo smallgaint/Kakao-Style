@@ -2,7 +2,9 @@
 HTML 파싱 전담 (모든 CSS Selector는 이 파일에서만 관리)
 """
 
+import re
 from typing import Optional, List, Tuple
+from urllib.parse import urljoin, urlparse
 from bs4 import BeautifulSoup
 import logging
 
@@ -15,25 +17,84 @@ class InstizParser:
     """인스티즈 HTML 파서"""
     
     # parameters: CSS Selector 정의 (사이트 구조 변경 시 여기만 수정)
+    SELECTORS = {
+        "board": {
+            "post_items": ["tr#detour", "tr#greenv", "tr[id]"],
+            "title": ["td.listsubject a", ".listsubject a"],
+            "comment": ["span.cmt3", "span.cmt"],
+            "views": ["td.listhit"],
+            "likes": ["td.listrecomendgood"],
+            "date": ["td.listdate"],
+        },
+        "search": {
+            "result_links": [
+                "td.listsubject a[href]",
+                ".listsubject a[href]",
+                ".search_item a[href]",
+                ".search_list a[href]",
+                "a[href]",
+                "a[href*='/name_beauty/']",
+                "a[href*='/name/']",
+                "a[href*='/pt/']",
+            ],
+            "more_buttons": [
+                "a:has-text('더보기')",
+                "button:has-text('더보기')",
+                "input[value*='더보기']",
+                ".more:visible",
+                ".more_btn:visible",
+                ".btn_more:visible",
+                "[class*='more']:visible",
+                "[id*='more']:visible",
+            ],
+        },
+        "login": {
+            "window": ["#loginwindow"],
+            "form": ["form#login", "form[name='login']", "form[action*='login_check.php']"],
+            "iframe": ["iframe#ifrm_login", "iframe[name='ifrm_login']"],
+            "username": ["#user_id", "input[name='user_id']"],
+            "password": ["#password", "input[name='password']"],
+            "submit": ["input.login_go", "input[type='submit'][value*='로그인']", "button:has-text('로그인')"],
+            "logout": ["a[href*='logout']", "a:has-text('로그아웃')", "a:has-text('로그 아웃')"],
+        },
+        "detail": {
+            "content": ["div.post-content", "div#post_content", "#memo_content", ".memo_content", ".article"],
+            "images": ["div.post-content img", "div#post_content img", "#memo_content img", ".memo_content img", ".article img"],
+        },
+        "comments": {
+            "items": ["div.comment-item", "div.reply-item", ".comment_list li", "tr[id^='comment']"],
+            "author": ["span.comment-author", ".comment-author", ".nick", ".name"],
+            "time": ["span.comment-date", "span.comment-time", ".date", ".time"],
+            "content": ["div.comment-text", "p.comment-content", ".comment-content", ".comment_text"],
+        },
+    }
     
     # 게시판 목록 페이지 Selectors
-    POST_ITEM_SELECTOR = "tr#detour"  # 게시물 항목 (tr id="detour")
+    POST_ITEM_SELECTOR = SELECTORS["board"]["post_items"][0]  # 게시물 항목 (tr id="detour")
     POST_CATEGORY_SELECTOR = "td.minitext.listnm a"  # 카테고리 링크
-    POST_TITLE_SELECTOR = "td.listsubject a"  # 제목 및 링크
+    POST_TITLE_SELECTOR = SELECTORS["board"]["title"][0]  # 제목 및 링크
     POST_AUTHOR_SELECTOR = "td.listsigner"  # 작성자 (존재 시)
-    POST_COMMENT_SELECTOR = "span.cmt3, span.cmt"  # 댓글 수
-    POST_VIEW_SELECTOR = "td.listhit"  # 조회수
-    POST_LIKE_SELECTOR = "td.listrecomendgood"  # 추천수
-    POST_DATE_SELECTOR = "td.listdate"  # 작성 날짜
+    POST_COMMENT_SELECTOR = ", ".join(SELECTORS["board"]["comment"])  # 댓글 수
+    POST_VIEW_SELECTOR = SELECTORS["board"]["views"][0]  # 조회수
+    POST_LIKE_SELECTOR = SELECTORS["board"]["likes"][0]  # 추천수
+    POST_DATE_SELECTOR = SELECTORS["board"]["date"][0]  # 작성 날짜
     
     # 게시글 상세 페이지 Selectors
-    CONTENT_SELECTOR = "div.post-content, div#post_content"
-    IMAGES_SELECTOR = "div.post-content img, div#post_content img"
-    COMMENT_ITEM_SELECTOR = "div.comment-item, div.reply-item"
-    COMMENT_AUTHOR_SELECTOR = "span.comment-author"
-    COMMENT_TIME_SELECTOR = "span.comment-date, span.comment-time"
-    COMMENT_TEXT_SELECTOR = "div.comment-text, p.comment-content"
+    CONTENT_SELECTOR = ", ".join(SELECTORS["detail"]["content"])
+    IMAGES_SELECTOR = ", ".join(SELECTORS["detail"]["images"])
+    COMMENT_ITEM_SELECTOR = ", ".join(SELECTORS["comments"]["items"])
+    COMMENT_AUTHOR_SELECTOR = ", ".join(SELECTORS["comments"]["author"])
+    COMMENT_TIME_SELECTOR = ", ".join(SELECTORS["comments"]["time"])
+    COMMENT_TEXT_SELECTOR = ", ".join(SELECTORS["comments"]["content"])
     COMMENT_REPLY_CLASS = "reply-item"
+
+    LOGIN_FORM_SELECTOR = ", ".join(SELECTORS["login"]["form"])
+    LOGIN_WINDOW_SELECTOR = ", ".join(SELECTORS["login"]["window"])
+    LOGIN_IFRAME_SELECTOR = ", ".join(SELECTORS["login"]["iframe"])
+    LOGIN_USERNAME_SELECTOR = ", ".join(SELECTORS["login"]["username"])
+    LOGIN_PASSWORD_SELECTOR = ", ".join(SELECTORS["login"]["password"])
+    LOGIN_SUBMIT_SELECTOR = ", ".join(SELECTORS["login"]["submit"])
+    LOGOUT_SELECTOR = ", ".join(SELECTORS["login"]["logout"])
     
     @staticmethod
     def parse_board_list(
@@ -207,6 +268,67 @@ class InstizParser:
         return posts
     
     @staticmethod
+    def parse_search_results(
+        html: str,
+        board: str,
+        category: int,
+        keyword: str = ""
+    ) -> List[Tuple[int, str, str, str, int, int, int, str, bool]]:
+        """검색 결과 HTML에서 게시글 목록을 파싱합니다.
+
+        인스티즈 검색 결과는 로그인 상태/화면 폭/사이트 개편에 따라 table row,
+        카드형 링크, 더보기로 추가된 fragment가 섞일 수 있으므로 링크를 기준으로
+        보수적으로 수집합니다.
+        """
+        soup = BeautifulSoup(html, "html.parser")
+        posts = InstizParser.parse_board_list(html, board, category) if board else []
+        seen_ids = {post[0] for post in posts}
+
+        for selector in InstizParser.SELECTORS["search"]["result_links"]:
+            for link_elem in soup.select(selector):
+                try:
+                    href = link_elem.get("href", "")
+                    post_url = urljoin("https://www.instiz.net", href)
+                    post_id = InstizParser.extract_post_id(post_url)
+                    if not post_id or post_id in seen_ids:
+                        continue
+                    if board and f"/{board}/" not in urlparse(post_url).path:
+                        continue
+
+                    title = InstizParser._clean_title(link_elem.get_text(" ", strip=True))
+                    if not title:
+                        continue
+
+                    container = link_elem.find_parent(["tr", "li", "article", "div"]) or link_elem
+                    container_text = container.get_text(" ", strip=True)
+                    comment_count = InstizParser._extract_comment_count(link_elem.get_text(" ", strip=True))
+                    view_count = InstizParser._extract_labeled_int(container_text, ["조회"])
+                    like_count = InstizParser._extract_labeled_int(container_text, ["추천"])
+                    created_date = InstizParser._extract_date(container_text)
+                    has_image = bool(container.select("img")) or "[사진]" in title
+
+                    posts.append((
+                        post_id,
+                        title,
+                        "Unknown",
+                        post_url,
+                        comment_count,
+                        view_count,
+                        like_count,
+                        created_date,
+                        has_image,
+                    ))
+                    seen_ids.add(post_id)
+                except Exception as e:
+                    logger.warning(f"검색 결과 항목 파싱 실패: {str(e)}")
+                    continue
+
+        if keyword and not posts and "검색은 회원만 할 수 있어요" in soup.get_text(" ", strip=True):
+            logger.warning("인스티즈 검색 결과가 로그인 전용 화면입니다. 로그인 세션이 없으면 검색 결과가 비어 있을 수 있습니다.")
+
+        return posts
+
+    @staticmethod
     def parse_post_detail(html: str) -> Tuple[Optional[str], int]:
         """게시글 상세 페이지 파싱
         
@@ -305,3 +427,51 @@ class InstizParser:
             logger.error(f"댓글 파싱 실패: {str(e)}")
         
         return comments
+
+    @staticmethod
+    def more_button_selectors() -> List[str]:
+        """Return Playwright selectors for search-result load-more controls."""
+        return InstizParser.SELECTORS["search"]["more_buttons"]
+
+    @staticmethod
+    def extract_post_id(url: str) -> int:
+        """Extract an Instiz article id from a post URL."""
+        match = re.search(r"/([^/?#]+)/(\d+)", urlparse(url).path)
+        return int(match.group(2)) if match else 0
+
+    @staticmethod
+    def extract_board_name(url: str) -> str:
+        """Extract the board path segment from an Instiz post URL."""
+        match = re.search(r"/([^/?#]+)/\d+", urlparse(url).path)
+        return match.group(1) if match else ""
+
+    @staticmethod
+    def _clean_title(text: str) -> str:
+        """Remove trailing metric-only fragments from a link title."""
+        text = re.sub(r"\s+", " ", text).strip()
+        text = re.sub(r"\s+\d{2}\.\d{2}.*$", "", text).strip()
+        return re.sub(r"\s+\d+$", "", text).strip()
+
+    @staticmethod
+    def _extract_comment_count(text: str) -> int:
+        """Extract a likely trailing comment count from title text."""
+        match = re.search(r"(\d+)\s*$", text.strip())
+        return int(match.group(1)) if match else 0
+
+    @staticmethod
+    def _extract_labeled_int(text: str, labels: List[str]) -> int:
+        """Extract a number following one of the given labels."""
+        for label in labels:
+            match = re.search(rf"{re.escape(label)}\s*([\d,]+)", text)
+            if match:
+                return int(match.group(1).replace(",", ""))
+        return 0
+
+    @staticmethod
+    def _extract_date(text: str) -> str:
+        """Extract and normalize a date-like token from surrounding text."""
+        match = re.search(r"(\d{2}\.\d{2}(?:\.\d{2})?)", text)
+        if match:
+            return utils.convert_date(match.group(1))
+        from datetime import datetime
+        return datetime.now().strftime("%y.%m.%d")
