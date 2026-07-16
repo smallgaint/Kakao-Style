@@ -434,3 +434,939 @@ AttributeError: module 'config' has no attribute 'BASE_URL'
 2026-07-13 16:16:26 [WARNING] __main__: 
 사용자에 의해 크롤링 중단됨
 2026-07-13 16:16:26 [INFO] crawler: 브라우저 종료 중...
+2026-07-16 04:10:00 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:10:00 [INFO] crawler: 브라우저 시작 중...
+2026-07-16 04:10:02 [INFO] crawler: 브라우저 시작 완료
+2026-07-16 04:10:02 [INFO] __main__: 
+게시판 크롤링: name_beauty (카테고리: 12, 페이지: 1~1)
+2026-07-16 04:10:02 [INFO] crawler: 게시판 크롤링 시작: name_beauty (카테고리: 12)
+2026-07-16 04:10:08 [INFO] crawler: 게시판 크롤링 완료: 15개 게시글 수집
+2026-07-16 04:10:08 [INFO] crawler: 게시글 본문 수집 시작: 15개 게시글
+2026-07-16 04:10:41 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_beauty/1668040?category=1&green=1 - [TimeoutError]
+2026-07-16 04:11:14 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_beauty/1668040?category=1&green=1 - [TimeoutError]
+2026-07-16 04:11:47 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_beauty/1668040?category=1&green=1 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:12:19 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_beauty/1668057?category=27&green=1 - [TimeoutError]
+2026-07-16 04:12:53 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_beauty/1668057?category=27&green=1 - [TimeoutError]
+2026-07-16 04:13:26 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_beauty/1668057?category=27&green=1 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:13:58 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_beauty/1668048?category=12&green=1 - [TimeoutError]
+2026-07-16 04:14:30 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:14:31 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_beauty/1668048?category=12&green=1 - [TimeoutError]
+2026-07-16 04:14:41 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:14:41 [INFO] crawler: 브라우저 시작 중...
+2026-07-16 04:14:42 [INFO] crawler: 브라우저 시작 완료
+2026-07-16 04:14:42 [INFO] __main__: 
+검색 크롤링: name_beauty (카테고리: 12, 키워드: nike)
+2026-07-16 04:14:42 [INFO] crawler: 검색 크롤링 시작: board=name_beauty, category=12, keyword=nike
+2026-07-16 04:14:42 [INFO] crawler: 검색 결과 요청: board=name_beauty, category=12, keyword=nike
+2026-07-16 04:14:47 [WARNING] parser: 게시물 항목을 찾을 수 없음: tr#detour
+2026-07-16 04:14:47 [INFO] crawler: 검색 초기 결과: keyword=nike, posts=26
+2026-07-16 04:14:48 [WARNING] parser: 게시물 항목을 찾을 수 없음: tr#detour
+2026-07-16 04:14:48 [WARNING] parser: 인스티즈 검색 결과가 로그인 전용 화면입니다. 로그인 세션이 없으면 검색 결과가 비어 있을 수 있습니다.
+2026-07-16 04:14:48 [INFO] crawler: 검색 크롤링 완료: keyword=nike, posts=0
+2026-07-16 04:14:48 [WARNING] __main__: 저장할 게시글이 없습니다
+2026-07-16 04:14:48 [INFO] __main__: ==================================================
+2026-07-16 04:14:48 [INFO] __main__: 크롤링 완료
+2026-07-16 04:14:48 [INFO] __main__: ==================================================
+2026-07-16 04:14:48 [INFO] __main__: 시작 시간: 2026-07-16T04:14:41.732598
+2026-07-16 04:14:48 [INFO] __main__: 종료 시간: 2026-07-16T04:14:48.200283
+2026-07-16 04:14:48 [INFO] __main__: 실행 시간: 6초
+2026-07-16 04:14:48 [INFO] __main__: --------------------------------------------------
+2026-07-16 04:14:48 [INFO] __main__: 게시판 수: 1
+2026-07-16 04:14:48 [INFO] __main__: 페이지 수: 1
+2026-07-16 04:14:48 [INFO] __main__: 게시글 수: 0
+2026-07-16 04:14:48 [INFO] __main__: 댓글 수: 0
+2026-07-16 04:14:48 [INFO] __main__: --------------------------------------------------
+2026-07-16 04:14:48 [INFO] __main__: 오류 수: 0
+2026-07-16 04:14:48 [INFO] __main__: 재시도 횟수: 0
+2026-07-16 04:14:48 [INFO] __main__: 평균 처리 속도: 0.00 게시글/초
+2026-07-16 04:14:48 [INFO] __main__: ==================================================
+2026-07-16 04:14:48 [INFO] __main__: 인스티즈 크롤러 종료
+2026-07-16 04:14:48 [INFO] crawler: 브라우저 종료 중...
+2026-07-16 04:14:48 [INFO] crawler: 브라우저 종료 완료
+2026-07-16 04:14:58 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:14:58 [INFO] crawler: 브라우저 시작 중...
+2026-07-16 04:14:59 [INFO] crawler: 브라우저 시작 완료
+2026-07-16 04:14:59 [INFO] __main__: 
+게시판 크롤링: name_beauty (카테고리: 12, 페이지: 1~1)
+2026-07-16 04:14:59 [INFO] crawler: 게시판 크롤링 시작: name_beauty (카테고리: 12)
+2026-07-16 04:15:04 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_beauty/1668048?category=12&green=1 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:15:04 [INFO] crawler: 게시판 크롤링 완료: 15개 게시글 수집
+2026-07-16 04:15:04 [ERROR] __main__: CSV 저장 실패: dict contains fields not in fieldnames: 'content'
+2026-07-16 04:15:04 [INFO] __main__: ==================================================
+2026-07-16 04:15:04 [INFO] __main__: 크롤링 완료
+2026-07-16 04:15:04 [INFO] __main__: ==================================================
+2026-07-16 04:15:04 [INFO] __main__: 시작 시간: 2026-07-16T04:14:58.319468
+2026-07-16 04:15:04 [INFO] __main__: 종료 시간: 2026-07-16T04:15:04.946013
+2026-07-16 04:15:04 [INFO] __main__: 실행 시간: 6초
+2026-07-16 04:15:04 [INFO] __main__: --------------------------------------------------
+2026-07-16 04:15:04 [INFO] __main__: 게시판 수: 1
+2026-07-16 04:15:04 [INFO] __main__: 페이지 수: 1
+2026-07-16 04:15:04 [INFO] __main__: 게시글 수: 15
+2026-07-16 04:15:04 [INFO] __main__: 댓글 수: 0
+2026-07-16 04:15:04 [INFO] __main__: --------------------------------------------------
+2026-07-16 04:15:04 [INFO] __main__: 오류 수: 0
+2026-07-16 04:15:04 [INFO] __main__: 재시도 횟수: 0
+2026-07-16 04:15:04 [INFO] __main__: 평균 처리 속도: 2.26 게시글/초
+2026-07-16 04:15:04 [INFO] __main__: ==================================================
+2026-07-16 04:15:04 [INFO] __main__: 인스티즈 크롤러 종료
+2026-07-16 04:15:04 [INFO] crawler: 브라우저 종료 중...
+2026-07-16 04:15:05 [INFO] crawler: 브라우저 종료 완료
+2026-07-16 04:15:19 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:15:19 [INFO] crawler: 브라우저 시작 중...
+2026-07-16 04:15:20 [INFO] crawler: 브라우저 시작 완료
+2026-07-16 04:15:20 [INFO] __main__: 
+게시판 크롤링: name_beauty (카테고리: 12, 페이지: 1~1)
+2026-07-16 04:15:20 [INFO] crawler: 게시판 크롤링 시작: name_beauty (카테고리: 12)
+2026-07-16 04:15:26 [INFO] crawler: 게시판 크롤링 완료: 15개 게시글 수집
+2026-07-16 04:15:26 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_name_beauty_1_1.csv (new=15, total=15)
+2026-07-16 04:15:26 [INFO] __main__: ==================================================
+2026-07-16 04:15:26 [INFO] __main__: 크롤링 완료
+2026-07-16 04:15:26 [INFO] __main__: ==================================================
+2026-07-16 04:15:26 [INFO] __main__: 시작 시간: 2026-07-16T04:15:19.765259
+2026-07-16 04:15:26 [INFO] __main__: 종료 시간: 2026-07-16T04:15:26.516926
+2026-07-16 04:15:26 [INFO] __main__: 실행 시간: 6초
+2026-07-16 04:15:26 [INFO] __main__: --------------------------------------------------
+2026-07-16 04:15:26 [INFO] __main__: 게시판 수: 1
+2026-07-16 04:15:26 [INFO] __main__: 페이지 수: 1
+2026-07-16 04:15:26 [INFO] __main__: 게시글 수: 15
+2026-07-16 04:15:26 [INFO] __main__: 댓글 수: 0
+2026-07-16 04:15:26 [INFO] __main__: --------------------------------------------------
+2026-07-16 04:15:26 [INFO] __main__: 오류 수: 0
+2026-07-16 04:15:26 [INFO] __main__: 재시도 횟수: 0
+2026-07-16 04:15:26 [INFO] __main__: 평균 처리 속도: 2.22 게시글/초
+2026-07-16 04:15:26 [INFO] __main__: ==================================================
+2026-07-16 04:15:26 [INFO] __main__: 인스티즈 크롤러 종료
+2026-07-16 04:15:26 [INFO] crawler: 브라우저 종료 중...
+2026-07-16 04:15:26 [INFO] crawler: 브라우저 종료 완료
+2026-07-16 04:15:33 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:15:33 [INFO] crawler: 브라우저 시작 중...
+2026-07-16 04:15:34 [INFO] crawler: 브라우저 시작 완료
+2026-07-16 04:15:34 [INFO] __main__: 
+검색 크롤링: name_beauty (카테고리: 12, 키워드: nike)
+2026-07-16 04:15:34 [INFO] crawler: 검색 크롤링 시작: board=name_beauty, category=12, keyword=nike
+2026-07-16 04:15:34 [INFO] crawler: 검색 결과 요청: board=name_beauty, category=12, keyword=nike
+2026-07-16 04:15:36 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_beauty/1668044?category=34&green=1 - [TimeoutError]
+2026-07-16 04:15:39 [WARNING] parser: 게시물 항목을 찾을 수 없음: tr#detour
+2026-07-16 04:15:39 [INFO] crawler: 검색 초기 결과: keyword=nike, posts=26
+2026-07-16 04:15:39 [WARNING] parser: 게시물 항목을 찾을 수 없음: tr#detour
+2026-07-16 04:15:39 [WARNING] parser: 인스티즈 검색 결과가 로그인 전용 화면입니다. 로그인 세션이 없으면 검색 결과가 비어 있을 수 있습니다.
+2026-07-16 04:15:39 [INFO] crawler: 검색 크롤링 완료: keyword=nike, posts=0
+2026-07-16 04:15:39 [WARNING] __main__: 저장할 게시글이 없습니다
+2026-07-16 04:15:39 [INFO] __main__: ==================================================
+2026-07-16 04:15:39 [INFO] __main__: 크롤링 완료
+2026-07-16 04:15:39 [INFO] __main__: ==================================================
+2026-07-16 04:15:39 [INFO] __main__: 시작 시간: 2026-07-16T04:15:33.794124
+2026-07-16 04:15:39 [INFO] __main__: 종료 시간: 2026-07-16T04:15:39.928184
+2026-07-16 04:15:39 [INFO] __main__: 실행 시간: 6초
+2026-07-16 04:15:39 [INFO] __main__: --------------------------------------------------
+2026-07-16 04:15:39 [INFO] __main__: 게시판 수: 1
+2026-07-16 04:15:39 [INFO] __main__: 페이지 수: 1
+2026-07-16 04:15:39 [INFO] __main__: 게시글 수: 0
+2026-07-16 04:15:39 [INFO] __main__: 댓글 수: 0
+2026-07-16 04:15:39 [INFO] __main__: --------------------------------------------------
+2026-07-16 04:15:39 [INFO] __main__: 오류 수: 0
+2026-07-16 04:15:39 [INFO] __main__: 재시도 횟수: 0
+2026-07-16 04:15:39 [INFO] __main__: 평균 처리 속도: 0.00 게시글/초
+2026-07-16 04:15:39 [INFO] __main__: ==================================================
+2026-07-16 04:15:39 [INFO] __main__: 인스티즈 크롤러 종료
+2026-07-16 04:15:39 [INFO] crawler: 브라우저 종료 중...
+2026-07-16 04:15:40 [INFO] crawler: 브라우저 종료 완료
+2026-07-16 04:16:09 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_beauty/1668044?category=34&green=1 - [TimeoutError]
+2026-07-16 04:16:43 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_beauty/1668044?category=34&green=1 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:17:15 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_beauty/1668046?category=1&green=1 - [TimeoutError]
+2026-07-16 04:17:48 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_beauty/1668046?category=1&green=1 - [TimeoutError]
+2026-07-16 04:18:22 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_beauty/1668046?category=1&green=1 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:18:54 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_beauty/1668045?category=34&green=1&grnpage=2 - [TimeoutError]
+2026-07-16 04:19:27 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_beauty/1668045?category=34&green=1&grnpage=2 - [TimeoutError]
+2026-07-16 04:20:01 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_beauty/1668045?category=34&green=1&grnpage=2 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:20:33 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_beauty/1668056?category=34&green=1&grnpage=2 - [TimeoutError]
+2026-07-16 04:21:06 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_beauty/1668056?category=34&green=1&grnpage=2 - [TimeoutError]
+2026-07-16 04:21:39 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_beauty/1668056?category=34&green=1&grnpage=2 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:22:12 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_beauty/1668041?category=1&green=1&grnpage=2 - [TimeoutError]
+2026-07-16 04:22:45 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_beauty/1668041?category=1&green=1&grnpage=2 - [TimeoutError]
+2026-07-16 04:22:47 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:22:47 [ERROR] __main__: 크롤링 중 오류 발생: 'charmap' codec can't encode characters in position 681-684: character maps to <undefined>
+Traceback (most recent call last):
+  File "C:\Users\hohoh\Documents\HanYang University\4-1\HSTA\카카오스타일\VOC\Community\instiz\instiz_crawler\main.py", line 490, in main
+    args = parse_arguments()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\hohoh\Documents\HanYang University\4-1\HSTA\카카오스타일\VOC\Community\instiz\instiz_crawler\main.py", line 201, in parse_arguments
+    return parser.parse_args()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hohoh\AppData\Local\Programs\Python\Python311\Lib\argparse.py", line 1874, in parse_args
+    args, argv = self.parse_known_args(args, namespace)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hohoh\AppData\Local\Programs\Python\Python311\Lib\argparse.py", line 1907, in parse_known_args
+    namespace, args = self._parse_known_args(args, namespace)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hohoh\AppData\Local\Programs\Python\Python311\Lib\argparse.py", line 2128, in _parse_known_args
+    start_index = consume_optional(start_index)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hohoh\AppData\Local\Programs\Python\Python311\Lib\argparse.py", line 2068, in consume_optional
+    take_action(action, args, option_string)
+  File "C:\Users\hohoh\AppData\Local\Programs\Python\Python311\Lib\argparse.py", line 1983, in take_action
+    action(self, namespace, argument_values, option_string)
+  File "C:\Users\hohoh\AppData\Local\Programs\Python\Python311\Lib\argparse.py", line 1122, in __call__
+    parser.print_help()
+  File "C:\Users\hohoh\AppData\Local\Programs\Python\Python311\Lib\argparse.py", line 2611, in print_help
+    self._print_message(self.format_help(), file)
+  File "C:\Users\hohoh\AppData\Local\Programs\Python\Python311\Lib\argparse.py", line 2617, in _print_message
+    file.write(message)
+  File "C:\Users\hohoh\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 681-684: character maps to <undefined>
+2026-07-16 04:23:01 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:23:18 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_beauty/1668041?category=1&green=1&grnpage=2 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:23:56 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_beauty/1668052?category=1&green=1&grnpage=2 - [TimeoutError]
+2026-07-16 04:24:29 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_beauty/1668052?category=1&green=1&grnpage=2 - [TimeoutError]
+2026-07-16 04:25:03 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_beauty/1668052?category=1&green=1&grnpage=2 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:25:35 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_beauty/1668053?category=27&green=1&grnpage=3 - [TimeoutError]
+2026-07-16 04:27:09 [WARNING] __main__: 
+사용자에 의해 크롤링 중단됨
+2026-07-16 04:27:09 [INFO] crawler: 브라우저 종료 중...
+2026-07-16 04:30:04 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:30:04 [INFO] crawler: 브라우저 시작 중...
+2026-07-16 04:30:08 [INFO] crawler: 브라우저 시작 완료
+2026-07-16 04:30:41 [ERROR] crawler: 로그인 처리 중 오류: Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:30:41 [ERROR] __main__: 로그인이 필요한 작업을 계속할 수 없어 종료합니다
+2026-07-16 04:30:41 [INFO] crawler: 브라우저 종료 중...
+2026-07-16 04:30:56 [INFO] crawler: 브라우저 종료 완료
+2026-07-16 04:31:39 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:31:39 [INFO] crawler: 브라우저 시작 중...
+2026-07-16 04:31:41 [INFO] crawler: 브라우저 시작 완료
+2026-07-16 04:32:17 [ERROR] crawler: 로그인 처리 중 오류: Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:32:17 [ERROR] __main__: 로그인이 필요한 작업을 계속할 수 없어 종료합니다
+2026-07-16 04:32:17 [INFO] crawler: 브라우저 종료 중...
+2026-07-16 04:32:21 [INFO] crawler: 브라우저 종료 완료
+2026-07-16 04:33:53 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:34:23 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:34:23 [INFO] crawler: 브라우저 시작 중...
+2026-07-16 04:34:24 [INFO] crawler: 브라우저 시작 완료
+2026-07-16 04:34:31 [INFO] crawler: 로그인 시도: sm********
+2026-07-16 04:34:43 [WARNING] crawler: 자동 로그인 확인 실패
+2026-07-16 04:34:43 [ERROR] crawler: 로그인 실패: 아이디/비밀번호를 확인하거나 수동 로그인 대기를 사용하세요
+2026-07-16 04:34:43 [ERROR] __main__: 로그인이 필요한 작업을 계속할 수 없어 종료합니다
+2026-07-16 04:34:43 [INFO] crawler: 브라우저 종료 중...
+2026-07-16 04:34:44 [INFO] crawler: 브라우저 종료 완료
+2026-07-16 04:36:50 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:37:04 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:37:04 [INFO] crawler: 브라우저 시작 중...
+2026-07-16 04:37:06 [INFO] crawler: 브라우저 시작 완료
+2026-07-16 04:37:12 [INFO] crawler: 로그인 시도: sm********
+2026-07-16 04:37:31 [WARNING] crawler: 자동 로그인 확인 실패
+2026-07-16 04:37:31 [ERROR] crawler: 로그인 실패: 아이디/비밀번호를 확인하거나 수동 로그인 대기를 사용하세요
+2026-07-16 04:37:31 [ERROR] __main__: 로그인이 필요한 작업을 계속할 수 없어 종료합니다
+2026-07-16 04:37:31 [INFO] crawler: 브라우저 종료 중...
+2026-07-16 04:37:32 [INFO] crawler: 브라우저 종료 완료
+2026-07-16 04:38:40 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:38:53 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:38:53 [INFO] crawler: 브라우저 시작 중...
+2026-07-16 04:38:55 [INFO] crawler: 브라우저 시작 완료
+2026-07-16 04:39:00 [INFO] crawler: 로그인 시도: sm********
+2026-07-16 04:39:24 [INFO] crawler: 검색 페이지 접근 확인
+2026-07-16 04:39:24 [INFO] crawler: 로그인 성공
+2026-07-16 04:39:26 [INFO] crawler: 로그인 세션 저장: C:\Users\hohoh\Documents\HanYang University\4-1\HSTA\카카오스타일\VOC\Community\instiz\instiz_crawler\auth\instiz_storage_state.json
+2026-07-16 04:39:26 [INFO] __main__: 
+검색 크롤링: name_beauty (카테고리: 12, 키워드: 지그재그, 직잭, 무신사, 에이블리, 직쟄, 직젝, 직젴, zigzag, 29cm, 29CM)
+2026-07-16 04:39:26 [INFO] crawler: 검색 크롤링 시작: board=name_beauty, category=12, keyword=지그재그
+2026-07-16 04:39:26 [INFO] crawler: 검색 결과 요청: board=name_beauty, category=12, keyword=지그재그
+2026-07-16 04:39:57 [ERROR] crawler: 검색 결과 수집 실패: https://www.instiz.net/popup_search.htm?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&id=name_beauty - Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:39:57 [INFO] crawler: 검색 크롤링 완료: keyword=지그재그, posts=0
+2026-07-16 04:39:57 [WARNING] __main__: 저장할 게시글이 없습니다
+2026-07-16 04:39:57 [INFO] crawler: 검색 크롤링 시작: board=name_beauty, category=12, keyword=직잭
+2026-07-16 04:39:57 [INFO] crawler: 검색 결과 요청: board=name_beauty, category=12, keyword=직잭
+2026-07-16 04:40:29 [ERROR] crawler: 검색 결과 수집 실패: https://www.instiz.net/popup_search.htm?k=%EC%A7%81%EC%9E%AD&id=name_beauty - Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:40:29 [INFO] crawler: 검색 크롤링 완료: keyword=직잭, posts=0
+2026-07-16 04:40:29 [WARNING] __main__: 저장할 게시글이 없습니다
+2026-07-16 04:40:29 [INFO] crawler: 검색 크롤링 시작: board=name_beauty, category=12, keyword=무신사
+2026-07-16 04:40:29 [INFO] crawler: 검색 결과 요청: board=name_beauty, category=12, keyword=무신사
+2026-07-16 04:41:00 [ERROR] crawler: 검색 결과 수집 실패: https://www.instiz.net/popup_search.htm?k=%EB%AC%B4%EC%8B%A0%EC%82%AC&id=name_beauty - Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:41:01 [INFO] crawler: 검색 크롤링 완료: keyword=무신사, posts=0
+2026-07-16 04:41:01 [WARNING] __main__: 저장할 게시글이 없습니다
+2026-07-16 04:41:01 [INFO] crawler: 검색 크롤링 시작: board=name_beauty, category=12, keyword=에이블리
+2026-07-16 04:41:01 [INFO] crawler: 검색 결과 요청: board=name_beauty, category=12, keyword=에이블리
+2026-07-16 04:41:32 [ERROR] crawler: 검색 결과 수집 실패: https://www.instiz.net/popup_search.htm?k=%EC%97%90%EC%9D%B4%EB%B8%94%EB%A6%AC&id=name_beauty - Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:41:32 [INFO] crawler: 검색 크롤링 완료: keyword=에이블리, posts=0
+2026-07-16 04:41:32 [WARNING] __main__: 저장할 게시글이 없습니다
+2026-07-16 04:41:32 [INFO] crawler: 검색 크롤링 시작: board=name_beauty, category=12, keyword=직쟄
+2026-07-16 04:41:32 [INFO] crawler: 검색 결과 요청: board=name_beauty, category=12, keyword=직쟄
+2026-07-16 04:42:04 [ERROR] crawler: 검색 결과 수집 실패: https://www.instiz.net/popup_search.htm?k=%EC%A7%81%EC%9F%84&id=name_beauty - Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:42:04 [INFO] crawler: 검색 크롤링 완료: keyword=직쟄, posts=0
+2026-07-16 04:42:04 [WARNING] __main__: 저장할 게시글이 없습니다
+2026-07-16 04:42:04 [INFO] crawler: 검색 크롤링 시작: board=name_beauty, category=12, keyword=직젝
+2026-07-16 04:42:04 [INFO] crawler: 검색 결과 요청: board=name_beauty, category=12, keyword=직젝
+2026-07-16 04:42:36 [ERROR] crawler: 검색 결과 수집 실패: https://www.instiz.net/popup_search.htm?k=%EC%A7%81%EC%A0%9D&id=name_beauty - Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:42:36 [INFO] crawler: 검색 크롤링 완료: keyword=직젝, posts=0
+2026-07-16 04:42:36 [WARNING] __main__: 저장할 게시글이 없습니다
+2026-07-16 04:42:36 [INFO] crawler: 검색 크롤링 시작: board=name_beauty, category=12, keyword=직젴
+2026-07-16 04:42:36 [INFO] crawler: 검색 결과 요청: board=name_beauty, category=12, keyword=직젴
+2026-07-16 04:43:07 [ERROR] crawler: 검색 결과 수집 실패: https://www.instiz.net/popup_search.htm?k=%EC%A7%81%EC%A0%B4&id=name_beauty - Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:43:07 [INFO] crawler: 검색 크롤링 완료: keyword=직젴, posts=0
+2026-07-16 04:43:07 [WARNING] __main__: 저장할 게시글이 없습니다
+2026-07-16 04:43:07 [INFO] crawler: 검색 크롤링 시작: board=name_beauty, category=12, keyword=zigzag
+2026-07-16 04:43:07 [INFO] crawler: 검색 결과 요청: board=name_beauty, category=12, keyword=zigzag
+2026-07-16 04:43:35 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:43:40 [ERROR] crawler: 검색 결과 수집 실패: https://www.instiz.net/popup_search.htm?k=zigzag&id=name_beauty - Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:43:40 [INFO] crawler: 검색 크롤링 완료: keyword=zigzag, posts=0
+2026-07-16 04:43:40 [WARNING] __main__: 저장할 게시글이 없습니다
+2026-07-16 04:43:40 [INFO] crawler: 검색 크롤링 시작: board=name_beauty, category=12, keyword=29cm
+2026-07-16 04:43:40 [INFO] crawler: 검색 결과 요청: board=name_beauty, category=12, keyword=29cm
+2026-07-16 04:43:56 [WARNING] __main__: 
+사용자에 의해 크롤링 중단됨
+2026-07-16 04:43:56 [INFO] crawler: 브라우저 종료 중...
+2026-07-16 04:44:28 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:44:28 [INFO] crawler: 브라우저 시작 중...
+2026-07-16 04:44:36 [INFO] crawler: 저장된 로그인 세션 사용: C:\Users\hohoh\Documents\HanYang University\4-1\HSTA\카카오스타일\VOC\Community\instiz\instiz_crawler\auth\instiz_storage_state.json
+2026-07-16 04:44:38 [INFO] crawler: 브라우저 시작 완료
+2026-07-16 04:44:46 [INFO] crawler: 로그인 시도: sm********
+2026-07-16 04:44:52 [ERROR] crawler: 로그인 처리 중 오류: Page.evaluate: Error: login form not found
+    at eval (eval at evaluate (:303:30), <anonymous>:6:27)
+    at UtilityScript.evaluate (<anonymous>:310:18)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+2026-07-16 04:44:53 [ERROR] __main__: 로그인이 필요한 작업을 계속할 수 없어 종료합니다
+2026-07-16 04:44:53 [INFO] crawler: 브라우저 종료 중...
+2026-07-16 04:44:55 [INFO] crawler: 브라우저 종료 완료
+2026-07-16 04:46:11 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:46:11 [INFO] crawler: 브라우저 시작 중...
+2026-07-16 04:46:11 [INFO] crawler: 저장된 로그인 세션 사용: C:\Users\hohoh\Documents\HanYang University\4-1\HSTA\카카오스타일\VOC\Community\instiz\instiz_crawler\auth\instiz_storage_state.json
+2026-07-16 04:46:12 [INFO] crawler: 브라우저 시작 완료
+2026-07-16 04:46:25 [INFO] crawler: 검색 페이지 접근 확인
+2026-07-16 04:46:25 [INFO] crawler: 이미 로그인된 세션입니다
+2026-07-16 04:46:26 [INFO] crawler: 로그인 세션 저장: C:\Users\hohoh\Documents\HanYang University\4-1\HSTA\카카오스타일\VOC\Community\instiz\instiz_crawler\auth\instiz_storage_state.json
+2026-07-16 04:46:26 [INFO] __main__: 
+전체 검색 크롤링: 키워드: 지그재그, 직잭, 무신사, 에이블리, 직쟄, 직젝, 직젴, zigzag, 29cm, 29CM
+2026-07-16 04:46:26 [INFO] crawler: 검색 크롤링 시작: board=, category=0, keyword=지그재그
+2026-07-16 04:46:26 [INFO] crawler: 검색 결과 요청: board=, category=0, keyword=지그재그
+2026-07-16 04:46:58 [ERROR] crawler: 검색 결과 수집 실패: https://www.instiz.net/popup_search.htm?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8 - Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:46:58 [INFO] crawler: 검색 크롤링 완료: keyword=지그재그, posts=0
+2026-07-16 04:46:58 [WARNING] __main__: 저장할 게시글이 없습니다
+2026-07-16 04:46:58 [INFO] crawler: 검색 크롤링 시작: board=, category=0, keyword=직잭
+2026-07-16 04:46:58 [INFO] crawler: 검색 결과 요청: board=, category=0, keyword=직잭
+2026-07-16 04:47:30 [ERROR] crawler: 검색 결과 수집 실패: https://www.instiz.net/popup_search.htm?k=%EC%A7%81%EC%9E%AD - Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:47:30 [INFO] crawler: 검색 크롤링 완료: keyword=직잭, posts=0
+2026-07-16 04:47:30 [WARNING] __main__: 저장할 게시글이 없습니다
+2026-07-16 04:47:30 [INFO] crawler: 검색 크롤링 시작: board=, category=0, keyword=무신사
+2026-07-16 04:47:30 [INFO] crawler: 검색 결과 요청: board=, category=0, keyword=무신사
+2026-07-16 04:48:02 [ERROR] crawler: 검색 결과 수집 실패: https://www.instiz.net/popup_search.htm?k=%EB%AC%B4%EC%8B%A0%EC%82%AC - Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:48:02 [INFO] crawler: 검색 크롤링 완료: keyword=무신사, posts=0
+2026-07-16 04:48:02 [WARNING] __main__: 저장할 게시글이 없습니다
+2026-07-16 04:48:02 [INFO] crawler: 검색 크롤링 시작: board=, category=0, keyword=에이블리
+2026-07-16 04:48:02 [INFO] crawler: 검색 결과 요청: board=, category=0, keyword=에이블리
+2026-07-16 04:48:34 [ERROR] crawler: 검색 결과 수집 실패: https://www.instiz.net/popup_search.htm?k=%EC%97%90%EC%9D%B4%EB%B8%94%EB%A6%AC - Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:48:34 [INFO] crawler: 검색 크롤링 완료: keyword=에이블리, posts=0
+2026-07-16 04:48:34 [WARNING] __main__: 저장할 게시글이 없습니다
+2026-07-16 04:48:34 [INFO] crawler: 검색 크롤링 시작: board=, category=0, keyword=직쟄
+2026-07-16 04:48:34 [INFO] crawler: 검색 결과 요청: board=, category=0, keyword=직쟄
+2026-07-16 04:49:01 [WARNING] __main__: 
+사용자에 의해 크롤링 중단됨
+2026-07-16 04:49:01 [INFO] crawler: 브라우저 종료 중...
+2026-07-16 04:49:17 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 04:49:17 [INFO] crawler: 브라우저 시작 중...
+2026-07-16 04:49:17 [INFO] crawler: 저장된 로그인 세션 사용: C:\Users\hohoh\Documents\HanYang University\4-1\HSTA\카카오스타일\VOC\Community\instiz\instiz_crawler\auth\instiz_storage_state.json
+2026-07-16 04:49:18 [INFO] crawler: 브라우저 시작 완료
+2026-07-16 04:49:30 [INFO] crawler: 검색 페이지 접근 확인
+2026-07-16 04:49:30 [INFO] crawler: 이미 로그인된 세션입니다
+2026-07-16 04:49:31 [INFO] crawler: 로그인 세션 저장: C:\Users\hohoh\Documents\HanYang University\4-1\HSTA\카카오스타일\VOC\Community\instiz\instiz_crawler\auth\instiz_storage_state.json
+2026-07-16 04:49:31 [INFO] __main__: 
+전체 검색 크롤링: 키워드: 지그재그, 직잭, 무신사, 에이블리, 직쟄, 직젝, 직젴, zigzag, 29cm, 29CM
+2026-07-16 04:49:31 [INFO] crawler: 검색 크롤링 시작: board=, category=0, keyword=지그재그
+2026-07-16 04:49:31 [INFO] crawler: 검색 결과 요청: board=, category=0, keyword=지그재그
+2026-07-16 04:49:45 [INFO] crawler: 검색 초기 결과: keyword=지그재그, posts=78
+2026-07-16 04:49:53 [INFO] crawler: 더보기 클릭: keyword=지그재그, click=1, posts=108
+2026-07-16 04:50:00 [INFO] crawler: 더보기 클릭: keyword=지그재그, click=2, posts=138
+2026-07-16 04:50:07 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:08 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:08 [INFO] crawler: 더보기 클릭: keyword=지그재그, click=3, posts=167
+2026-07-16 04:50:15 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:15 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:15 [INFO] crawler: 더보기 클릭: keyword=지그재그, click=4, posts=197
+2026-07-16 04:50:23 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:23 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:23 [INFO] crawler: 더보기 클릭: keyword=지그재그, click=5, posts=227
+2026-07-16 04:50:30 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:30 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:30 [INFO] crawler: 더보기 클릭: keyword=지그재그, click=6, posts=257
+2026-07-16 04:50:32 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:32 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:32 [INFO] crawler: 더보기 클릭: keyword=지그재그, click=7, posts=287
+2026-07-16 04:50:35 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:35 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:35 [INFO] crawler: 더보기 클릭: keyword=지그재그, click=8, posts=317
+2026-07-16 04:50:38 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:38 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:38 [INFO] crawler: 더보기 클릭: keyword=지그재그, click=9, posts=347
+2026-07-16 04:50:41 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:41 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:41 [INFO] crawler: 더보기 클릭: keyword=지그재그, click=10, posts=377
+2026-07-16 04:50:43 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:43 [WARNING] parser: 검색 결과 항목 파싱 실패: invalid literal for int() with base 10: ''
+2026-07-16 04:50:43 [INFO] crawler: 검색 크롤링 완료: keyword=지그재그, posts=377
+2026-07-16 04:50:43 [INFO] crawler: 게시글 본문 수집 시작: 377개 게시글
+2026-07-16 04:51:16 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/spage/6 - [TimeoutError]
+2026-07-16 04:51:49 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/spage/6 - [TimeoutError]
+2026-07-16 04:52:22 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/spage/6 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:52:54 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/spage/1 - [TimeoutError]
+2026-07-16 04:53:26 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/spage/1 - [TimeoutError]
+2026-07-16 04:53:59 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/spage/1 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:54:31 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/spage/2 - [TimeoutError]
+2026-07-16 04:55:03 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/spage/2 - [TimeoutError]
+2026-07-16 04:55:37 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/spage/2 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:56:09 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7881374?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 04:56:42 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7881374?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 04:57:15 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7881374?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:57:47 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66987122?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 04:58:20 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66987122?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 04:58:53 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66987122?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 04:59:26 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66984601?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 04:59:58 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66984601?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:00:32 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66984601?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:01:03 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66984506?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:01:36 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66984506?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:02:09 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66984506?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:02:41 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66978390?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:03:14 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66978390?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:03:47 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66978390?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:04:19 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66973409?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:04:51 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66973409?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:05:25 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66973409?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:05:56 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66972246?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:06:29 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66972246?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:07:02 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66972246?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:07:34 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66969619?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:08:07 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66969619?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:08:40 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66969619?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:09:12 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66969338?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:09:45 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66969338?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:10:18 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66969338?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:10:50 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/100061009?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:11:22 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/100061009?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:11:56 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/100061009?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:12:27 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66965050?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:13:00 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66965050?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:13:33 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66965050?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:14:05 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66960966?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:14:38 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66960966?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:15:11 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66960966?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:15:43 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/100056444?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:16:16 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/100056444?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:16:49 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/100056444?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:17:20 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/100055267?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:17:53 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/100055267?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:18:26 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/100055267?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:18:58 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/100034685?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:19:30 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/100034685?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:20:03 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/100034685?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:20:35 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99981435?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:21:07 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99981435?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:21:40 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99981435?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:22:12 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99942373?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:22:45 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99942373?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:23:18 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99942373?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:23:49 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99938225?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:24:22 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99938225?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:24:55 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99938225?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:25:27 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99935122?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:25:59 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99935122?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:26:32 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99935122?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:27:04 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99903301?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:27:37 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99903301?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:28:10 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99903301?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:28:41 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99898085?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:29:14 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99898085?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:29:47 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99898085?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:30:19 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7852072?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:30:51 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7852072?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:31:25 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7852072?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:31:56 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7790413?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:32:29 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7790413?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:33:02 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7790413?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:33:34 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7755419?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:34:06 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7755419?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:34:39 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7755419?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:35:11 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7744748?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:35:44 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7744748?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:36:17 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7744748?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:36:49 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7740137?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:37:21 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7740137?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:37:54 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7740137?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:38:26 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7738830?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:38:58 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7738830?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:39:32 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7738830?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:40:03 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7727532?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:40:36 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7727532?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:41:09 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7727532?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:41:41 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7701846?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:42:14 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7701846?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:42:47 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7701846?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:43:18 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7683159?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:43:51 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7683159?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:44:24 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7683159?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:44:55 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66957502?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:45:28 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66957502?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:46:01 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66957502?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:46:33 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66946189?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:47:05 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66946189?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:47:38 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66946189?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:48:10 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66938240?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:48:42 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66938240?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:49:16 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66938240?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:49:47 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66934982?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:50:20 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66934982?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:50:53 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66934982?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:51:24 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66928787?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:51:57 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66928787?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:52:30 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66928787?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:53:02 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66927806?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:53:34 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66927806?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:54:07 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66927806?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:54:39 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66925943?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:55:12 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66925943?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:55:45 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66925943?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:56:16 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66923239?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:56:49 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66923239?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:57:22 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66923239?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:57:54 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66920315?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:58:26 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66920315?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 05:58:59 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66920315?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 05:59:31 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66919843?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:00:03 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66919843?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:00:36 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66919843?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:01:08 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99882489?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:01:41 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99882489?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:02:13 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99882489?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:02:45 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99882454?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:03:18 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99882454?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:03:50 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99882454?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:04:22 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99879213?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:04:55 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99879213?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:05:28 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99879213?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:05:59 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99878002?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:06:32 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99878002?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:07:05 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99878002?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:07:37 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99877332?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:08:09 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99877332?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:08:42 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99877332?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:09:14 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99876406?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:09:47 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99876406?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:10:20 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99876406?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:10:51 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99854539?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:11:24 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99854539?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:11:57 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99854539?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:12:29 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99799695?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:13:01 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99799695?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:13:34 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99799695?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:14:06 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99779424?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:14:39 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99779424?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:15:12 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99779424?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:15:44 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99711862?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:16:16 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99711862?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:16:50 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99711862?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:17:21 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7672058?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:17:54 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7672058?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:18:27 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7672058?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:18:58 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7643879?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:19:31 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7643879?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:20:04 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7643879?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:20:36 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7643659?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:21:09 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7643659?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:21:42 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7643659?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:22:14 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7643060?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:22:46 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7643060?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:23:19 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7643060?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:23:51 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7639553?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:24:23 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7639553?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:24:57 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7639553?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:25:28 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7628939?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:26:01 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7628939?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:26:34 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7628939?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:27:06 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7612906?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:27:38 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7612906?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:28:11 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7612906?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:28:43 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7605832?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:29:16 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7605832?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:29:49 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7605832?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:30:20 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7592240?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:30:53 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7592240?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:31:26 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7592240?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:31:58 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/pt/7583444?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:32:30 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/pt/7583444?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:33:03 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/pt/7583444?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:33:35 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66916538?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:34:07 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66916538?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:34:40 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66916538?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:35:12 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66910235?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:35:44 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66910235?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:36:18 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66910235?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:36:49 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66901765?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:37:22 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66901765?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:37:55 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66901765?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:38:26 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66900808?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:38:59 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66900808?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:39:32 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66900808?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:40:04 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66898644?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:40:36 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66898644?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:41:09 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66898644?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:41:41 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66894026?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:42:14 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66894026?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:42:47 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66894026?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:43:18 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66890564?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:43:51 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66890564?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:44:24 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66890564?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:44:56 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66890259?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:45:28 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66890259?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:46:01 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66890259?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:46:33 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66878989?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:47:05 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66878989?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:47:38 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66878989?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:48:10 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name/66871182?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:48:43 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name/66871182?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:49:16 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name/66871182?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:49:47 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99691729?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:50:20 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99691729?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:50:53 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99691729?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:51:25 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99657630?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:51:58 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99657630?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:52:31 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99657630?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:53:03 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99637893?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:53:35 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99637893?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:54:09 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99637893?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:54:40 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99563394?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:55:13 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99563394?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:55:45 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99563394?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:56:17 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99555259?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:56:50 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99555259?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:57:23 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99555259?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:57:54 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99555004?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:58:27 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99555004?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 06:59:00 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99555004?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 06:59:31 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99537026?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 07:00:04 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99537026?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 07:00:37 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99537026?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 07:01:09 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99479406?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 07:01:41 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99479406?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 07:02:14 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99479406?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 07:02:46 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99429571?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 07:03:19 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99429571?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 07:03:52 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99429571?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError] Timeout 30000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+2026-07-16 07:04:24 [WARNING] crawler: 재시도 1/3 (1.0초 후): https://www.instiz.net/name_enter/99392926?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 07:04:56 [WARNING] crawler: 재시도 2/3 (1.5초 후): https://www.instiz.net/name_enter/99392926?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [TimeoutError]
+2026-07-16 07:05:24 [ERROR] crawler: 최대 재시도 3회 초과: https://www.instiz.net/name_enter/99392926?k=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&stype=9 - [Error] Navigation failed because page crashed!
+=========================== logs ===========================
+"load" event fired
+============================================================

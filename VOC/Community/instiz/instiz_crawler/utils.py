@@ -4,6 +4,7 @@
 
 import logging
 import time
+import re
 from datetime import datetime, timedelta
 from functools import wraps
 from typing import Callable, Any, Optional
@@ -258,3 +259,10 @@ def format_runtime(seconds: float) -> str:
         return f"{minutes}분 {secs}초"
     else:
         return f"{secs}초"
+
+
+def safe_filename(value: str) -> str:
+    """파일명에 안전한 문자열로 변환."""
+    cleaned = re.sub(r"[\\/:*?\"<>|]+", "_", str(value)).strip()
+    cleaned = re.sub(r"\s+", "_", cleaned)
+    return cleaned or "keyword"
