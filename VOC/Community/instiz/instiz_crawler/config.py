@@ -5,26 +5,25 @@
 # parameters: 크롤링 대상 게시판
 BOARDS = [
     {
-        "board": "name_beauty",
-        "category": 12
-    }
+        "board": "name",
+        "category": 1,
+    },
+    {"board": "name_beauty"},
 ]
 
 # parameters: 페이지 범위
 START_PAGE = 1
-END_PAGE = 2
+END_PAGE = 1
 
 # parameters: 검색 설정
-# CLI에서 --keyword 또는 --keywords를 넘기면 게시판 페이지 순회 대신 검색 결과를 수집합니다.
+# CLI에서 --keyword 또는 --keywords를 넘기면 각 게시판의 시간순 검색 결과를 수집합니다.
 SEARCH_KEYWORDS = ["지그재그", "직잭", "무신사","에이블리","직쟄", "직젝", "직젴", "zigzag", "29cm", "29CM"]
-SEARCH_ALL_BOARDS = True  # True면 board/category를 무시하고 전체 검색 결과만 수집
 SEARCH_TYPE = 9  # 1=제목, 5=내용, 9=제목+내용
-SEARCH_ENDPOINT = "popup"  # popup=더보기형 검색, board=게시판 list.php 검색
-MAX_MORE_CLICKS = 10
-MAX_SEARCH_POSTS = 0  # 0이면 제한 없음
+SEARCH_START_DATE = "2026-07-01"  # YYYY-MM-DD, 양끝 포함
+SEARCH_END_DATE = "2026-12-31"    # YYYY-MM-DD, 양끝 포함
 
 # parameters: 로그인 설정
-# 비밀번호를 파일에 저장하지 않도록 INSTIZ_ID / INSTIZ_PASSWORD 환경변수 사용을 권장합니다.
+# INSTIZ_ID / INSTIZ_PASSWORD 환경변수로만 로그인 정보를 전달합니다.
 LOGIN_ENABLED = True
 LOGIN_USERNAME = "smallgaint"
 LOGIN_PASSWORD = "2848hohoho"
@@ -42,7 +41,7 @@ ONLY_NEW_POSTS = False
 BASE_URL = "https://www.instiz.net"
 
 # parameters: 요청 설정
-REQUEST_DELAY = 1.0
+REQUEST_DELAY = 2.0
 REQUEST_DELAY_RANDOM = True  # ±20%
 MAX_RETRY = 3
 REQUEST_TIMEOUT = 10  # seconds (legacy, not used with Playwright)
@@ -86,7 +85,7 @@ CSV_ENCODING = "utf-8-sig"  # UTF-8 BOM
 REQUIRED_POST_COLUMNS = [
     "post_id", "board", "category", "title", "author",
     "comment_count", "view_count", "like_count", "created_date",
-    "has_image", "image_count", "post_url"
+    "has_image", "image_count", "post_url", "search_keywords", "search_boards"
 ]
 
 REQUIRED_COMMENT_COLUMNS = [

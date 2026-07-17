@@ -24,6 +24,8 @@ class Post:
     image_count: int
     post_url: str
     content: Optional[str] = None
+    search_keywords: str = ""
+    search_boards: str = ""
     
     def to_dict(self) -> dict:
         """딕셔너리로 변환"""

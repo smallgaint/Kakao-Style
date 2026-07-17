@@ -1,0 +1,221 @@
+function handle_naver_ads_response2(response) {
+var contData = response.ads;
+if (contData && contData.length > 0) {
+var dataSize = contData.length;
+//var html = '<div class="toplink">파워링크';
+//html += '<span class="tag_comps">광고</span><span class="reg_link"><a href="https://m.searchad.naver.com/" target="_blank">등록하기</a></span></div>';
+var html = '<ul id="contentsList" class="powerlink_list">';
+
+for(var i=0; i<dataSize; i++) {
+var dataItem = contData[i];
+var headline = dataItem.headline;
+var description = dataItem.description;
+var clickUrl = dataItem.clickUrl;
+var displayUrl = dataItem.displayUrl;
+
+//검색어 볼드
+/*
+var findQuery = '';
+var findString = window.location.href;
+var boldText = '';
+if(findString.indexOf('?')>=0 && findString.indexOf('&')>=0){
+var urlParameter = findString.split('?')[1].split('&');
+for (var parmCnt = 0; parmCnt < (urlParameter.length); parmCnt++) {
+    if (urlParameter[parmCnt].startsWith('k=')) {
+        boldText = decodeURIComponent(urlParameter[parmCnt].substr(2));
+    }
+};
+}
+*/
+
+boldText=$('#k').val();
+if(boldText.length>0){
+var targetRegex = new RegExp(boldText, "g");
+    headline = headline.replace(targetRegex, '<span class="highlight">' + boldText + '</span>');
+    description = description.replace(targetRegex, '<span class="highlight">' + boldText + '</span>');
+}
+
+// imageExtension 확인
+var imageExt = false;
+if (dataItem.imageExtension) imageExt = true;
+
+// GroupB 확장소재 결정 - 우선 순위는 사이트 맞게 조정
+var bGroupExt = "";
+var bExtType = "";
+
+if (dataItem.subLinkExtension) {
+bExtType = "ext_link";
+bGroupExt = "subLinkExt";
+var atag="</a>";
+}else if (dataItem.descriptionExtension) {
+bExtType = "ext_desc";
+bGroupExt = "descExt";
+}else if (dataItem.priceLinkExtension) {
+bExtType = "ext_price";
+bGroupExt = "priceLinkExt";
+var atag="</a>";
+}else if (dataItem.placeExtension) {
+bExtType = "ext_place";
+bGroupExt = "placeExt";
+var atag="</a>";
+}
+
+html += '<li class="list_item' + ((imageExt)?' img_type':'') + ((bExtType)?(' '+bExtType):'') + '">';
+html += '<div class="lst_cont">';
+if (imageExt) {
+    html += '<div class="img_area">';
+    html += '<a class="img_link"  target="_blank" href="' + dataItem.imageExtension.clickUrl + '"><img alt="상품 이미지" height="87" width="87" src="' + dataItem.imageExtension.imageUrl + '"></a></div>';
+}
+html += '<a class="tit"  target="_blank" href="' + clickUrl + '"><div class="tit_wrap"><div class="txt_area"><span class="tit_area">' + headline;
+
+//icon NPay+NLogin+NTalk
+var NPay = dataItem.naverPayIconType;
+var NLogin = dataItem.isNaverLoginIconEnabled;
+var NTalk = dataItem.isTalkTalkIconEnabled;
+if(NPay != 0 || NLogin == true || NTalk == true){
+    html += '<div class="icon_area">';
+    if(NPay != 0) {
+        if(NPay == 1){
+            html += '<span class="icon_npay">';
+            html += '<img src="/naverpowerlink/npay.png" alt="NPay 아이콘">';
+            html += '</span>';
+        } else if(NPay == 2){
+            html += '<span class="icon_npayplus">';
+            html += '<img src="/naverpowerlink/npay_plus.png" alt="NPay plus 아이콘">';
+            html += '</span>';
+        }
+    } else if (NLogin == true){
+        html += '<span class="icon_nlogin">';
+        html += '<img src="/naverpowerlink/naveridlogin.png" alt="Naver Login 아이콘">';
+        html += '</span>';
+    } else if (NTalk == true) {
+        html += '<span class="icon_ntalk">';
+        html += '<img src="/naverpowerlink/talktalk.png" alt="Naver Talk Talk 아이콘">';
+        html += '</span>';
+    }
+    html += '</div>'
+}
+
+html += ' <span class="tag_comps">AD</span></span></div></div>';
+
+// headlineExtension
+if(bGroupExt == "headlineExt") {
+//html += '<div class="tit_area_sub"><a class="tit_sub" target="_blank" href="' + dataItem.headlineExtension.clickUrl + '">' + dataItem.headlineExtension.headline + '</a></div>';
+html += '<div class="tit_area_sub">' + dataItem.headlineExtension.headline + '</div>';
+}
+//html += '<div class="url_area"><cite class="url"><a target="_blank" href="' + clickUrl + '">' + displayUrl +'</a></cite></div>';
+html += '<div class="url_area"><cite class="url">' + displayUrl +'</cite></div>';
+
+if (typeof serval === "undefined") {
+html += '<div class="desc up">' + description + '</div>';
+}else{
+html += '<div class="desc up">' + stringreplaceAll(description,serval,'<mark>'+serval+'</mark>') + '</div>';
+}
+
+if (typeof serval === "undefined") {
+html += '<div class="desc down">' + description + '</div>';
+}else{
+html += '<div class="desc down">' + stringreplaceAll(description,serval,'<mark>'+serval+'</mark>') + '</div>';
+}
+
+// descriptionExtension
+if(bGroupExt == "descExt") {
+html += '<div class="pr"><mark class="pr_tit">' + checkEmpty(dataItem.descriptionExtension.heading) + '</mark>';
+html += dataItem.descriptionExtension.description + '</div>';
+}
+
+if(atag) html += '</a>';
+
+// priceLinkExtension
+if(bGroupExt == "priceLinkExt") {
+html += '<ul class="price_list">';
+var pricelinkSize = dataItem.priceLinkExtension.length;
+for(var j=0; j<pricelinkSize; j++) {
+html += '<li class="price_item"><a class="price_item_link" target="_blank" href="'+ dataItem.priceLinkExtension[j].clickUrl + '">';
+html += '<em class="price">' + addComma(dataItem.priceLinkExtension[j].price) + ' ' + checkEmpty(dataItem.priceLinkExtension[j].modifier) + '</em>';
+html += '<div class="txt"><div class="txt_inner">' + checkEmpty(dataItem.priceLinkExtension[j].name) + '</div></div></a></li>';
+}
+html += '</ul>';
+}
+
+//subLinkExtension
+if(bGroupExt == "subLinkExt") {
+html += '<ul class="menu_list">';
+var sublinkSize = dataItem.subLinkExtension.length;
+for(var j=0; j<sublinkSize; j++) {
+html += '<li class="menu_item"><a class="menu_item_link" target="_blank" href="' + dataItem.subLinkExtension[j].clickUrl +'">' + dataItem.subLinkExtension[j].name + '</a></li>';
+}
+html += '</ul>';
+}
+
+// placeExtension
+if(bGroupExt == "placeExt") {
+var placeType = "";
+if(dataItem.placeExtension.openingHours) {
+placeType = "time_type";
+}
+html += '<div class="ext_place_info ' + placeType + '"><a class="place_link" target="_blank" href="' + dataItem.placeExtension.clickUrl + '">';
+
+if(dataItem.placeExtension.openingHours) {
+html += '<div class="time_area">';
+for(var j=0; j < dataItem.placeExtension.openingHours.length; j++) {
+html += '<span class="etc_item">' + dataItem.placeExtension.openingHours[j] + '</span>';
+}
+html += '</div>';
+}
+html += '<div class="etc_area">';
+if(dataItem.placeExtension.reviewCount) {
+html += '<span class="etc_item">리뷰 ' + dataItem.placeExtension.reviewCount + '</span>';
+}
+if(dataItem.placeExtension.recentBookingCount) {
+html += '<span class="etc_item">최근 예약 ' + dataItem.placeExtension.recentBookingCount + '</span>';
+}
+if(dataItem.placeExtension.menuPrice) {
+html += '<span class="etc_item">' + dataItem.placeExtension.menuPrice + '</span>';
+}
+if(dataItem.placeExtension.averagePrice) {
+html += '<span class="etc_item">' + dataItem.placeExtension.averagePrice + '</span>';
+}
+if(dataItem.placeExtension.minimumPrice) {
+html += '<span class="etc_item">' + dataItem.placeExtension.minimumPrice + '</span>';
+}
+if(dataItem.placeExtension.promotionTitle) {
+html += '<span class="etc_item">' + dataItem.placeExtension.promotionTitle + '</span>';
+}
+
+html += '</div></a></div>';
+}
+}
+
+html += '</div></li>';
+
+$("#powerLink2").html(html);
+$("#powerLink2").show();
+} else {
+    $("#powerLink2").html('<ins class="kakao_ad_area" style="display:none;" \n' +
+        ' data-ad-unit    = "DAN-suQYIkwzW629VWuY" \n' +
+        ' data-ad-width   = "320" \n' +
+        ' data-ad-height  = "100"></ins> \n' +
+        '<scr'+'ipt type="text/javascr'+'ipt" src="//t1.daumcdn.net/kas/static/ba.min.js" async></scr'+'ipt>');
+    $("#powerLink2").show();
+}
+}
+
+function naver_ch2(){
+    var current_url = window.location.href;
+    var url_parameter = current_url.split('?')[1].split('&');
+    var search_query = '';
+    for (var i = 0; i < (url_parameter.length); i++) {
+        if (url_parameter[i].startsWith('k=')) {
+        search_query = decodeURIComponent(url_parameter[i].substr(2));
+        }
+    };
+
+    NAVER_ADPOST_V2({
+    channel: "m_instiz.ch2",     // 채널명
+    pageSize: 2,   // 광고 요청 개수
+    query: (search_query)? search_query : '인스티즈',     // 검색어
+    url: current_url,      // 광고가 노출된 페이지의 URL
+    callback: "handle_naver_ads_response2",
+    });
+}

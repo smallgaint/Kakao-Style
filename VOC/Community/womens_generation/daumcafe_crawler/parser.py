@@ -40,6 +40,18 @@ SELECTORS: dict[str, Any] = {
         "comment_count": ["a.txt_point", ".comment", ".reply", ".txt_cmt"],
         "image_marker": ["img[alt*='첨부']", "img.icon_pic", ".ico_attach", ".ico_photo", "img[src*='ico_pic']"],
     },
+    "search": {
+        "rows": ["tr.list_row_info"],
+        "number": ["td.search_num"],
+        "title": ["td.searchpreview_subject > a[href]"],
+        "comment_count": ["td.searchpreview_subject a.txt_point.num.b"],
+        "image_marker": ["td.searchpreview_subject img.icon_file_photo"],
+        "author": ["td.search_nick a", "td.search_nick span", "td.search_nick"],
+        "date": ["td.date"],
+        "views": ["td.search_count"],
+        "preview": ["td.searchpreview_con > a.txt_sub", "td.searchpreview_con td.content > a.txt_sub"],
+        "board": ["span.p11.txt_sub.bloc a"],
+    },
     "detail": {
         "content": ["#user_contents", "xmp#template_xmp", "div#article", ".article_view", ".bbs_contents", ".content-article"],
         "title": ["meta[property='og:title']", "h3.tit_subject", ".tit_subject", ".article_subject"],
@@ -112,6 +124,49 @@ def parse_board_posts(html: str, board: str, base_url: str) -> list[Post]:
     return posts
 
 
+def parse_search_results(html: str, base_url: str, keyword: str) -> list[Post]:
+    """Parse one Daum Cafe all-board search-result page.
+
+    Every result consists of an information row followed by its preview row.
+    The preview is retained independently from detail content so it remains
+    available when the article is permission-restricted.
+    """
+    soup = BeautifulSoup(html, "lxml")
+    posts: list[Post] = []
+    for row in _select_all(soup, "search", "rows"):
+        title_link = _first(row, "search", "title")
+        if title_link is None:
+            continue
+        link = urljoin(base_url, title_link.get("href", ""))
+        post_id = extract_post_id(link)
+        number = _text(row, "search", "number") or post_id
+        if not number or not link:
+            continue
+        preview_row = row.find_next_sibling("tr", class_="list_row_search_feed")
+        preview = _text(preview_row, "search", "preview") if isinstance(preview_row, Tag) else ""
+        board = _search_board_id(link)
+        board_name = _text(preview_row, "search", "board") if isinstance(preview_row, Tag) else ""
+        posts.append(
+            Post(
+                number=number,
+                post_id=post_id or number,
+                board=board,
+                category=board_name,
+                title=clean_text(title_link.get_text(" ", strip=True)),
+                author=_text(row, "search", "author"),
+                has_image=_first(row, "search", "image_marker") is not None,
+                image_count=0,
+                comment_count=parse_int(_text(row, "search", "comment_count")),
+                date=normalize_date(_text(row, "search", "date")),
+                view_count=parse_int(_text(row, "search", "views")),
+                link=link,
+                preview=preview,
+                search_keywords=keyword,
+            )
+        )
+    return posts
+
+
 def parse_script_articles(html: str, board: str, base_url: str) -> list[Post]:
     """Parse modern Daum Cafe board pages rendered from articles.push data."""
     blocks = re.findall(r"articles\.push\(\s*\{(.*?)\}\s*\);", html, flags=re.DOTALL)
@@ -159,6 +214,8 @@ def parse_post_detail(html: str, post: Post) -> tuple[Post, list[Comment]]:
     """Parse article content, image count, and inline comments."""
     soup = BeautifulSoup(html, "lxml")
     updated = copy(post)
+    if is_access_denied(soup):
+        return updated, []
     content_node = _first_nonempty(soup, "detail", "content")
     if content_node is not None:
         updated.content = extract_text_with_breaks(content_node)
@@ -168,6 +225,12 @@ def parse_post_detail(html: str, post: Post) -> tuple[Post, list[Comment]]:
     updated.date = updated.date or normalize_date(_text(soup, "detail", "date") or _script_value(html, "PLAIN_REGDT"))
     updated.view_count = updated.view_count or parse_int(_text(soup, "detail", "views") or _script_value(html, "VIEWCOUNT"))
     return updated, parse_comments(soup, updated)
+
+
+def is_access_denied(soup: BeautifulSoup) -> bool:
+    """Return whether Daum displayed its board-permission guidance."""
+    title = soup.select_one(".sub_title.line_title_sub")
+    return bool(title and "게시판 권한 안내" in clean_text(title.get_text(" ", strip=True)))
 
 
 def parse_comments(soup: BeautifulSoup, post: Post) -> list[Comment]:
@@ -207,6 +270,11 @@ def extract_post_id(url: str) -> str:
 def extract_contentval(url: str) -> str:
     """Extract Daum Cafe contentval from a URL if present."""
     return parse_qs(urlparse(url).query).get("contentval", [""])[0]
+
+
+def _search_board_id(url: str) -> str:
+    """Extract the board id carried by a search-result article link."""
+    return parse_qs(urlparse(url).query).get("fldid", [""])[0]
 
 
 def extract_text_with_breaks(node: Tag) -> str:

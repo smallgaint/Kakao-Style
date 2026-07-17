@@ -8,21 +8,29 @@ BASE_URL = "https://cafe.daum.net"
 CAFE_CODE = "subdued20club"
 GRPID = "1IHuH"
 
-BOARDS = ["ReHf"]
-START_PAGE = 1
-END_PAGE = 20
+SEARCH_KEYWORDS = ["지그재그", "직잭", "무신사", "에이블리", "직잭원", "직잭일", "직잭업", "zigzag", "29cm", "29CM"]
+SEARCH_START_DATE = "2025-07-01"  # YYYY-MM-DD, inclusive
+SEARCH_END_DATE = "2026-07-16"  # YYYY-MM-DD, inclusive
+SEARCH_START_PAGE = 1
+SEARCH_LIST_SIZE = 20
+CHECKPOINT_SIZE = 50
 
-CRAWL_CONTENT = True
-CRAWL_COMMENT = True
-ONLY_NEW_POSTS = True
+# A single switch for article bodies and comments. Search-result rows are
+# always collected, even when this is False.
+CRAWL_DETAILS = False
 SAVE_HTML = False
-USE_CACHE = True
+
+# Daum/Kakao credentials must be supplied through DAUM_ID / DAUM_PASSWORD.
+LOGIN_ENABLED = False
+LOGIN_STORAGE_STATE = "auth/daum_storage_state.json"
+SAVE_LOGIN_STATE = True
+MANUAL_LOGIN_WAIT_SECONDS = 0
+HEADLESS = False
+BROWSER_TIMEOUT = 30_000
 
 REQUEST_DELAY = 1.0
 RANDOM_DELAY_RATE = 0.2
-TIMEOUT = 15
 MAX_RETRY = 3
-THREAD_WORKERS = 5
 
 PROJECT_DIR = Path(__file__).resolve().parent
 OUTPUT_DIR = PROJECT_DIR / "output"

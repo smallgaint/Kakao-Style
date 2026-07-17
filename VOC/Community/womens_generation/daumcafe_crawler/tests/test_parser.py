@@ -8,7 +8,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from parser import extract_iframe_src, parse_post_detail
+from parser import extract_iframe_src, parse_post_detail, parse_search_results
 from models import Post
 from utils import normalize_date
 
@@ -33,3 +33,29 @@ def test_parse_post_detail_sample() -> None:
     post = Post("5691867", "5691867", "ReHf", "", "sample", "", False, 0, 0, "", 0, "https://cafe.daum.net/subdued20club/ReHf/5691867")
     parsed, _ = parse_post_detail(sample.read_text(encoding="utf-8"), post)
     assert parsed.image_count >= 1
+
+
+def test_parse_search_fixture() -> None:
+    """Search info and preview rows are combined into one post."""
+    fixture = ROOT.parent / "womens_generation_search_files" / "home.html"
+    posts = parse_search_results(fixture.read_text(encoding="utf-8"), "https://cafe.daum.net", "지그재그")
+    assert len(posts) == 20
+    first = posts[0]
+    assert first.number == "11499774"
+    assert first.post_id == "11499774"
+    assert first.board == "VN83"
+    assert first.category == "금전거래전용게시판"
+    assert first.has_image is True
+    assert first.author == "001122"
+    assert first.view_count == 12
+    assert first.preview
+    assert first.search_keywords == "지그재그"
+
+
+def test_permission_notice_keeps_search_preview() -> None:
+    post = Post("1", "1", "test", "", "title", "author", False, 0, 0, "26.07.16", 0, "https://example.test", preview="preview")
+    html = '<div class="sub_title line_title_sub">**자유게시판 게시판 권한 안내</div><div id="user_contents">hidden</div>'
+    parsed, comments = parse_post_detail(html, post)
+    assert parsed.preview == "preview"
+    assert parsed.content == ""
+    assert comments == []

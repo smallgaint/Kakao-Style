@@ -3,3 +3,4 @@ venv/
 __pycache__/
 *.pyc
 VOC/Community/instiz/instiz_crawler/auth/
+VOC/Community/womens_generation/daumcafe_crawler/auth/

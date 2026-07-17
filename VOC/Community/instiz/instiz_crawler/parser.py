@@ -329,6 +329,62 @@ class InstizParser:
         return posts
 
     @staticmethod
+    def parse_board_search_results(
+        html: str,
+        board: str,
+    ) -> List[Tuple[int, str, str, str, int, int, int, str, bool]]:
+        """게시판 시간순 검색 목록에서 일반 게시글 행만 파싱합니다.
+
+        ``regdate``는 연도 없이 ``MM.DD HH:MM``만 제공하므로, 연도 보정과
+        기간 판정은 결과의 최신순 흐름을 아는 crawler에서 수행합니다.
+        """
+        soup = BeautifulSoup(html, "html.parser")
+        posts = []
+        seen_urls = set()
+
+        for row in soup.select("tr[id^='list']"):
+            subject = row.select_one("td.listsubject")
+            if not subject:
+                continue
+            link = subject.select_one("a[href]")
+            metadata = subject.select_one("div.listno.regdate")
+            title_element = subject.select_one("div.sbj")
+            if not link or not metadata or not title_element:
+                continue
+
+            href = link.get("href", "")
+            parsed_href = urlparse(urljoin("https://www.instiz.net", href))
+            post_url = f"{parsed_href.scheme}://{parsed_href.netloc}{parsed_href.path}"
+            post_id = InstizParser.extract_post_id(post_url)
+            if not post_id or InstizParser.extract_board_name(post_url) != board or post_url in seen_urls:
+                continue
+
+            date_match = re.search(r"\b(\d{2}\.\d{2}\s+\d{2}:\d{2})\b", metadata.get_text(" ", strip=True))
+            if not date_match:
+                continue
+
+            title = InstizParser._clean_title(title_element.get_text(" ", strip=True))
+            if not title:
+                continue
+            comment = subject.select_one("span.cmt2, span.cmt3, span.cmt")
+            comment_count = int(re.sub(r"\D", "", comment.get_text(strip=True)) or 0) if comment else 0
+            metadata_text = metadata.get_text(" ", strip=True)
+            posts.append((
+                post_id,
+                title,
+                "Unknown",
+                post_url,
+                comment_count,
+                InstizParser._extract_labeled_int(metadata_text, ["조회"]),
+                InstizParser._extract_labeled_int(metadata_text, ["추천"]),
+                date_match.group(1),
+                bool(subject.select("i.fa-image, img")),
+            ))
+            seen_urls.add(post_url)
+
+        return posts
+
+    @staticmethod
     def parse_post_detail(html: str) -> Tuple[Optional[str], int]:
         """게시글 상세 페이지 파싱
         

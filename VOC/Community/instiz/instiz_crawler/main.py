@@ -6,7 +6,7 @@ import sys
 import argparse
 import logging
 import os
-from datetime import datetime
+from datetime import datetime, date
 from pathlib import Path
 import csv
 
@@ -33,27 +33,19 @@ def parse_arguments() -> argparse.Namespace:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 사용 예시:
-  python main.py --board name_beauty --category 12 --start 1 --end 10
-  python main.py --board name_fashion --start 1 --end 30 --no-content
+  python main.py --target name:1 name_beauty --keywords 지그재그 29cm --start-date 2026-01-01 --end-date 2026-06-30
   $env:INSTIZ_ID="your_id"; $env:INSTIZ_PASSWORD="your_password"
-  python main.py --login --keyword "키워드" --board name_beauty --category 12
+  python main.py --login --target name:1 --keyword "키워드" --start-date 2026-01-01 --end-date 2026-06-30
         """
     )
     
     # parameters: 게시판 옵션
     parser.add_argument(
-        "--board",
-        type=str,
+        "--target",
+        nargs="+",
         default=None,
-        help="크롤링할 게시판 (기본값: config.py의 BOARDS)"
-    )
-    
-    # parameters: 카테고리 옵션
-    parser.add_argument(
-        "--category",
-        type=int,
-        default=None,
-        help="카테고리 번호 (기본값: config.py의 카테고리)"
+        metavar="BOARD[:CATEGORY]",
+        help="검색 게시판들. 예: --target name:1 name_beauty (기본값: config.py의 BOARDS)"
     )
     
     # parameters: 페이지 범위
@@ -86,19 +78,8 @@ def parse_arguments() -> argparse.Namespace:
         help="검색 키워드 여러 개"
     )
 
-    parser.add_argument(
-        "--max-more-clicks",
-        type=int,
-        default=None,
-        help="검색 결과 더보기 최대 클릭 횟수"
-    )
-
-    parser.add_argument(
-        "--max-posts",
-        type=int,
-        default=None,
-        help="검색 키워드당 최대 게시글 수 (0이면 제한 없음)"
-    )
+    parser.add_argument("--start-date", type=str, default=None, help="검색 시작일 (YYYY-MM-DD, 포함)")
+    parser.add_argument("--end-date", type=str, default=None, help="검색 종료일 (YYYY-MM-DD, 포함)")
 
     parser.add_argument(
         "--search-type",
@@ -108,18 +89,6 @@ def parse_arguments() -> argparse.Namespace:
         help="검색 범위: 1=제목, 5=내용, 9=제목+내용"
     )
 
-    parser.add_argument(
-        "--search-endpoint",
-        choices=["popup", "board"],
-        default=None,
-        help="검색 엔드포인트: popup=더보기형 통합검색, board=게시판 list.php 검색"
-    )
-
-    parser.add_argument(
-        "--search-all-boards",
-        action="store_true",
-        help="board/category를 무시하고 전체 검색 결과만 수집"
-    )
 
     # parameters: 로그인 옵션
     parser.add_argument(
@@ -236,18 +205,6 @@ def apply_cli_arguments(args: argparse.Namespace) -> None:
     if args.search_type is not None:
         config.SEARCH_TYPE = args.search_type
 
-    if args.search_endpoint is not None:
-        config.SEARCH_ENDPOINT = args.search_endpoint
-
-    if args.search_all_boards:
-        config.SEARCH_ALL_BOARDS = True
-
-    if args.max_more_clicks is not None:
-        config.MAX_MORE_CLICKS = args.max_more_clicks
-
-    if args.max_posts is not None:
-        config.MAX_SEARCH_POSTS = args.max_posts
-
     if args.login:
         config.LOGIN_ENABLED = True
 
@@ -291,21 +248,23 @@ def get_crawl_targets(args: argparse.Namespace) -> list:
     """
     targets = []
     
-    # parameters: CLI 옵션으로 보드가 지정된 경우
-    if args.board:
-        target = {
-            "board": args.board,
-            "category": args.category or 12,
-            "start": args.start or config.START_PAGE,
-            "end": args.end or config.END_PAGE
-        }
-        targets.append(target)
+    if args.target:
+        for raw_target in args.target:
+            board, separator, raw_category = raw_target.partition(":")
+            if not board or (separator and (not raw_category or not raw_category.isdigit())):
+                raise ValueError(f"잘못된 --target 값: {raw_target}. BOARD 또는 BOARD:CATEGORY 형식을 사용하세요.")
+            targets.append({
+                "board": board,
+                "category": int(raw_category) if separator else None,
+                "start": args.start or config.START_PAGE,
+                "end": args.end or config.END_PAGE,
+            })
     else:
         # parameters: config.py의 BOARDS 사용
         for board_config in config.BOARDS:
             target = {
                 "board": board_config["board"],
-                "category": board_config.get("category", 12),
+                "category": board_config.get("category"),
                 "start": args.start or config.START_PAGE,
                 "end": args.end or config.END_PAGE
             }
@@ -324,6 +283,20 @@ def get_search_keywords(args: argparse.Namespace) -> list:
     if not keywords:
         keywords.extend(getattr(config, "SEARCH_KEYWORDS", []))
     return [str(keyword).strip() for keyword in keywords if str(keyword).strip()]
+
+
+def get_search_date_range(args: argparse.Namespace) -> tuple[date, date]:
+    """CLI 또는 설정의 검색 기간을 검증해 반환합니다."""
+    start_value = args.start_date or config.SEARCH_START_DATE
+    end_value = args.end_date or config.SEARCH_END_DATE
+    try:
+        start_date = datetime.strptime(start_value, "%Y-%m-%d").date()
+        end_date = datetime.strptime(end_value, "%Y-%m-%d").date()
+    except (TypeError, ValueError) as exc:
+        raise ValueError("--start-date와 --end-date는 YYYY-MM-DD 형식이어야 합니다.") from exc
+    if start_date > end_date:
+        raise ValueError("시작일은 종료일보다 늦을 수 없습니다.")
+    return start_date, end_date
 
 
 def get_login_credentials() -> tuple:
@@ -387,7 +360,9 @@ def save_to_csv(
                 "created_date": post.created_date,
                 "has_image": post.has_image,
                 "image_count": post.image_count,
-                "post_url": post.post_url
+                "post_url": post.post_url,
+                "search_keywords": post.search_keywords,
+                "search_boards": post.search_boards,
             }
 
             row["content"] = post.content or ""
@@ -512,9 +487,14 @@ def main():
         targets = get_crawl_targets(args)
         search_keywords = get_search_keywords(args)
         
-        if not targets and not (search_keywords and getattr(config, "SEARCH_ALL_BOARDS", False)):
+        if not targets:
             logger.error("크롤링할 게시판이 설정되지 않았습니다")
             sys.exit(1)
+
+        if not search_keywords:
+            logger.error("검색 키워드가 설정되지 않았습니다. --keyword, --keywords 또는 SEARCH_KEYWORDS를 확인하세요")
+            sys.exit(1)
+        start_date, end_date = get_search_date_range(args)
         
         # parameters: 크롤러 생성 및 브라우저 초기화
         crawler = InstizCrawler()
@@ -526,83 +506,24 @@ def main():
                 logger.error("로그인이 필요한 작업을 계속할 수 없어 종료합니다")
                 sys.exit(1)
         
-        # parameters: 각 게시판 크롤링
+        # parameters: 게시판별 검색 목록 수집
         all_posts = []
-        all_comments = {}
+        logger.info("게시판 검색 크롤링: 기간=%s~%s, 키워드=%s", start_date, end_date, ", ".join(search_keywords))
 
-        if search_keywords and getattr(config, "SEARCH_ALL_BOARDS", False):
-            logger.info(f"\n전체 검색 크롤링: 키워드: {', '.join(search_keywords)}")
-
-            for keyword in search_keywords:
-                posts, post_details = crawler.crawl_search(
-                    board="",
-                    category=0,
-                    keyword=keyword,
-                    max_more_clicks=config.MAX_MORE_CLICKS,
-                    max_posts=config.MAX_SEARCH_POSTS,
-                )
-
-                if config.CRAWL_CONTENT and posts:
-                    post_details = crawler.crawl_post_contents(posts)
-                    posts = [pd["post"] for pd in post_details.values()]
-
-                output_name = f"instiz_search_{utils.safe_filename(keyword)}"
-                save_to_csv(posts, post_details, "search", 0, 0, output_name=output_name)
-
-                all_posts.extend(posts)
-                all_comments.update(post_details)
-
-            stats = crawler.get_statistics()
-            print_statistics(stats)
-            logger.info("인스티즈 크롤러 종료")
-            return
-        
         for target in targets:
             board = target["board"]
             category = target["category"]
-            start = target["start"]
-            end = target["end"]
-            
-            if search_keywords:
-                logger.info(
-                    f"\n검색 크롤링: {board} "
-                    f"(카테고리: {category}, 키워드: {', '.join(search_keywords)})"
-                )
+            for keyword in search_keywords:
+                all_posts.extend(crawler.crawl_board_search(board, category, keyword, start_date, end_date))
 
-                for keyword in search_keywords:
-                    posts, post_details = crawler.crawl_search(
-                        board=board,
-                        category=category,
-                        keyword=keyword,
-                        max_more_clicks=config.MAX_MORE_CLICKS,
-                        max_posts=config.MAX_SEARCH_POSTS,
-                    )
-
-                    if config.CRAWL_CONTENT and posts:
-                        post_details = crawler.crawl_post_contents(posts)
-                        posts = [pd["post"] for pd in post_details.values()]
-
-                    output_name = f"instiz_{board}_search_{utils.safe_filename(keyword)}"
-                    save_to_csv(posts, post_details, board, start, end, output_name=output_name)
-
-                    all_posts.extend(posts)
-                    all_comments.update(post_details)
-            else:
-                logger.info(f"\n게시판 크롤링: {board} (카테고리: {category}, 페이지: {start}~{end})")
-                
-                # parameters: 1단계: 게시글 목록 수집
-                posts, post_details = crawler.crawl_board(board, category, start, end)
-                
-                # parameters: 2단계: 게시글 본문 및 댓글 수집
-                if config.CRAWL_CONTENT and posts:
-                    post_details = crawler.crawl_post_contents(posts)
-                    posts = [pd["post"] for pd in post_details.values()]
-                
-                # parameters: CSV 저장
-                save_to_csv(posts, post_details, board, start, end)
-                
-                all_posts.extend(posts)
-                all_comments.update(post_details)
+        # parameters: 중복 제거 후 한 번만 상세 수집
+        post_details = crawler.crawl_post_contents(all_posts) if config.CRAWL_CONTENT and all_posts else {
+            post.post_id: {"post": post, "comments": []} for post in all_posts
+        }
+        if config.CRAWL_CONTENT:
+            all_posts = [details["post"] for details in post_details.values()]
+        output_name = f"instiz_board_search_{start_date:%Y%m%d}_{end_date:%Y%m%d}"
+        save_to_csv(all_posts, post_details, output_name=output_name)
         
         # parameters: 통계 출력
         stats = crawler.get_statistics()
