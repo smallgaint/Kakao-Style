@@ -1,0 +1,1949 @@
+
+
+<div id="wrap">
+    <div id="ie_support" style="display: none">
+	<div class="ie_support_inner">
+		<a href="https://cafe.daum.net/supporters/MbmU/150" target="_blank">다음 카페의 ie10 이하 브라우저 지원이 종료됩니다. 원활한 카페 이용을 위해 사용 중인 브라우저를 업데이트 해주세요.</a>
+		<span id="nomore_ie10_close">다시보지않기</span>
+	</div>
+</div>
+<script>
+    (function(){
+        var cookiename = 'nomoreIE10_20201204_3';
+        var agent = navigator.userAgent.toLowerCase();
+        if (getCookie(cookiename) === undefined && agent.indexOf('trident') >= 0 && navigator.userAgent.indexOf('msie') >= 0) {
+            jQuery('#ie_support').show();
+        }
+        jQuery('#nomore_ie10_close').on('click', function () {
+            setCookie(cookiename, "nomoreIE10");
+            jQuery('#ie_support').hide();
+        });
+    })();
+</script>
+
+
+
+<div id="upper">
+<script type="text/javascript" src="//t1.daumcdn.net/cafe_cj/pcweb/build/js/2009/url_reloader-5294b589a8.js"></script>
+<script type="text/javascript" language="javascript">
+	document.domain = "daum.net";
+	(function () {
+		var FramesetChecker = {
+			cafeUrl: "https://cafe.daum.net/subdued20club",
+			grpcode: "subdued20club",
+
+			allowLoadingWithoutFrameset: function () {
+				return new RegExp("cafe\\d{3}.daum.net").test(location.hostname) // 
+			},
+
+			contains: function (str, test) {
+				return str.indexOf(test) >= 0;
+			},
+
+			changeLocation: function () {
+				UrlReloader.makeFrameCookie(document.location.href);
+				UrlReloader.saveCurrentUrl(document.location.href, this.grpcode);
+				parent.location.href = this.cafeUrl;
+			},
+
+
+			check: function () {
+				
+				if (!this.allowLoadingWithoutFrameset()) {
+					try {
+						/*
+						 *   특정 브라우저에서, parent가 다른 도메인일 경우 security error가 발생한다.
+						 */
+						var isDownFrame = parent && parent.down === self;
+						var isSearch = parent && parent.isSearch;
+
+						if (isSearch || !isDownFrame) { // 검색용 프레임 내부, 프레임이 씌워져 있지 않은 경우
+							this.changeLocation();
+						}
+					} catch (e) {
+						UrlReloader.saveCurrentUrl(document.location.href, this.grpcode);
+						document.location.href = this.cafeUrl;
+					}
+				}
+			}
+		};
+
+		FramesetChecker.check();
+	})();
+</script>
+</div><!-- end upper -->
+<div id="cafe_gnb">
+    	<div id="notiList" class="simple_notice" style="display:none">
+	<ul id="notiList_scroll" style="top:0;">
+
+		
+		
+		
+		
+		</ul>
+	</div>
+	<script>
+		jQuery(function(){
+			window.ScrollNoti = new Scrolling("notiList",3000,26);
+		});
+	</script>
+    <script type="text/javascript">
+        var CAFEAPP = CAFEAPP ? CAFEAPP : {};
+        CAFEAPP.LOGIN_URL = "https://logins.daum.net";
+    </script>
+	<div id="minidaum">
+		<ul>
+			<li><a href="https://www.daum.net/?t__nil_navi=daum" target="_top" class="fl cafenavi-daum_btn">Daum</a></li>
+			<li class="bar">|</li>
+			<li><a class="fl cafenavi-cafe_btn" href="https://top.cafe.daum.net?t__nil_navi=cafehome" target="_top">카페</a></li>
+			<li class="bar">|</li>
+			<li><a href="https://mail.daum.net?t__nil_navi=mailhome" target="_top" class="fl cafenavi-mail_btn">메일 <span id="mail_cnt_mini" class="txt_point"></span></a></li>
+			<li class="bar">|</li>
+			<li><div id="cafe_favCafeWrap">
+	<a id="cafe_favCafeTitle" href="#" class="cafenavi-favoritecafe_btn" onclick="FavCafeList.toggle(); return false;">즐겨찾는 카페</a>
+	<div id="cafe_favCafeListLayer" class="scroll" style="display:none;">
+		<ul id="cafe_favCafeList" style="top: 26px;">
+				</ul>
+		<iframe id="cafe_favCafeBackboard" src="about:blank" scrolling="no" frameborder="0" style="top: 26px;"></iframe>
+	</div>
+</div>
+<script>
+	function mini_poplogin(){
+		window.open("/_c21_/poplogin?grpid=1IHuH","poplogin", 'width=700,height=300,resizable=no,scrollbars=no');
+	}
+	jQuery(function(){
+		FavCafeList.wrap = jQuery('#cafe_favCafeWrap')[0];
+		FavCafeList.title = jQuery('#cafe_favCafeTitle')[0];
+		FavCafeList.layer = jQuery('#cafe_favCafeListLayer')[0];
+		FavCafeList.list = jQuery('#cafe_favCafeList')[0];
+		FavCafeList.backboard = jQuery('#cafe_favCafeBackboard')[0];
+		FavCafeList.login = "false";
+		FavCafeList.init();
+	});
+</script>
+</li>
+			<li class="mini_btn">
+				<a href="#" class="btn fl #cafenavi-login_btn" onclick="login();return false;"><span class="btn_txt p11" id="loginout">로그인</span></a>
+			</li>
+		</ul>
+		<ins id="daum_app_layer" style="position:absolute;left:0;top:0;display:none;z-index:999999"><div id="innerMinidaum"><div id="minidaumAppsLayer" class="minidaum_layer"><div class="minidaum_extra_content"><p class="minidaum_extra_title">모든 이야기의 시작! <span style="color:#ed3e49">카페앱</span></p><p class="minidaum_extra_desc">설치 URL 문자보내기 (무료)</p><div class="minidaum_extra_form">	<fieldset>		<legend class="screen_out">무료문자전송</legend>		<input type="text" id="minidaumAppsPhone" name="minidaumAppsPhone" value="" title="휴대폰 번호 입력">		<button class="btn_send" id="minidaumAppsPhoneBtn" type="button"><span class="screen_out">보내기</span></button>	</fieldset></div><p class="minidaum_extra_qrcode"><img src="//t1.daumcdn.net/cafe_image/161007_pc/app_install.png" width="58" height="58" border="0"></p><p class="minidaum_extra_event"><a href="https://cafe.daum.net/_app" target="_top">[소개] 모바일앱으로 즐기는 카페앱!</a></p><button id="minidaumAppLayerClose" class="minidaum_extra_close" type="button">창닫기</button></div></div></div></ins>
+		<script>
+		    minidaum.init();
+		</script>
+		<script src="//t1.daumcdn.net/tiara/js/v1/tiara-1.2.0.min.js"></script>
+<script src="//t1.daumcdn.net/cafe_cj/pcweb/build/js/util/cafe_tiara-3935887216.js"></script>
+	 		<script>
+			(function($) {
+				var prefix = '미니다음>';
+				$('#minidaum').on('click', '.cafenavi-daum_btn', function (e) {
+					CafeTiara.trackEvent(e, '다음', 'minidaum_daum', prefix);
+				}).on('click', '.cafenavi-cafe_btn', function (e) {
+					CafeTiara.trackEvent(e, '카페', 'minidaum_cafe', prefix);
+				}).on('click', '.cafenavi-mail_btn', function (e) {
+					CafeTiara.trackEvent(e, '카페', 'minidaum_mail', prefix);
+				}).on('click', '#cafe_favCafeTitle', function (e) {
+					CafeTiara.trackEvent(e, '자주가는 카페', 'minidaum_favcafe_layer_open', prefix);
+				}).on('click', '#cafe_favCafeList .newdt', function (e) {
+					CafeTiara.trackEvent(e, '자주가는 카페>즐겨찾는 카페 리스트', 'minidaum_favcafe', prefix);
+				}).on('click', '#cafe_favCafeList .system', function (e) {
+					CafeTiara.trackEvent(e, '자주가는 카페>설정', 'minidaum_fav_setting', prefix);
+				}).on('click', '#daumServiceLink', function (e) {
+					CafeTiara.trackEvent(e, '바로가기', 'minidaum_other_service_open', prefix);
+				}).on('click', '#daumServiceLayer li', function (e) {
+					CafeTiara.trackEvent(e, '바로가기 > 다른 서비스', 'minidaum_other_service', prefix);
+				}).on('click', '#loginout', function (e) {
+					CafeTiara.trackEvent(e, '로그인, 로그아웃', 'minidaum_loginout', prefix);
+				}).on('click', '#cafeapp', function (e) {
+					CafeTiara.trackEvent(e, '카페앱 설치', 'minidaum_app', prefix);
+				});
+			})(jQuery);
+		</script>
+	</div></div><!-- end cafe_gnb --><div class="cl">&nbsp;</div>
+	<div id="header">
+		<div id="title" style="height:99px;">
+					<div id="TITLEBACKGROUND">
+				<div class="tbg_t">
+					<div class="tbg_tl"></div>
+					<div class="tbg_tc"></div>
+					<div class="tbg_tr"></div>
+				</div>
+				<div id="patternHeight" class="tbg_m">
+					<div class="tbg_ml"></div>
+					<div class="tbg_mc"></div>
+					<div class="tbg_mr"></div>
+				</div>
+				<div class="tbg_b">
+					<div class="tbg_bl"></div>
+					<div class="tbg_bc"></div>
+					<div class="tbg_br"></div>
+				</div>
+			</div>
+					<div id="TITLEHOMELINK" onclick="caller('/_c21_/home?grpid=1IHuH');" class="hand title_menu"></div>
+												</div><!-- end title -->
+	</div><!-- end header  -->
+    <div id="container">
+        <div id="cafemenu"> 
+            
+<!--  Menu panel 시작  -->
+
+						<form name="searchMyForm" action="/_c21_/member_article_cafesearch" method="get">
+	<input type="hidden" name="item" value="userid">
+	<input type="hidden" name="jobcode" value="1">
+	<input type="hidden" name="grpid" value="1IHuH">
+</form>
+
+<script type="text/javascript">//<![CDATA[
+function changeInfo_tab(type){
+	var my_list = document.getElementById('myinfo_list');
+	var my_btn = document.getElementById("btn_myinfo_list");
+	
+	if (!my_list) { return; }
+	
+	if(!false){
+		window.open("/_c21_/poplogin?grpid=1IHuH","poplogin", 'width=700,height=630,resizable=no,scrollbars=no');
+		return;
+	}
+	if(!false){
+		if (confirm("카페 가입 후 이용 가능합니다.\n 가입 하시겠습니까?")){
+			location.href = "/_c21_/join_register?grpid=1IHuH";
+			return;
+		} else { 
+			return;
+		}
+	}
+	
+	if( my_list.className == "myinfo none" ){	
+			my_list.className = "myinfo block";
+		my_btn.innerHTML = '<img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="13" height="13" alt="" class="icon_view02"><span class="arrow">▲</span>';
+		} else {		
+			my_list.className = "myinfo none";
+		my_btn.innerHTML = '<img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="13" height="13" alt="" class="icon_view01"><span class="arrow">▼</span>';
+		}
+    setTimeout(function() {
+	    jQuery('#cafeinfo').removeClass('x-repaint');
+	}, 200);
+}
+
+var CAFEAPP = CAFEAPP ? CAFEAPP : {};
+CAFEAPP.MEMBER_MAIL_SENDABLE = '';
+
+// ]]>
+</script>
+
+<div class="cafeinfoBox">
+	<div class="cafeinfo_bg" id="cafe_info_outer">
+		<div id="info_tab" class="cafeinfoTab">
+						<span class="cafe"><span class="txt_title1">카페정보</span></span>
+			
+					</div>
+
+		
+								
+		<div class="cafename">
+			＊여성시대＊ 차분한 20대들의 알흠다운 공간
+		</div>
+
+		<div id="cafeinfo" class="cafeinfo_bg overbg">
+			<div id="cafeinfo_list" class="cafeinfo">
+				<ul>
+					<li class="first">
+						<img src="//t1.daumcdn.net/cafe_image/cf_img4/cafe_ranking/icon/cafe-legend_32.png" width="20" height="20" alt="200단계(1065797점">
+						<a href="/_c21_/cafe_profile?grpid=1IHuH" class="profile_link" aria-label="프로필">레전드 (공개)<span class="ico_bbs ico_arrow_r"></span></a>
+																																																																																																																	</li>
+					<li><span class="info_tit">카페지기</span>
+												<a href="#" onclick="goManager('1IHuH'); return false;" class="txt_point fl" title="여시 대빵">여시 대빵</a>
+											</li>
+					<li>
+						<span class="info_tit"><a href="/_c21_/memberlist?grpid=1IHuH" onclick="caller(this.href);return false;">회원수</a></span>
+						<span class="txt_point num fl"><a href="/_c21_/memberlist?grpid=1IHuH" onclick="caller(this.href);return false;" class="txt_point num">727,050</a>
+												</span>
+					</li>
+					<li><span class="info_tit">방문수</span><span class="txt_point num fl">615,787</span>
+					</li>
+					<li class="last"><a href="https://cafe-notice.tistory.com/2328" target="_blank" class="info_tit">카페앱수</a><span class="txt_point num fl">51,779</span></li>
+				</ul>
+
+							</div><!-- end cafeinfo -->
+						
+			<div class="btn_area">
+																													<a href="/_c21_/join_register?grpid=1IHuH" id="cafe_join_btn"><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="159" height="35" alt="카페 가입하기" class="btn_join"></a><br>
+																			</div><!-- end btn_area -->
+				
+			</div>
+	</div><!-- end cafeinfo_bg -->
+	<div class="cafeinfoBoxT">&nbsp;</div>
+</div><!-- end cafeinfoBox -->
+<div class="cl">&nbsp;</div>
+
+								<!-- 검색엔진 -->
+<div role="form" class="searchBox searchBg">
+	<input type="text" name="search_left_query" value="지그재그" size="20" class="inpSearch inp_search">
+	<a href="#" class="btnSearch btn_search"><span class="hidden">검색</span></a>
+</div>
+								<div class="menuBox"><div class="menuBoxIn">
+						<div id="menu_folder" style="display:  none ;">
+				<div class="menuBoxT">&nbsp;</div>
+				<div class="menuListBox"><div class="menuList">
+				<ul>
+					<li class="depth1">
+						<div id="div_menu_folder">
+						<div class="group_tit"><h3><a href="#" onclick="showMenuList();return false;">카페 전체 메뉴</a></h3></div>
+						<div class="group_ic" id="div_menu_folder_ico"><a href="#" onclick="showMenuList();return false;"><span class="arrow">▲</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view01" alt=""></a></div></div>
+					</li>
+				</ul>
+				</div></div>
+				<div class="menuBoxB">&nbsp;</div>
+			</div><!-- end menu_folder -->
+						<div id="menu_folder_list" style="display:block;">
+			<div class="menuBoxT">&nbsp;</div>
+			<div class="menuListBox"><div class="menuList">
+						<noscript>
+				<iframe name="leftmenu" id="leftmenu" frameborder="0" scrolling="no" width="100%" height="400" title="카페 메뉴" src="/_c21_/bbs_menu_ajax?grpid=1IHuH&bmt=_2026071712441520260417101509.4220260320133807.7120260305185744.25" allowtransparency="true"></iframe>
+			</noscript>
+			<div id="leftmenu"><noscript>
+<link rel="stylesheet" type="text/css" href="//t1.daumcdn.net/cafe_cj/pcweb/build/css/2009/default-d11f8cd3f5.min.css" />
+<link rel="stylesheet" type="text/css" href="/_c21_/css/1IHuH/322/20260417101509.42/20260320133807.71/20260305185744.25.css?grpid=1IHuH" />
+<style type="text/css">
+	body {padding:0;}
+	.noscript {overflow:scroll; height:100%; width:100%; overflow-y:scroll; overflow-x:auto;}
+</style>
+</noscript>
+
+<div class="menuList ifrmenu noscript" id="menuList">
+	<ul id="menu_folder_sub" style="display:  none ;">
+		<li class="depth1">
+			<div id="div_menu_folder">
+				<div class="group_tit"><h3><a href="javascript:hideMenuList()">카페 전체 메뉴</a></h3></div>
+				<div class="group_ic" id="div_menu_folder_ico"><a href="javascript:hideMenuList()"><span class="arrow">▼</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view02" alt=""></a></div>
+			</div>
+		</li>
+		<li id="menu_folder_sub_line" class="group_line"></li>
+	</ul>
+	<div id="cafeMenuList">
+		<ul>
+            <!-- 디폴트로 최신글 보기 + seperator를 추가 -->
+            <li class="icon_recent"><a id="fldlink_recent_bbs" target="_parent" href="/_c21_/recent_bbs_list?grpid=1IHuH" onclick="goBBS(this.href, '');return false;">최신글 보기</a></li>
+            <li class="group_line"></li>
+							<!-- li></li -->
+																																																																																																																																																																																																																										
+																																																																																																																																																																									
+																										<li class="icon_board ">
+														<a id="fldlink_M7oE_312" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=M7oE" target="_parent" onclick="goBBS(this.href, 'M7oE');return false;" class="" title="여시의 정석 교과서 선정되는 경우 +1등업">🥇여성시대 교과서🥇</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_VzaE_374" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VzaE" target="_parent" onclick="goBBS(this.href, 'VzaE');return false;" class="" title="여성시대는 광고중개자이며 판매의 당사자가 아닙니다. 이 제휴게시판에는 입점업체의 광고가 포함됩니다.">광고/체험단/이벤트</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_W5Lp_328" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=W5Lp" target="_parent" onclick="goBBS(this.href, 'W5Lp');return false;" class="" title="여성시대는 광고중개자이며 판매의 당사자가 아닙니다. 이 제휴게시판에는 입점업체의 광고가 포함됩니다.">└ 후기게시판</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WTmI_353" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WTmI" target="_parent" onclick="goBBS(this.href, 'WTmI');return false;" class="" title="여성시대는 광고중개자이며 판매의 당사자가 아닙니다. 이 제휴게시판에는 입점업체의 광고가 포함됩니다.">[광고] 어덜트 스페이스</a></li>
+																																<li class="depth1"><div id="div_menu_title_0" class="group_bg"><div class="group_tit"><h3><a href="javascript:toggleFoldingGroupMenu(&quot;0&quot;)" title="메뉴 그룹">Her Community</a></h3></div><div class="group_ic"><a href="javascript:toggleFoldingGroupMenu(&quot;0&quot;)">
+									<span class="arrow">▲</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view02" alt=""></a></div></div>
+					<ul id="title_0">
+													
+																																	
+																										<li class="icon_board ">
+														<a id="fldlink_ReHf_357" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=ReHf" target="_parent" onclick="goBBS(this.href, 'ReHf');return false;" class="" title="운영토론 무통보 활중 주의">악플달면 쩌리쩌려버려</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_VETW_326" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VETW" target="_parent" onclick="goBBS(this.href, 'VETW');return false;" class="" title="메바여">메이드바이여시</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_W1Lc_311" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=W1Lc" target="_parent" onclick="goBBS(this.href, 'W1Lc');return false;" class="" title="친목 금지 (개인음방 운영, 오픈카톡, 정모, 인스타 등 모든 종류의 친목 무통보 활중 주의)">주식게시판📈🚀</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_Lp0T_320" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lp0T" target="_parent" onclick="goBBS(this.href, 'Lp0T');return false;" class="" title="친목 금지 (모든 종류의 친목 무통보 활중 주의.)">자유게시판</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WI6v_332" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WI6v" target="_parent" onclick="goBBS(this.href, 'WI6v');return false;" class="" title="소개글을 넣어주세요.">레시피🍛🍴</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_W17m_300" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=W17m" target="_parent" onclick="goBBS(this.href, 'W17m');return false;" class="" title="친목 금지 (개인음방 운영, 오픈카톡, 정모, 인스타 등 모든 종류의 친목 무통보 활중 주의)">직장인 대나무숲</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WSmj_385" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WSmj" target="_parent" onclick="goBBS(this.href, 'WSmj');return false;" class="" title="소개글을 넣어주세요.">세일정보 </a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_LxCT_347" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=LxCT" target="_parent" onclick="goBBS(this.href, 'LxCT');return false;" class="" title="콧멍">콧멍에트💛잇게짤털</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_Uzjo_424" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Uzjo" target="_parent" onclick="goBBS(this.href, 'Uzjo');return false;" class="" title="">└ 짤방백과(콧멍으로편입)</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_QoXG_351" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=QoXG" target="_parent" onclick="goBBS(this.href, 'QoXG');return false;" class="" title="에트">└ 에트(콧멍으로편입)</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_Scxl_410" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Scxl" target="_parent" onclick="goBBS(this.href, 'Scxl');return false;" class="" title="It gaesipan">└ 잇게시판(콧멍으로 편입)</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WLDS_314" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WLDS" target="_parent" onclick="goBBS(this.href, 'WLDS');return false;" class="" title="소개글을 넣어주세요.">정답입니다🙆</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+											<li class="group_blank"></li>					
+																																						
+											<li class="group_blank"></li>					
+																									</ul><!-- 1 --></li>
+									<li class="depth1"><div id="div_menu_title_1" class="group_bg"><div class="group_tit"><h3><a href="javascript:toggleFoldingGroupMenu(&quot;1&quot;)" title="메뉴 그룹">[AD] 제휴 게시판</a></h3></div><div class="group_ic"><a href="javascript:toggleFoldingGroupMenu(&quot;1&quot;)">
+									<span class="arrow">▲</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view02" alt=""></a></div></div>
+					<ul id="title_1">
+													
+																																	
+																										<li class="icon_board ">
+														<a id="fldlink_W4bU_322" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=W4bU" target="_parent" onclick="goBBS(this.href, 'W4bU');return false;" class="" title="여성시대는 광고중개자이며 판매의 당사자가 아닙니다. 이 제휴게시판에는 입점업체의 광고가 포함됩니다.">라식(^^)라섹궁물후기.ad</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_Vu4B_321" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Vu4B" target="_parent" onclick="goBBS(this.href, 'Vu4B');return false;" class="" title="여성시대는 광고중개자이며 판매의 당사자가 아닙니다. 이 제휴게시판에는 입점업체의 광고가 포함됩니다.">눈성형정보후기.ad</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_Vtjc_407" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Vtjc" target="_parent" onclick="goBBS(this.href, 'Vtjc');return false;" class="" title="여성시대는 광고중개자이며 판매의 당사자가 아닙니다. 이 제휴게시판에는 입점업체의 광고가 포함됩니다.">*부산성형정보*.ad</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_Vu6U_342" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Vu6U" target="_parent" onclick="goBBS(this.href, 'Vu6U');return false;" class="" title="여성시대는 광고중개자이며 판매의 당사자가 아닙니다. 이 제휴게시판에는 입점업체의 광고가 포함됩니다.">성형궁물후기방.ad</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+											<li class="group_blank"></li>					
+																									</ul><!-- 1 --></li>
+									<li class="depth1"><div id="div_menu_title_2" class="group_bg"><div class="group_tit"><h3><a href="javascript:toggleFoldingGroupMenu(&quot;2&quot;)" title="메뉴 그룹">Her Standards</a></h3></div><div class="group_ic"><a href="javascript:toggleFoldingGroupMenu(&quot;2&quot;)">
+									<span class="arrow">▲</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view02" alt=""></a></div></div>
+					<ul id="title_2">
+													
+																																	
+																										<li class="icon_board ">
+														<a id="fldlink_VZSl_367" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VZSl" target="_parent" onclick="goBBS(this.href, 'VZSl');return false;" class="" title="">등업(임시중단)</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WU3B_289" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WU3B" target="_parent" onclick="goBBS(this.href, 'WU3B');return false;" class="" title="소개글을 넣어주세요.">공지사항</a></li>
+																																												
+																		<li class="icon_memo ">
+												<a id="fldlink_WF50_258" href="/_c21_/memo_list?grpid=1IHuH&amp;fldid=WF50" target="_parent" onclick="goBBS(this.href, 'WF50');return false;" title=".">부리털기</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																						
+																										<li class="icon_board ">
+														<a id="fldlink_W94U_281" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=W94U" target="_parent" onclick="goBBS(this.href, 'W94U');return false;" class="" title="활중엔딩">건회록</a></li>
+																															</ul><!-- 1 --></li>
+									<li class="depth1"><div id="div_menu_title_3" class="group_bg"><div class="group_tit"><h3><a href="javascript:toggleFoldingGroupMenu(&quot;3&quot;)" title="메뉴 그룹">달글시대가 오긴 왔구나...</a></h3></div><div class="group_ic"><a href="javascript:toggleFoldingGroupMenu(&quot;3&quot;)">
+									<span class="arrow">▲</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view02" alt=""></a></div></div>
+					<ul id="title_3">
+													
+																																	
+																										<li class="icon_board ">
+														<a id="fldlink_WFYL_322" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WFYL" target="_parent" onclick="goBBS(this.href, 'WFYL');return false;" class="" title="[공지] 1차 이하 신규 달글 겟판 (1차 채우기 성공하면 2차 부터는 인기달글ㄱㄱ)">1차 달글</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_VrYr_403" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VrYr" target="_parent" onclick="goBBS(this.href, 'VrYr');return false;" class="" title="[공지] 1차 달글 채우고 오세요">인기 달글</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_W6ER_292" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=W6ER" target="_parent" onclick="goBBS(this.href, 'W6ER');return false;" class="" title="[공지] 달글겟판 외 다른 게시판에서 달글 생성시 무통보 활중 주의">지역 달글</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WGXg_349" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WGXg" target="_parent" onclick="goBBS(this.href, 'WGXg');return false;" class="" title="직업 달글">직업 달글</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WLCC_297" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WLCC" target="_parent" onclick="goBBS(this.href, 'WLCC');return false;" class="" title=".">운동 달글💪</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WLCE_299" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WLCE" target="_parent" onclick="goBBS(this.href, 'WLCE');return false;" class="" title=".">건강관리 달글🥦</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WKTb_344" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WKTb" target="_parent" onclick="goBBS(this.href, 'WKTb');return false;" class="" title="화이팅🤍">공부/취준/대학 달글📚</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WKOm_350" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WKOm" target="_parent" onclick="goBBS(this.href, 'WKOm');return false;" class="" title="[취존 공간] 마플, 석대, 분란 조장 금지">팬 달글🔥</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WKLs_353" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WKLs" target="_parent" onclick="goBBS(this.href, 'WKLs');return false;" class="" title="[취존 공간] 마플, 석대, 분란 조장 금지">패션/뷰티/직구 달글</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WKLT_322" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WKLT" target="_parent" onclick="goBBS(this.href, 'WKLT');return false;" class="" title="[취존 공간] 마플, 석대, 분란 조장 금지">방송/영화/드라마 달글</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WKLt_354" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WKLt" target="_parent" onclick="goBBS(this.href, 'WKLt');return false;" class="" title="[취존 공간] 마플, 석대, 분란 조장 금지">웹툰/소설/애니/채팅 달글</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WKLG_309" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WKLG" target="_parent" onclick="goBBS(this.href, 'WKLG');return false;" class="" title="[취존 공간] 마플, 석대, 분란 조장 금지">게임 달글</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WKLE_307" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WKLE" target="_parent" onclick="goBBS(this.href, 'WKLE');return false;" class="" title=".">주식 달글</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WKLF_308" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WKLF" target="_parent" onclick="goBBS(this.href, 'WKLF');return false;" class="" title=".">코인 달글</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_VrjL_382" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VrjL" target="_parent" onclick="goBBS(this.href, 'VrjL');return false;" class="" title="[공지] 달글겟판 외 다른 게시판에서 달글 생성시 무통보 활중 주의">1인 달글</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_Vffn_400" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Vffn" target="_parent" onclick="goBBS(this.href, 'Vffn');return false;" class="" title="[공지] 사기 피해 예방을 위해 안전거래 기능을 제공하는 금겟 시즌2 이용 권장">달글전용 금겟</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+											<li class="group_blank"></li>					
+																																						
+											<li class="group_blank"></li>					
+																									</ul><!-- 1 --></li>
+									<li class="depth1"><div id="div_menu_title_4" class="group_bg"><div class="group_tit"><h3><a href="javascript:toggleFoldingGroupMenu(&quot;4&quot;)" title="메뉴 그룹">Her Passions</a></h3></div><div class="group_ic"><a href="javascript:toggleFoldingGroupMenu(&quot;4&quot;)">
+									<span class="arrow">▲</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view02" alt=""></a></div></div>
+					<ul id="title_4">
+													
+																																	
+																										<li class="icon_board ">
+														<a id="fldlink_VvSl_395" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VvSl" target="_parent" onclick="goBBS(this.href, 'VvSl');return false;" class="" title="친목 금지 (개인음방 운영, 오픈카톡, 정모, 인스타 등 모든 종류의 친목 무통보 활중 주의)">공시 합격목걸이🥇</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_UWUz_379" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=UWUz" target="_parent" onclick="goBBS(this.href, 'UWUz');return false;" class="" title="취업대혼란시대에">취뽀할 똑똑강쥐들🎉</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_W1bH_306" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=W1bH" target="_parent" onclick="goBBS(this.href, 'W1bH');return false;" class="" title="친목 금지 (개인음방 운영, 오픈카톡, 정모, 인스타 등 모든 종류의 친목 무통보 활중 주의)">쌉가능의 숲</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_VA0U_284" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VA0U" target="_parent" onclick="goBBS(this.href, 'VA0U');return false;" class="" title="">수능겟판</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+											<li class="group_blank"></li>					
+																									</ul><!-- 1 --></li>
+									<li class="depth1"><div id="div_menu_title_5" class="group_bg"><div class="group_tit"><h3><a href="javascript:toggleFoldingGroupMenu(&quot;5&quot;)" title="메뉴 그룹">Her Finance</a></h3></div><div class="group_ic"><a href="javascript:toggleFoldingGroupMenu(&quot;5&quot;)">
+									<span class="arrow">▲</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view02" alt=""></a></div></div>
+					<ul id="title_5">
+													
+																																	
+																										<li class="icon_board ">
+														<a id="fldlink_W1LZ_302" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=W1LZ" target="_parent" onclick="goBBS(this.href, 'W1LZ');return false;" class="" title="친목 금지 (개인음방 운영, 오픈카톡, 정모, 인스타 등 모든 종류의 친목 무통보 활중 주의)">재테크</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_VN83_271" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VN83" target="_parent" onclick="goBBS(this.href, 'VN83');return false;" class="" title="[공지] 사기 피해 예방을 위해 안전거래 기능을 제공하는 금겟 시즌2 이용 권장">금전거래전용게시판</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+											<li class="group_blank"></li>					
+																									</ul><!-- 1 --></li>
+									<li class="depth1"><div id="div_menu_title_6" class="group_bg"><div class="group_tit"><h3><a href="javascript:toggleFoldingGroupMenu(&quot;6&quot;)" title="메뉴 그룹">Her Interest</a></h3></div><div class="group_ic"><a href="javascript:toggleFoldingGroupMenu(&quot;6&quot;)">
+									<span class="arrow">▲</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view02" alt=""></a></div></div>
+					<ul id="title_6">
+													
+																																	
+																										<li class="icon_board ">
+														<a id="fldlink_USlJ_350" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=USlJ" target="_parent" onclick="goBBS(this.href, 'USlJ');return false;" class="" title="티비는 같이봐야 제맛">익게온에어</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_RaxJ_373" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=RaxJ" target="_parent" onclick="goBBS(this.href, 'RaxJ');return false;" class="" title="희미한불빛사이로마주치는그눈빛피할수없어">홍콩할매의 속삭임</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_OlDt_371" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=OlDt" target="_parent" onclick="goBBS(this.href, 'OlDt');return false;" class="" title=".">.....♡</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_Lovh_409" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lovh" target="_parent" onclick="goBBS(this.href, 'Lovh');return false;" class="" title=".">욕망분출</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_Rd00_278" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Rd00" target="_parent" onclick="goBBS(this.href, 'Rd00');return false;" class="" title="익게">여시테크토닉</a></li>
+																																												
+											<li class="group_blank"></li>					
+																									</ul><!-- 1 --></li>
+									<li class="depth1"><div id="div_menu_title_7" class="group_bg"><div class="group_tit"><h3><a href="javascript:toggleFoldingGroupMenu(&quot;7&quot;)" title="메뉴 그룹">Her Club</a></h3></div><div class="group_ic"><a href="javascript:toggleFoldingGroupMenu(&quot;7&quot;)">
+									<span class="arrow">▲</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view02" alt=""></a></div></div>
+					<ul id="title_7">
+													
+																																	
+																										<li class="icon_board ">
+														<a id="fldlink_UWV0_306" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=UWV0" target="_parent" onclick="goBBS(this.href, 'UWV0');return false;" class="" title="엄마가비글을데려와따..내가멀잘못한걸까..">매리앤쫑쫑</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WDM1_281" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WDM1" target="_parent" onclick="goBBS(this.href, 'WDM1');return false;" class="" title="어휴~ 아닙니다^^">맛가씨들</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_Sg1Q_316" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Sg1Q" target="_parent" onclick="goBBS(this.href, 'Sg1Q');return false;" class="" title="친목 금지 (개인음방 운영, 오픈카톡, 정모, 인스타 등 모든 종류의 친목 무통보 활중 주의)">밀어서국경해제</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_Uzjn_423" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Uzjn" target="_parent" onclick="goBBS(this.href, 'Uzjn');return false;" class="" title="[공지] 덕게 음방 허용 / 친목 금지 (무통보 활중 주의.)">덕분에 살았어요</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_SmeM_370" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=SmeM" target="_parent" onclick="goBBS(this.href, 'SmeM');return false;" class="" title="친목 금지 , 게임 얘기만 가능 (아이디 노출, 함께 겜하기, 친추, 길드생성 등 모든 종류의 친목 금지)">겜겟</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+											<li class="group_blank"></li>					
+																									</ul><!-- 1 --></li>
+									<li class="depth1"><div id="div_menu_title_8" class="group_bg"><div class="group_tit"><h3><a href="javascript:toggleFoldingGroupMenu(&quot;8&quot;)" title="메뉴 그룹">Her Socials</a></h3></div><div class="group_ic"><a href="javascript:toggleFoldingGroupMenu(&quot;8&quot;)">
+									<span class="arrow">▲</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view02" alt=""></a></div></div>
+					<ul id="title_8">
+													
+																																	
+																										<li class="icon_board ">
+														<a id="fldlink_W6EQ_291" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=W6EQ" target="_parent" onclick="goBBS(this.href, 'W6EQ');return false;" class="" title="30대 아니라도 놀러오기 허용">서른방</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_VvSk_394" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VvSk" target="_parent" onclick="goBBS(this.href, 'VvSk');return false;" class="" title="친목 금지 (개인음방 운영, 오픈카톡, 정모, 인스타 등 모든 종류의 친목 무통보 활중 주의)">비혼방</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_RsQV_364" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=RsQV" target="_parent" onclick="goBBS(this.href, 'RsQV');return false;" class="" title="꼭지가 돌아가셨다">야마방😡</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_UWV1_307" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=UWV1" target="_parent" onclick="goBBS(this.href, 'UWV1');return false;" class="" title="친목 금지 (개인음방 운영, 오픈카톡, 정모, 인스타 등 모든 종류의 친목 무통보 활중 주의)">마미방</a><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="10" height="9" alt="new" class="icon_new"></li>
+																																												
+											<li class="group_blank"></li>					
+																									</ul><!-- 1 --></li>
+									<li class="depth1"><div id="div_menu_title_9" class="group_bg"><div class="group_tit"><h3><a href="javascript:toggleFoldingGroupMenu(&quot;9&quot;)" title="메뉴 그룹">Her Material</a></h3></div><div class="group_ic"><a href="javascript:toggleFoldingGroupMenu(&quot;9&quot;)">
+									<span class="arrow">▲</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view02" alt=""></a></div></div>
+					<ul id="title_9">
+													
+																																	
+																										<li class="icon_board ">
+														<a id="fldlink_Lw5z_370" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lw5z" target="_parent" onclick="goBBS(this.href, 'Lw5z');return false;" class="" title="당첨작은 +1업 (4등급 까지 등업 가능)">메인어택</a></li>
+																																												
+											<li class="group_blank"></li>					
+																									</ul><!-- 1 --></li>
+									<li class="depth1"><div id="div_menu_title_10" class="group_bg"><div class="group_tit"><h3><a href="javascript:toggleFoldingGroupMenu(&quot;10&quot;)" title="메뉴 그룹">Age Validation Required</a></h3></div><div class="group_ic"><a href="javascript:toggleFoldingGroupMenu(&quot;10&quot;)">
+									<span class="arrow">▲</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view02" alt=""></a></div></div>
+					<ul id="title_10">
+													
+																																	
+																		<li class="icon_memo ">
+												<a id="fldlink_VDM4_283" href="/_c21_/memo_list?grpid=1IHuH&amp;fldid=VDM4" target="_parent" onclick="goBBS(this.href, 'VDM4');return false;" title=".">4등급 등업 겟판</a></li>
+																																																														
+											<li class="group_blank"></li>					
+																									</ul><!-- 1 --></li>
+									<li class="depth1"><div id="div_menu_title_11" class="group_bg"><div class="group_tit"><h3><a href="javascript:toggleFoldingGroupMenu(&quot;11&quot;)" title="메뉴 그룹">[AD] 제휴 게시판</a></h3></div><div class="group_ic"><a href="javascript:toggleFoldingGroupMenu(&quot;11&quot;)">
+									<span class="arrow">▲</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view02" alt=""></a></div></div>
+					<ul id="title_11">
+													
+																																	
+																										<li class="icon_board ">
+														<a id="fldlink_WNRu_364" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WNRu" target="_parent" onclick="goBBS(this.href, 'WNRu');return false;" class="" title="여성시대는 광고중개자이며 판매의 당사자가 아닙니다. 이 제휴게시판에는 입점업체의 광고가 포함됩니다.">[AD] 병원 이벤트 정보</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WLtI_352" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WLtI" target="_parent" onclick="goBBS(this.href, 'WLtI');return false;" class="" title="여성시대는 광고중개자이며 판매의 당사자가 아닙니다. 이 제휴게시판에는 입점업체의 광고가 포함됩니다.">[AD] 보험 상담 게시판</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WaJE_327" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WaJE" target="_parent" onclick="goBBS(this.href, 'WaJE');return false;" class="" title="여성시대는 광고중개자이며 판매의 당사자가 아닙니다. 이 제휴게시판에는 입점업체의 광고가 포함됩니다.">[광고] 알뜰통신</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_VzVj_400" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VzVj" target="_parent" onclick="goBBS(this.href, 'VzVj');return false;" class="" title="제휴 광고 게시판 입니다. 이 게시판은 광고주의 일방적인 주장을 포함하고 있습니다">[AD] 옥장판 매니아 클럽</a></li>
+																																												
+											<li class="group_blank"></li>					
+																									</ul><!-- 1 --></li>
+									<li class="depth1"><div id="div_menu_title_12" class="group_bg"><div class="group_tit"><h3><a href="javascript:toggleFoldingGroupMenu(&quot;12&quot;)" title="메뉴 그룹">[구여시:자니..?]</a></h3></div><div class="group_ic"><a href="javascript:toggleFoldingGroupMenu(&quot;12&quot;)">
+									<span class="arrow">▼</span><img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="14" height="14" class="icon_view01"></a></div></div>
+					<ul id="title_12" style="display:none">
+													
+																																	
+																										<li class="icon_board ">
+														<a id="fldlink_V9ne_354" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=V9ne" target="_parent" onclick="goBBS(this.href, 'V9ne');return false;" class="" title="친목 금지 (개인음방 운영, 오픈카톡, 정모, 인스타 등 모든 종류의 친목 무통보 활중 주의)">Ent.</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_W1LY_301" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=W1LY" target="_parent" onclick="goBBS(this.href, 'W1LY');return false;" class="" title="친목 금지 (개인음방 운영, 오픈카톡, 정모, 인스타 등 모든 종류의 친목 무통보 활중 주의)">코인</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_RS4y_338" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=RS4y" target="_parent" onclick="goBBS(this.href, 'RS4y');return false;" class="" title="친목 금지 (개인음방 운영, 오픈카톡, 정모, 인스타 등 모든 종류의 친목 무통보 활중 주의)">퍽퍽퍽이맛에합니다</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_W6EY_299" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=W6EY" target="_parent" onclick="goBBS(this.href, 'W6EY');return false;" class="" title="소개글을 넣어주세요.">[종료] 공지글 추천 이벤트</a></li>
+																																																																				
+																										<li class="icon_board ">
+														<a id="fldlink_WCUl_347" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WCUl" target="_parent" onclick="goBBS(this.href, 'WCUl');return false;" class="" title="여성시대는 광고중개자이며 판매의 당사자가 아닙니다. 이 제휴게시판에는 입점업체의 광고가 포함됩니다.">도그TV 후기</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_V0Gg_308" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=V0Gg" target="_parent" onclick="goBBS(this.href, 'V0Gg');return false;" class="" title="">브금백과</a></li>
+																																																																																																																																																																																																																																																																																																																																																																																												
+																										<li class="icon_board ">
+														<a id="fldlink_Lova_402" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lova" target="_parent" onclick="goBBS(this.href, 'Lova');return false;" class="" title="웃음을 위해 사로라">배꼽의행방</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_UlU6_332" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=UlU6" target="_parent" onclick="goBBS(this.href, 'UlU6');return false;" class="" title="컴백">킹오브여시</a></li>
+																																																																				
+																		<li class="icon_album ">
+												<a id="fldlink_V0Gf_307" href="/_c21_/album_list?grpid=1IHuH&amp;fldid=V0Gf" target="_parent" onclick="goBBS(this.href, 'V0Gf');return false;" title=" ">(구) 짤방백과</a></li>
+																																						
+																										<li class="icon_board ">
+														<a id="fldlink_SU6u_339" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=SU6u" target="_parent" onclick="goBBS(this.href, 'SU6u');return false;" class="" title="oh좆밥1위oh 1등만기억하는더러운세상">일더세시즌3</a></li>
+																																																																																																																																																																																																																																												
+																										<li class="icon_board ">
+														<a id="fldlink_VuJy_398" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VuJy" target="_parent" onclick="goBBS(this.href, 'VuJy');return false;" class="" title="여성시대는 광고중개자이며 판매의 당사자가 아닙니다. 이 제휴게시판에는 입점업체의 광고가 포함됩니다.">지방흡입 정보방.ad</a></li>
+																																																																																																																																																																																																																																																																				
+												<li class="icon_best ">
+													<a id="fldlink_favor_bbs" href="/_c21_/favor_bbs_list?grpid=1IHuH" target="_parent" onclick="goBBS(this.href, '_fav');return false;" title="인기글 보기">여시hot10</a></li>
+																																																																																																																																						
+																										<li class="icon_board ">
+														<a id="fldlink_UoQi_382" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=UoQi" target="_parent" onclick="goBBS(this.href, 'UoQi');return false;" class="" title=".">권리 침해 신고 접수에 의해 임시 조치된 글입니다.</a></li>
+																																																																																																																																																																																																																																																																																																																																																																																																																				
+					 													<li class="icon_escrow ">
+												<a id="fldlink_WUY9_318" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WUY9" target="_parent" onclick="goBBS(this.href, 'WUY9');return false;" class="" title="소개글을 넣어주세요.">임시접근금지</a></li>
+																																																																																																																																						
+					 													<li class="icon_escrow ">
+												<a id="fldlink_VxFC_343" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VxFC" target="_parent" onclick="goBBS(this.href, 'VxFC');return false;" class="" title="금겟으로 편입, 12/31부터 댓글도 작성X">금겟 시즌2(금겟으로 편입,12/31부터 댓글도 작성X)</a></li>
+																																																																																																														
+																										<li class="icon_board ">
+														<a id="fldlink_WZPn_367" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WZPn" target="_parent" onclick="goBBS(this.href, 'WZPn');return false;" class="" title="소개글을 넣어주세요.">종료광고</a></li>
+																																												
+																										<li class="icon_board ">
+														<a id="fldlink_WSEG_310" href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WSEG" target="_parent" onclick="goBBS(this.href, 'WSEG');return false;" class="" title="알리">[광고] 알리 익스프레스</a></li>
+																						</ul><!-- end menu -->
+	</li></ul></div><div class="cl">&nbsp;</div>
+</div><div class="cl">&nbsp;</div>
+</div>
+			<script type="text/javascript">
+				(function(){
+					var menuKey = '1IHuH_2026071712441520260417101509.4220260320133807.7120260305185744.25';
+					var menuUrl = '/_c21_/bbs_menu_ajax?grpid=1IHuH&bmt=_2026071712441520260417101509.4220260320133807.7120260305185744.25&ajax=true';
+					
+					var leftmenu = document.getElementById("leftmenu");
+					if(leftmenu){
+						var menuContent = null;
+						if (typeof window.sessionStorage !== 'undefined' ) {
+							try {
+								menuContent = sessionStorage.getItem(menuKey + "v1") != null ? unescape(sessionStorage.getItem(menuKey + "v1")) : null;
+							} catch (e) {
+								// ignore not supported browser
+							}
+						}
+						if (menuContent != null) {
+							leftmenu.innerHTML = menuContent;
+							menu_select();
+                            setTimeout(function(){daum.cafe.menu.MenuGroupManager.applyMenuGroup();}, 100);
+						} else {
+							jQuery.ajax({
+								method: 'GET',
+								url: menuUrl,
+								cache: false,
+							}).done(function(response){
+								leftmenu.innerHTML = response;
+								if (typeof window.sessionStorage !== 'undefined') {
+									sessionStorage.setItem(menuKey + "v1", escape(response));
+								}
+								menu_select();
+								daum.cafe.menu.MenuGroupManager.applyMenuGroup();
+							});
+						}
+					}
+				})();
+				
+				function menu_select(){
+				
+					var parUrl = document.location.href;
+					var re1 = new RegExp( "hotissue_" );
+					var re_recent = new RegExp( "recent_bbs_" );
+					var re_favor = new RegExp( "favor_bbs_" );
+					var re_image = new RegExp( "image_bbs_" );
+					var re_movie = new RegExp( "movie_bbs_" );
+				  	var obj, fldid, sum;
+					 
+					if ( null != re1.exec( parUrl ) ) {	
+						obj = document.getElementById( "link_hotissue" );
+						if ( null != obj ) obj.className = 'u';
+					} else if ( null != re_recent.exec(parUrl)) {
+						obj = document.getElementById( "fldlink_recent_bbs" );		
+						if (null != obj ){
+							obj.className = "u b";
+						}			
+					} else if ( null != re_favor.exec(parUrl)) {
+						obj = document.getElementById( "fldlink_favor_bbs" );
+						if (null != obj ){
+							obj.className = "u b";
+						}			
+					} else if ( null != re_image.exec(parUrl)) {
+						obj = document.getElementById( "fldlink_image_bbs" );
+						if (null != obj ){
+							obj.className = "u b";
+						}			
+					} else if ( null != re_movie.exec(parUrl)) {
+						obj = document.getElementById( "fldlink_movie_bbs" );		
+						if (null != obj ){
+							obj.className = "u b";
+						}			
+					}  else {
+						var re2 = new RegExp( "&fldid=([_0-9a-zA-Z]+)" );
+						var match2 = re2.exec( parUrl );
+						if ( null != match2 && 2 == match2.length ) {
+							fldid = match2[1];
+							sum = 0;
+							for ( i = 0; i < fldid.length; i++ ) {
+								sum += fldid.charCodeAt(i);
+							}
+							obj = document.getElementById("fldlink_" + fldid + "_" + sum);
+							if ( null != obj ) {
+								obj.className = 'u b';
+							}
+						}
+					}
+				}
+			</script>
+
+											</div></div>
+			<div class="menuBoxB">&nbsp;</div>	
+			</div><!-- end menu_folder_list -->
+		</div></div><div class="cl">&nbsp;</div><!-- end menuBox -->
+			<!--  Menu panel 끝  -->
+
+<!--  Accessary panel 시작  -->
+					<!-- 메뉴 밑에 붙는 Accessary panel -->
+						<div id="sidebar1">
+					<div id="weekly_popular" class="component"><div class="outBox">
+	<div class="outBoxT">&nbsp;</div>
+	<div class="outBoxC">
+				<div id="popular_cnt" class="inBox block">
+			<div class="component_tit block">
+				<h4 class="fl">지난주 인기글</h4>
+				<span class="change_btn" id="popular_cnt_page">
+									<a href="#popular_cnt_page2" onclick="changeSideContPage(2,'popular_cnt');return false;" class="p11">다음</a><span class="arrow">▶</span>
+								</span>
+				<div class="component_tit_line opacity">&nbsp;</div>
+			</div><!-- end component_tit -->
+			<div class="component_list group">
+				<ul>
+					<li><span class="txt_point"><a href="#popular_cnt_page1" onclick="changeSideCont_pupular('count'); return false;" class="ls">조회</a><span class="arrow">▼</span></span> <br>
+						<ol id="popular_cnt_page1">
+																					<li><span class="num">1.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=ReHf&amp;page=1&amp;prev_page=&amp;contentval=0Ns7bzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=5689591&amp;favorRegdate=20260706&amp;favorMode=view">한국인만 권력있게 손..</a></li>
+														<li><span class="num">2.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=ReHf&amp;page=1&amp;prev_page=&amp;contentval=0NrSczzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=5687050&amp;favorRegdate=20260706&amp;favorMode=view">당시 4년 동안 교문 ..</a></li>
+														<li><span class="num">3.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=ReHf&amp;page=1&amp;prev_page=&amp;contentval=0NrWzzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=5687321&amp;favorRegdate=20260706&amp;favorMode=view">이거 내가 회를 먹다..</a></li>
+														<li><span class="num">4.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=ReHf&amp;page=1&amp;prev_page=&amp;contentval=0NrHBzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=5686341&amp;favorRegdate=20260706&amp;favorMode=view">중국 여학생 3명을 승..</a></li>
+														<li><span class="num">5.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=ReHf&amp;page=1&amp;prev_page=&amp;contentval=0Nrunzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=5688797&amp;favorRegdate=20260706&amp;favorMode=view">홀란드 친형 외모 ㄷ..</a></li>
+																				</ol>
+						<ol id="popular_cnt_page2" class="none">
+														<li><span class="num">6.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=ReHf&amp;page=1&amp;prev_page=&amp;contentval=0Ns9Azzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=5689688&amp;favorRegdate=20260706&amp;favorMode=view">인플루언서들에게 신..</a></li>
+														<li><span class="num">7.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=ReHf&amp;page=1&amp;prev_page=&amp;contentval=0Ns0hzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=5689163&amp;favorRegdate=20260706&amp;favorMode=view">와...방금 엄청난거 ..</a></li>
+														<li><span class="num">8.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=ReHf&amp;page=1&amp;prev_page=&amp;contentval=0NrrRzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=5688589&amp;favorRegdate=20260706&amp;favorMode=view">39살 남편이 패션 모..</a></li>
+														<li><span class="num">9.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=ReHf&amp;page=1&amp;prev_page=&amp;contentval=0NrVwzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=5687256&amp;favorRegdate=20260706&amp;favorMode=view">요즘 부의 상징으로 ..</a></li>
+														<li><span class="num">10.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=ReHf&amp;page=1&amp;prev_page=&amp;contentval=0NrPdzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=5686865&amp;favorRegdate=20260706&amp;favorMode=view">캣 타워 너무 일찍 샀..</a></li>
+													</ol>
+					</li>
+					<li class="last"><span class="opacity"><a href="#popular_reply_page1" onclick="changeSideCont_pupular('reply'); return false;" class="last left_vbar">댓글</a><span class="arrow">▼</span></span><br></li>
+				</ul>
+			</div>
+		</div>
+				<div id="popular_reply" class="inBox none">
+			<div class="component_tit">
+				<h4 class="fl">지난주 인기글</h4>
+				<span class="change_btn" id="popular_reply_page">
+									<a href="#popular_reply_page2" onclick="changeSideContPage(2,'popular_reply');return false;" class="p11">다음</a><span class="arrow">▶</span>
+								</span>
+				<div class="component_tit_line opacity">&nbsp;</div>
+			</div><!-- end component_tit -->
+			<div class="component_list group">
+				<ul>
+					<li><span class="opacity"><a href="#popular_cnt_page1" onclick="changeSideCont_pupular('count');return false;" class="ls">조회</a><span class="arrow">▼</span></span> <br></li>
+					<li class="last"><span class="txt_point"><a href="#popular_reply_page1" onclick="changeSideCont_pupular('reply'); return false;" class="last left_vbar">댓글</a><span class="arrow">▼</span></span><br>
+						<ol id="popular_reply_page1">
+																					<li><span class="num">1.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=WKLt&amp;page=1&amp;prev_page=&amp;contentval=001Bvzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=4583&amp;favorRegdate=20260706&amp;favorMode=cmt">🌕BL 미인수 달글 5..</a></li>
+														<li><span class="num">2.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=WKOm&amp;page=1&amp;prev_page=&amp;contentval=008Z1zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=32923&amp;favorRegdate=20260706&amp;favorMode=cmt">💙 𝑺𝑳✰ 🦁..</a></li>
+														<li><span class="num">3.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=WKOm&amp;page=1&amp;prev_page=&amp;contentval=008Y7zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=32867&amp;favorRegdate=20260706&amp;favorMode=cmt">🦊🐱🐶🐰🐭..</a></li>
+														<li><span class="num">4.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=WKOm&amp;page=1&amp;prev_page=&amp;contentval=008Y9zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=32869&amp;favorRegdate=20260706&amp;favorMode=cmt">🌟 NCT WISH 엔시티..</a></li>
+														<li><span class="num">5.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=WKOm&amp;page=1&amp;prev_page=&amp;contentval=008Yazzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=32896&amp;favorRegdate=20260706&amp;favorMode=cmt">🐻🐻‍❄️ 두산..</a></li>
+																				</ol>
+						<ol id="popular_reply_page2" class="none">
+														<li><span class="num">6.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=WKOm&amp;page=1&amp;prev_page=&amp;contentval=008Yzzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=32921&amp;favorRegdate=20260706&amp;favorMode=cmt" "="">💙 𝑺𝑳✰ 🦁..</a></li>
+														<li><span class="num">7.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=WKOm&amp;page=1&amp;prev_page=&amp;contentval=008WPzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=32761&amp;favorRegdate=20260706&amp;favorMode=cmt" "="">⚾️[핑갭환영]야알못..</a></li>
+														<li><span class="num">8.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=WKOm&amp;page=1&amp;prev_page=&amp;contentval=008Yizzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=32904&amp;favorRegdate=20260706&amp;favorMode=cmt" "="">🐯 [달글 밖 자표 ..</a></li>
+														<li><span class="num">9.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=WKOm&amp;page=1&amp;prev_page=&amp;contentval=008Z0zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=32922&amp;favorRegdate=20260706&amp;favorMode=cmt" "="">💙 𝑺𝑳✰ 🦁..</a></li>
+														<li><span class="num">10.</span> <a href="/_c21_/favor_bbs_read?grpid=1IHuH&amp;fldid=WKOm&amp;page=1&amp;prev_page=&amp;contentval=008Yyzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=32920&amp;favorRegdate=20260706&amp;favorMode=cmt" "="">💙 𝑺𝑳✰ 🦁..</a></li>
+													</ol>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div></div>
+<div class="cl">&nbsp;</div>
+			</div><!-- end sidebar1 -->
+					        </div><!--  end cafemenu -->
+        <div id="content">
+			<div class="primary_content" id="primaryContent">
+                <table class="roundTable">
+                <tbody class="pos_rel"><tr><td class="tlb" nowrap="">&nbsp;</td><td class="tcb" nowrap="">&nbsp;</td><td class="trb" nowrap="">&nbsp;</td></tr><tr class="pos_rel"><td class="lb" nowrap="">&nbsp;</td><td class="cb pos_rel">
+                <!-- content start -->             
+							<div class="search_result_box">
+											<strong class="txt_point f_14_search" title="지그재그">'지그재그'</strong>
+	                	<span class="txt_sub f_12_search">(제목+내용)</span>
+										
+										
+
+											전체게시판 검색결과 (총 <em class="txt_point">13795</em>건)
+										
+	                <img class="help_icon" src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" alt="도움말" width="14" height="14" onmouseover="TooltipLayer.showTooltip(this);" onmouseout="TooltipLayer.hideTooltip(this);">
+					<p class="search_tooltip">한줄메모장과 읽기권한이 우수회원 이상인<br>게시판은 전체 검색에 포함되지 않습니다.</p><br>					
+				</div>
+				<div class="search_box_wrap  search_box_top_new bg_sub">
+					<div class="search_box_elem">
+						<select name="searchPeriod" class="inp fl" id="searchPeriod1">
+							<option value="all">전체기간</option>
+							<option value="aWeek">최근 1주</option>
+							<option value="aMonth">최근 1달</option>
+							<option value="#DURATION"></option>
+						</select>
+						<div class="sel_body box bg" style="display:none;" id="s_b_57096319379232"><ul><li><a href="javascript:;" onclick="SelectMaker.clickEvent(57096319379232,'all','전체기간')">전체기간</a></li><li><a href="javascript:;" onclick="SelectMaker.clickEvent(57096319379232,'aWeek','최근 1주')">최근 1주</a></li><li><a href="javascript:;" onclick="SelectMaker.clickEvent(57096319379232,'aMonth','최근 1달')">최근 1달</a></li><li>직접 입력<br><p><input type="text" id="s_t_1_57096319379232" value="2026.04.17" class="inp">-<input type="text" id="s_t_2_57096319379232" value="2026.07.17" class="inp"></p><p class="button_set" onclick="SelectMaker.clickEvent('57096319379232', document.getElementById('s_t_1_57096319379232').value + '' + document.getElementById('s_t_2_57096319379232').value, null, '#DURATION')"><span class="btn_bg bg08"></span><span class="btn_txt bt08 w03">확인</span></p></li></ul></div><select name="item" class="inp fl" onchange="changeSearchType(this, 'fldHeadList1', document.searchForm);">
+							<option value="subject" selected="">제목+내용</option>
+							<option value="onlytitle">글제목</option>
+							<option value="writer">글쓴이</option>
+														<option value="filename">첨부파일명</option>
+							<option disabled="">----------</option>
+							<option value="cmtContent">댓글내용</option>
+							<option value="cmtNicknameNgram">댓글작성자</option>
+							<option disabled="">----------</option>
+							<option value="preview">게시글+댓글</option>
+						</select>
+						<select id="fldHeadList1" name="head" class="head_cont inp" style="display: none;">
+												</select>
+						<div class="suggest">
+    <input type="text" value="지그재그" name="q" size="22" autocomplete="off" class="inp query tf_keyword" id="q0" data-bind="value: keywordInput.searchQuery, hasFocus: keywordInput.isSelected, event: { keydown: onKeyDown, keyup: onKeyUp, focus: onFocus, blur: onBlur }"><span aria-live="polite" data-bind="text: suggestList.accessible, attr: { 'aria-live': 'polite'}, css: 'screen_out'" class="screen_out"></span>
+    <div class="suggest_box_wrap">
+        <div class="suggest_box" id="suggest_box0" data-bind="template: { name: &quot;suggest-container&quot; }"><div class="baseBox bg" data-bind="
+	visible: (suggestList.length() &gt; 0 &amp;&amp; suggestList.visible) || suggestList.enableAnswerLayer,
+	template: { name: 'suggest-layer' }" style="display: none;"><!-- ko if: options.isReverse --><!-- /ko -->
+
+<!-- ko ifnot: options.isReverse -->
+    <div data-bind="foreach: suggestList.lists"></div>
+
+    <!-- ko if: options.enableFooter --><!-- /ko -->
+<!-- /ko -->
+</div>
+<!-- ko if: options.enableRecentList --><!-- /ko -->
+</div>
+    </div>
+</div>
+<script type="text/javascript" src="//search1.daumcdn.net/search/suggest_pc/suggest-1.2.16.min.js" charset="UTF-8"></script>
+<script>
+    jQuery.noConflict();
+
+    (function($){
+        var suggestBox = $('.suggest');
+
+        suggestBox.on('keyup', '.inp', function(e){
+            if(e.keyCode === 13) {
+                $(e.target).blur();
+            }
+        });
+    })(jQuery);
+</script>
+						<a href="#" class="btn_search" id="suggest_search0" onclick="SearchUtil.searchBBS(this); return false;"><img src="//t1.daumcdn.net/cafe_image/cf_img4/img/btn_search.gif" width="37" height="21" alt="검색"></a>
+						<a href="#" class="btn_detail" onclick="DetailSearchManager.showDetailSearchLayer(this, 'top'); return false;">상세검색</a>
+						<dl class="thesaurus">
+	<dt>관련검색어</dt>
+		<dd><span class="bar2">|</span><a href="#" onclick="SearchUtil.searchRelevantKeyword('에이블리'); return false;" class="txt_point">에이블리</a></dd>
+		<dd><span class="bar2">|</span><a href="#" onclick="SearchUtil.searchRelevantKeyword('무신사'); return false;" class="txt_point">무신사</a></dd>
+		<dd><span class="bar2">|</span><a href="#" onclick="SearchUtil.searchRelevantKeyword('w컨셉'); return false;" class="txt_point">w컨셉</a></dd>
+		<dd><span class="bar2">|</span><a href="#" onclick="SearchUtil.searchRelevantKeyword('지그재그 쇼핑몰'); return false;" class="txt_point">지그재그 쇼핑몰</a></dd>
+		<dd><span class="bar2">|</span><a href="#" onclick="SearchUtil.searchRelevantKeyword('지그재그 뜻'); return false;" class="txt_point">지그재그 뜻</a></dd>
+		<dd><span class="bar2">|</span><a href="#" onclick="SearchUtil.searchRelevantKeyword('29cm'); return false;" class="txt_point">29cm</a></dd>
+		<dd><span class="bar2">|</span><a href="#" onclick="SearchUtil.searchRelevantKeyword('퀸잇'); return false;" class="txt_point">퀸잇</a></dd>
+	</dl>
+				   </div>
+				</div>
+
+									<link rel="stylesheet" type="text/css" href="//t1.daumcdn.net/cafe_cj/pcweb/build/css/naverad-73e40246b5.min.css">
+<div id="naver-ad-wrapper">
+    <div id="naver-ad-container"></div>
+</div>
+<script>
+    const naverSaData = {"code":"200","message":"검색 광고 요청 처리 성공","adType":"powerLink","ads":[],"totalCount":0};
+    if (naverSaData && naverSaData.ads && naverSaData.ads.length > 0) {
+        window.NAVER_AD_VARS = {
+            searchQuery: "지그재그",
+            adType: naverSaData.adType,
+            adData: naverSaData.ads
+        };
+    }
+</script>
+<script src="//t1.daumcdn.net/cafe_cj/pcweb/build/js/naver_ad-6cb00731de.min.js"></script>
+								
+<!-- 현재 카페 -->
+<form id="innerSearchForm" name="innerSearchForm" method="post">
+	<input type="hidden" name="grpid">
+	<input type="hidden" name="fldid">
+	<input type="hidden" name="changerolecode">
+	<input type="hidden" name="moveto" value="">
+   
+	    <div class="searchSubMenuBar">
+	    	<div class="sort_menu">
+                <span>
+                <a href="#" onclick="sort('0'); return false;" id="sort0">최신순</a><span class="arrow">▼</span>
+                </span>
+                <span class="bar2">|</span>
+                <span class="txt_sub">
+                <a href="#" onclick="sort('1'); return false;" id="sort1">정확도</a><span class="arrow">▼</span>
+                </span>
+                <span class="bar2">|</span>
+                <span class="txt_sub">
+                    <a href="#" onclick="sort('2'); return false;" id="sort2">댓글수</a><span class="arrow">▼</span>
+                </span>
+            </div>
+		<div class="view_menu">
+			<input type="radio" name="viewtype" id="viewTypeTit" value="tit" onclick="changeSearchViewType('1');"><label for="viewTypeTit">제목</label>
+			<input type="radio" name="viewtype" id="viewTypeAll" value="all" onclick="changeSearchViewType('2');" checked="checked"><label for="viewTypeAll">제목+내용</label>
+	       	<span class="bar2">|</span>
+	       	<a href="#articleTypeLayer" id="articleTypeBtn" onclick="showLayerMenu('articleTypeLayer',this.id, {left: -8, top: 5});return false;">
+전체 게시글</a> <span class="arrow">▼</span>
+<div id="articleTypeLayer" class="cafeLayer scroll">
+	<ul>
+			<li><a href="#" onclick="SearchUtil.searchType('all'); return false;" class="p11">전체 게시글</a></li>
+			<li><a href="#" onclick="SearchUtil.searchType('A,B'); return false;" class="p11">모든 파일형식</a></li>
+			<li><a href="#" onclick="SearchUtil.searchType('image'); return false;" class="p11">이미지 포함</a></li>
+			<li><a href="#" onclick="SearchUtil.searchType('m'); return false;" class="p11">동영상 포함</a></li>
+			<li><a href="#" onclick="SearchUtil.searchType('A'); return false;" class="p11">문서 포함</a></li>
+		</ul>
+</div>
+						<span class="bar2">|</span>
+			
+<a href="#viewListLayer" id="viewListBtn" onclick="showLayerMenu('viewListLayer',this.id, {top: 5});return false;">목록 20개</a><span class="arrow">▼</span>
+<div id="viewListLayer" class="cafeLayer scroll">
+	<ul>
+			<li><a href="#" onclick="setListNum(10); return false;">10개</a></li>
+			<li><a href="#" onclick=" return false;">20개</a></li>
+			<li><a href="#" onclick="setListNum(30); return false;">30개</a></li>
+			<li><a href="#" onclick="setListNum(40); return false;">40개</a></li>
+			<li><a href="#" onclick="setListNum(50); return false;">50개</a></li>
+		</ul>
+</div>
+	    </div>
+	</div>
+
+		        <table id="searchCafeList" class="bbsList all" summary=" -  검색 결과 ">
+        <caption> 검색 결과</caption>
+        <thead>
+            <tr>
+                                <th class="search_num" nowrap="nowrap">글번호</th>
+                <th class="subject">제목</th>
+                <th class="search_nick" nowrap="nowrap">글쓴이</th>
+                <th class="date" nowrap="nowrap">작성일</th>
+                <th nowrap="nowrap">조회</th>
+            </tr>
+        </thead>
+        <tbody>
+                                       <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">177684326</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1XoEzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177684326&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg"><b>지그재그</b> 쇼핑하는 여시 도와주라ㅠㅠ</a>
+                                                    <a class="txt_point num  " href="#" onclick="viewShortComment('Lp0T', 177684326); return false;">[5]</a>
+                                                                                                                                                                                                                    <img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="11" height="11" alt="사진첨부" class="icon_file_photo">                                                                                                    
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                					<span>여시</span>
+				                </td>
+                <td class="date" nowrap="nowrap">26.04.07</td>
+                <td class="count search_count" nowrap="nowrap">100</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   		                   		<table>
+	                   			<tbody><tr>
+	                   				<td class="thumb">
+	                   					<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1XoEzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177684326&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="thumb_link">
+	                   						<img src="https://img1.daumcdn.net/thumb/T100x100/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fcafeattach%2F1IHuH%2Ff4ff7cfee317ffe73dceeaaeb3071b70142c7ee6" class="thumImages" onload="resizeImage(this)" onerror="errorImage(this)">
+	                   						                   					</a>
+	                   				</td>
+	                   				<td class="content">
+																				<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1XoEzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177684326&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">아래 1번사진과 같이 28220원이라고 나오는데 실제로 구매하기 누르면 2번사진과 같이 35280원이라규 나오는데 왜그런걸까ㅠㅠ 제발 도와주세요ㅜㅠ</a><br>
+																				<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lp0T">자유게시판</a></span>	                   				</td>
+	                   			</tr>
+	                   		</tbody></table>
+						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">20739</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=WSmj&amp;contentval=005OVzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=20739&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg">❌️가격올림❌️린제이 모델링팩 12860~ 무배</a>
+                                                    <a class="txt_point num  " href="#" onclick="viewShortComment('WSmj', 20739); return false;">[33]</a>
+                                                                                                                                                                                                                    <img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="11" height="11" alt="사진첨부" class="icon_file_photo">                                                                                                    
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                															<img src="//t1.daumcdn.net/cafe_image/cf_img2/bbs2/roleicon/2/g_level_27.gif">
+															<a href="#" onclick="showSideView(this, 'qv3h74vKmg10', '\uAC74\uAC15\uD55C \uAD6C\uCC3D\uBAA8'); return false;">건강한 구창모</a>
+									                </td>
+                <td class="date" nowrap="nowrap">26.04.07</td>
+                <td class="count search_count" nowrap="nowrap">3539</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   		                   		<table>
+	                   			<tbody><tr>
+	                   				<td class="thumb">
+	                   					<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=WSmj&amp;contentval=005OVzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=20739&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="thumb_link">
+	                   						<img src="https://img1.daumcdn.net/thumb/T100x100/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fcafeattach%2F1IHuH%2F056c55abf55221e6b006662f46148ada572c7690_re_1775564380826" class="thumImages" onload="resizeImage(this)" onerror="errorImage(this)">
+	                   						                   					</a>
+	                   				</td>
+	                   				<td class="content">
+																				<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=WSmj&amp;contentval=005OVzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=20739&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">출처: 여성시대 건강한 구창모 쿨티트리 정기적으로 찾는 여시들 있는 것 같아서 지금 <b>지그재그</b>에서 뷰티페스타 쿠폰 받고 추가 포인트 1000원까지 받으면 저렴한 듯?! 무배!! 세일정보 처음 써봐,,,</a><br>
+																				<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WSmj">세일정보 </a></span>	                   				</td>
+	                   			</tr>
+	                   		</tbody></table>
+						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">177683122</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1XUozzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177683122&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg"><b>지그재그</b> 당첨취소 실화야? 말이되냐 이게 ㅋㅋ</a>
+                                                    <a class="txt_point num  " href="#" onclick="viewShortComment('Lp0T', 177683122); return false;">[3]</a>
+                                                                                                                                                                                                                    <img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="11" height="11" alt="사진첨부" class="icon_file_photo">                                                                                                    
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                					<span>여시</span>
+				                </td>
+                <td class="date" nowrap="nowrap">26.04.07</td>
+                <td class="count search_count" nowrap="nowrap">271</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   		                   		<table>
+	                   			<tbody><tr>
+	                   				<td class="thumb">
+	                   					<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1XUozzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177683122&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="thumb_link">
+	                   						<img src="https://img1.daumcdn.net/thumb/T100x100/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fcafeattach%2F1IHuH%2F82acf51ea13566824d81f843351d3c81f76fe568" class="thumImages" onload="resizeImage(this)" onerror="errorImage(this)">
+	                   						                   					</a>
+	                   				</td>
+	                   				<td class="content">
+																				<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1XUozzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177683122&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">이거 어떻게 생각함 ㅋㅋ</a><br>
+																				<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lp0T">자유게시판</a></span>	                   				</td>
+	                   			</tr>
+	                   		</tbody></table>
+						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">11356109</td>
+                <td class="subject searchpreview_subject">
+                	                	<span class="headcate txt_sub">[삽니다]</span>          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=VN83&amp;contentval=0leF3zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=11356109&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg"><b>지그재그</b> 최저가 구해요</a>
+                                                                                                                                                                                                                    <img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="11" height="11" alt="사진첨부" class="icon_file_photo">                                                                                                    
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                															<img src="//t1.daumcdn.net/cafe_image/cf_img2/bbs2/roleicon/2/g_level_27.gif">
+															<a href="#" onclick="showSideView(this, 'SaDfZ4P2eP50', '988899'); return false;">988899</a>
+									                </td>
+                <td class="date" nowrap="nowrap">26.04.07</td>
+                <td class="count search_count" nowrap="nowrap">20</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   		                   		<table>
+	                   			<tbody><tr>
+	                   				<td class="thumb">
+	                   					<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=VN83&amp;contentval=0leF3zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=11356109&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="thumb_link">
+	                   						<img src="https://img1.daumcdn.net/thumb/T100x100/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fcafeattach%2F1IHuH%2Fd3d0af5f11246a9f2c33a484b644f90c597a6530_re_1775551542567" class="thumImages" onload="resizeImage(this)" onerror="errorImage(this)">
+	                   						                   					</a>
+	                   				</td>
+	                   				<td class="content">
+																				<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=VN83&amp;contentval=0leF3zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=11356109&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">https://cafe.daum.net/subdued20club/WU3B/10 거래 전 공지 필수 확인 대리 구매 [팝니다] 글은 삭제된 글 포함 동일글 1일 최대 3회까지 작성 가능 * 2024/12/11 신규 공지 통신사/틱톡 라이트 신규 가입 관련...</a><br>
+																				<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VN83">금전거래전용게시판</a></span>	                   				</td>
+	                   			</tr>
+	                   		</tbody></table>
+						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">177678934</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1WPGzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177678934&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg"><b>지그재그</b> 구매했다가 품절로 취소된거 기한지난 포인트도 돌려줘?</a>
+                                                    <a class="txt_point num  " href="#" onclick="viewShortComment('Lp0T', 177678934); return false;">[2]</a>
+                                                                                                                                                                                                                                                                                                                        
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                					<span>여시</span>
+				                </td>
+                <td class="date" nowrap="nowrap">26.04.07</td>
+                <td class="count search_count" nowrap="nowrap">48</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   															<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1WPGzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177678934&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">당일 소진 포인트 써서 결제했는데 품절됐다고 취소하라는데 포인트도 돌려주나?</a><br>
+														<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lp0T">자유게시판</a></span>						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">11356051</td>
+                <td class="subject searchpreview_subject">
+                	                	<span class="headcate txt_sub">[삽니다]</span>          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=VN83&amp;contentval=0leE7zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=11356051&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg"><b>지그재그</b> 최저가 구해요</a>
+                                                                                                                                                                                                                    <img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="11" height="11" alt="사진첨부" class="icon_file_photo">                                                                                                    
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                															<img src="//t1.daumcdn.net/cafe_image/cf_img2/bbs2/roleicon/2/g_level_27.gif">
+															<a href="#" onclick="showSideView(this, 'SaDfZ4P2eP50', '988899'); return false;">988899</a>
+									                </td>
+                <td class="date" nowrap="nowrap">26.04.07</td>
+                <td class="count search_count" nowrap="nowrap">12</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   		                   		<table>
+	                   			<tbody><tr>
+	                   				<td class="thumb">
+	                   					<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=VN83&amp;contentval=0leE7zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=11356051&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="thumb_link">
+	                   						<img src="https://img1.daumcdn.net/thumb/T100x100/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fcafeattach%2F1IHuH%2Fd3d0af5f11246a9f2c33a484b644f90c597a6530_re_1775547145289" class="thumImages" onload="resizeImage(this)" onerror="errorImage(this)">
+	                   						                   					</a>
+	                   				</td>
+	                   				<td class="content">
+																				<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=VN83&amp;contentval=0leE7zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=11356051&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">https://cafe.daum.net/subdued20club/WU3B/10 거래 전 공지 필수 확인 대리 구매 [팝니다] 글은 삭제된 글 포함 동일글 1일 최대 3회까지 작성 가능 * 2024/12/11 신규 공지 통신사/틱톡 라이트 신규 가입 관련...</a><br>
+																				<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VN83">금전거래전용게시판</a></span>	                   				</td>
+	                   			</tr>
+	                   		</tbody></table>
+						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">177677821</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1W7Jzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177677821&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg">홍대 펍 <b>지그재그</b> 가본여시있어??</a>
+                                                                                                                                                                                                                                                                                                                        
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                					<span>여시</span>
+				                </td>
+                <td class="date" nowrap="nowrap">26.04.07</td>
+                <td class="count search_count" nowrap="nowrap">5</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   															<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1W7Jzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177677821&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">있어???</a><br>
+														<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lp0T">자유게시판</a></span>						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">14539435</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=W17m&amp;contentval=0z0N1zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=14539435&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg">직시들 나 34살인데 이런 <b>지그재그</b> 가디건 유치해?</a>
+                                                    <a class="txt_point num  " href="#" onclick="viewShortComment('W17m', 14539435); return false;">[17]</a>
+                                                                                                                                                            <img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="13" height="11" alt="투표첨부" class="icon_file_poll">                                                        <img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="11" height="11" alt="사진첨부" class="icon_file_photo">                                                                                                    
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                					<span>여시</span>
+				                </td>
+                <td class="date" nowrap="nowrap">26.04.07</td>
+                <td class="count search_count" nowrap="nowrap">534</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   		                   		<table>
+	                   			<tbody><tr>
+	                   				<td class="thumb">
+	                   					<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=W17m&amp;contentval=0z0N1zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=14539435&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="thumb_link">
+	                   						<img src="https://img1.daumcdn.net/thumb/T100x100/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fcafeattach%2F1IHuH%2F55a33eaa45697394d67a5c4700a58957a486bf8c" class="thumImages" onload="resizeImage(this)" onerror="errorImage(this)">
+	                   						                   					</a>
+	                   				</td>
+	                   				<td class="content">
+																				<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=W17m&amp;contentval=0z0N1zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=14539435&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub"></a><br>
+																				<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=W17m">직장인 대나무숲</a></span>	                   				</td>
+	                   			</tr>
+	                   		</tbody></table>
+						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">177672514</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1Ujizzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177672514&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg">어제 <b>지그재그</b> 치킨 당첨 됐는데 갑자기 뺏어감</a>
+                                                    <a class="txt_point num  " href="#" onclick="viewShortComment('Lp0T', 177672514); return false;">[4]</a>
+                                                                                                                                                                                                                    <img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="11" height="11" alt="사진첨부" class="icon_file_photo">                                                                                                    
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                					<span>여시</span>
+				                </td>
+                <td class="date" nowrap="nowrap">26.04.07</td>
+                <td class="count search_count" nowrap="nowrap">209</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   		                   		<table>
+	                   			<tbody><tr>
+	                   				<td class="thumb">
+	                   					<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1Ujizzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177672514&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="thumb_link">
+	                   						<img src="https://img1.daumcdn.net/thumb/T100x100/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fcafeattach%2F1IHuH%2Fac748441a25d32ec74c43f0d7ffcb0f7a87e64d3" class="thumImages" onload="resizeImage(this)" onerror="errorImage(this)">
+	                   						                   					</a>
+	                   				</td>
+	                   				<td class="content">
+																				<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1Ujizzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177672514&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">이건 어제 당첨돼서 신나서 쩩은거,,, 이건 지듬... 하... 치킨 내놔</a><br>
+																				<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lp0T">자유게시판</a></span>	                   				</td>
+	                   			</tr>
+	                   		</tbody></table>
+						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">31200</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=WLDS&amp;contentval=0087Ezzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=31200&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg">04/07 카카오뱅크 퀴즈+낮미션 / 카카오페이 퀴즈</a>
+                                                    <a class="txt_point num  " href="#" onclick="viewShortComment('WLDS', 31200); return false;">[16]</a>
+                                                                                                                                                                                                                                                                                                                        
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                															<img src="//t1.daumcdn.net/cafe_image/cf_img2/bbs2/roleicon/2/g_level_27.gif">
+															<a href="#" onclick="showSideView(this, 'X1QEqUgwjAQ0', '\uB2E4\uC774\uB2E4\uC774'); return false;">다이다이</a>
+									                </td>
+                <td class="date" nowrap="nowrap">26.04.07</td>
+                <td class="count search_count" nowrap="nowrap">1660</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   															<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=WLDS&amp;contentval=0087Ezzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=31200&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">매일 OX 퀴즈 풀고 100% 현금 받으세요. kakaobank.onelink.me 매일 용돈 받기(데일리 용돈+쿠팡 5원+<b>지그재그</b> 2원+네이버 2원) 네이버는 랜덤성으로 뜸ㅜ https://kakaobank.onelink.me/0qMi/u8xk8la1 카카오...</a><br>
+														<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=WLDS">정답입니다🙆</a></span>						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">177669041</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1Tphzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177669041&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg"><b>지그재그</b>는 나이대 선택가능하잖아 에이블리는 안돼?</a>
+                                                                                                                                                                                                                                                                                                                        
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                					<span>여시</span>
+				                </td>
+                <td class="date" nowrap="nowrap">26.04.07</td>
+                <td class="count search_count" nowrap="nowrap">19</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   															<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1Tphzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177669041&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">안되나?</a><br>
+														<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lp0T">자유게시판</a></span>						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">177668568</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1Ti4zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177668568&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg"><b>지그재그</b>보다 에이블리를 더 많이쓰나</a>
+                                                    <a class="txt_point num  " href="#" onclick="viewShortComment('Lp0T', 177668568); return false;">[11]</a>
+                                                                                                                                                                                                                    <img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="11" height="11" alt="사진첨부" class="icon_file_photo">                                                                                                    
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                					<span>여시</span>
+				                </td>
+                <td class="date" nowrap="nowrap">26.04.07</td>
+                <td class="count search_count" nowrap="nowrap">507</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   		                   		<table>
+	                   			<tbody><tr>
+	                   				<td class="thumb">
+	                   					<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1Ti4zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177668568&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="thumb_link">
+	                   						<img src="https://img1.daumcdn.net/thumb/T100x100/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fcafeattach%2F1IHuH%2F1e6cd6ca6cf07c551e8f88dc799f3f29d424e6e6" class="thumImages" onload="resizeImage(this)" onerror="errorImage(this)">
+	                   						                   					</a>
+	                   				</td>
+	                   				<td class="content">
+																				<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1Ti4zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177668568&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">후기이긴한데 에이블리가 거의 10배더많네</a><br>
+																				<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lp0T">자유게시판</a></span>	                   				</td>
+	                   			</tr>
+	                   		</tbody></table>
+						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">177666401</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1T97zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177666401&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg">간만에 옷구경한다고 <b>지그재그</b> 담아봣는데</a>
+                                                                                                                                                                                                                                                                                                                        
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                					<span>여시</span>
+				                </td>
+                <td class="date" nowrap="nowrap">26.04.07</td>
+                <td class="count search_count" nowrap="nowrap">33</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   															<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1T97zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177666401&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">28망원..ㅋㅋㅋㅋㅋㅋㅋㅋ또 담아놓기만 하고 세일 끝나버린다음에 결제하는ㅋㅋㅋㅋㅋ.. 일단 킵해놔야겠다...</a><br>
+														<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lp0T">자유게시판</a></span>						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">177664663</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1Sh5zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177664663&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg"><b>지그재그</b> 오류 쩐다</a>
+                                                    <a class="txt_point num  " href="#" onclick="viewShortComment('Lp0T', 177664663); return false;">[4]</a>
+                                                                                                                                                                                                                                                                                                                        
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                					<span>여시</span>
+				                </td>
+                <td class="date" nowrap="nowrap">26.04.06</td>
+                <td class="count search_count" nowrap="nowrap">79</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   															<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1Sh5zzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177664663&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">직잭팟끝나기전에 존나사나봐</a><br>
+														<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lp0T">자유게시판</a></span>						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">177663679</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1SRDzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177663679&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg">도매택 잘 아는 여시들 이거 한번만 찾아줄수있을까..</a>
+                                                    <a class="txt_point num  " href="#" onclick="viewShortComment('Lp0T', 177663679); return false;">[2]</a>
+                                                                                                                                                                                                                    <img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="11" height="11" alt="사진첨부" class="icon_file_photo">                                                                                                    
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                					<span>여시</span>
+				                </td>
+                <td class="date" nowrap="nowrap">26.04.06</td>
+                <td class="count search_count" nowrap="nowrap">182</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   		                   		<table>
+	                   			<tbody><tr>
+	                   				<td class="thumb">
+	                   					<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1SRDzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177663679&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="thumb_link">
+	                   						<img src="https://img1.daumcdn.net/thumb/T100x100/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fcafeattach%2F1IHuH%2F77a6be06b812c41383d78b954c17f19422ca1eab" class="thumImages" onload="resizeImage(this)" onerror="errorImage(this)">
+	                   						                   					</a>
+	                   				</td>
+	                   				<td class="content">
+																				<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1SRDzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177663679&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">이거 예전에 담ㄱ캎에서 사려고 캡쳐해둔건데 아무리 ㅊ찾아도 없어ㅠ <b>지그재그</b> 존내 뒤지는데더 안보이네 아예 내려간건지,,,,,,,,,, 딱 원하는 스타일인데 그 때 살 걸….</a><br>
+																				<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lp0T">자유게시판</a></span>	                   				</td>
+	                   			</tr>
+	                   		</tbody></table>
+						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">177662396</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1S6Wzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177662396&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg"><b>지그재그</b>에서 파는 폴로랄프로렌 찐인가?</a>
+                                                    <a class="txt_point num  " href="#" onclick="viewShortComment('Lp0T', 177662396); return false;">[1]</a>
+                                                                                                                                                                                                                                                                                                                        
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                					<span>여시</span>
+				                </td>
+                <td class="date" nowrap="nowrap">26.04.06</td>
+                <td class="count search_count" nowrap="nowrap">223</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   															<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1S6Wzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177662396&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">짭?</a><br>
+														<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lp0T">자유게시판</a></span>						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">11354834</td>
+                <td class="subject searchpreview_subject">
+                	                	<span class="headcate txt_sub">[팝니다]</span>          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=VN83&amp;contentval=0lduUzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=11354834&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg">소라색 비키니 판매합니다 !</a>
+                                                    <a class="txt_point num  " href="#" onclick="viewShortComment('VN83', 11354834); return false;">[2]</a>
+                                                                                                                                                                                                                    <img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="11" height="11" alt="사진첨부" class="icon_file_photo">                                                                                                    
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                															<img src="//t1.daumcdn.net/cafe_image/cf_img2/bbs2/roleicon/2/g_level_27.gif">
+															<a href="#" onclick="showSideView(this, '3tK2QOgY1Bg0', '\uC9C0\uB098\uAC00\uB294\uBCF5\uCE58'); return false;">지나가는복치</a>
+									                </td>
+                <td class="date" nowrap="nowrap">26.04.06</td>
+                <td class="count search_count" nowrap="nowrap">75</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   		                   		<table>
+	                   			<tbody><tr>
+	                   				<td class="thumb">
+	                   					<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=VN83&amp;contentval=0lduUzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=11354834&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="thumb_link">
+	                   						<img src="https://img1.daumcdn.net/thumb/T100x100/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fcafeattach%2F1IHuH%2Fc3e48021f19c7517180e1cf8f368811c8b417422" class="thumImages" onload="resizeImage(this)" onerror="errorImage(this)">
+	                   						                   					</a>
+	                   				</td>
+	                   				<td class="content">
+																				<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=VN83&amp;contentval=0lduUzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=11354834&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">신규 공지 통신사/틱톡 라이트 신규 가입 관련 [삽니다] 글작성 금지 / 거래 금지 공지 위반 시 거래글은 무통보 삭제됩니다. 한번 착용했고 <b>지그재그</b>에 30000원으로 판매하고있어요 ! 택포 1만5천원으로 팝니다 😊</a><br>
+																				<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VN83">금전거래전용게시판</a></span>	                   				</td>
+	                   			</tr>
+	                   		</tbody></table>
+						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">11354829</td>
+                <td class="subject searchpreview_subject">
+                	                	<span class="headcate txt_sub">[팝니다]</span>          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=VN83&amp;contentval=0lduPzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=11354829&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg">핑크색 비키니 L 팝니다.</a>
+                                                                                                                                                                                                                    <img src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" width="11" height="11" alt="사진첨부" class="icon_file_photo">                                                                                                    
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                															<img src="//t1.daumcdn.net/cafe_image/cf_img2/bbs2/roleicon/2/g_level_27.gif">
+															<a href="#" onclick="showSideView(this, '3tK2QOgY1Bg0', '\uC9C0\uB098\uAC00\uB294\uBCF5\uCE58'); return false;">지나가는복치</a>
+									                </td>
+                <td class="date" nowrap="nowrap">26.04.06</td>
+                <td class="count search_count" nowrap="nowrap">64</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   		                   		<table>
+	                   			<tbody><tr>
+	                   				<td class="thumb">
+	                   					<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=VN83&amp;contentval=0lduPzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=11354829&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="thumb_link">
+	                   						<img src="https://img1.daumcdn.net/thumb/T100x100/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fcafeattach%2F1IHuH%2F7ca17161629b196be4ae15dd84705585efae220a" class="thumImages" onload="resizeImage(this)" onerror="errorImage(this)">
+	                   						                   					</a>
+	                   				</td>
+	                   				<td class="content">
+																				<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=VN83&amp;contentval=0lduPzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=11354829&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">삽니다] 글작성 금지 / 거래 금지 공지 위반 시 거래글은 무통보 삭제됩니다. 한번 착용했고 제꺼는 핑크색상인데 지금은 품절인거같아요 ! <b>지그재그</b>에 35000원으로 판매하고 있는데 택포 18000원에 판매합니다...</a><br>
+																				<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=VN83">금전거래전용게시판</a></span>	                   				</td>
+	                   			</tr>
+	                   		</tbody></table>
+						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">177658929</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1RCbzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177658929&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg">토스 <b>지그재그</b> 적립 쏠쏠하다</a>
+                                                    <a class="txt_point num  " href="#" onclick="viewShortComment('Lp0T', 177658929); return false;">[2]</a>
+                                                                                                                                                                                                                                                                                                                        
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                					<span>여시</span>
+				                </td>
+                <td class="date" nowrap="nowrap">26.04.06</td>
+                <td class="count search_count" nowrap="nowrap">59</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   															<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1RCbzzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177658929&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">토스페이 쓰면 토스페이 경로해서 <b>지그재그</b> 결제해!!!!</a><br>
+														<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lp0T">자유게시판</a></span>						                                                  </td>
+                <td></td>
+            </tr>
+                                           <tr class="list_row_info">
+           		                 <td class="search_num" nowrap="nowrap">177657950</td>
+                <td class="subject searchpreview_subject">
+                	                	          			
+                	                    	                        <a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1Qwozzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177657950&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg"><b>지그재그</b> 부털감임 ^^~~</a>
+                                                                                                                                                                                                                                                                                                                        
+                                    </td>
+                <td class="search_nick" nowrap="nowrap">
+                					<span>여시</span>
+				                </td>
+                <td class="date" nowrap="nowrap">26.04.06</td>
+                <td class="count search_count" nowrap="nowrap">72</td>
+            </tr>
+            <tr class="list_row_search_feed">
+                                <td class="num">&nbsp;</td>
+                <td colspan="3" class="search_con searchpreview_con">
+                                  	                   															<a href="/_c21_/bbs_nsread?grpid=1IHuH&amp;fldid=Lp0T&amp;contentval=C1Qwozzzzzzzzzzzzzzzzzzzzzzzzz&amp;datanum=177657950&amp;searchlist_uri=%2F_c21_%2Fcafesearch&amp;search_ctx=mXHEqj36JebiwGreGfTsfveFgDz6pTFmzA9ignoh1M5AkMeEoeYLzYGdNt9uqFaf61DPXAFl2LJLM1O_-vcCbcDl.qFPPmXwg_jpAzwhBJdo7YKErihYBpamtmNeuL5LwbVsg.mHerlDjdHyAstz7rLR16_apACFfI6SBbOuWC7BAtHn6GGoR4rloFn4OW8mCu_ZACpbhy4fDXFHSlwtmSnp4lrDr8bDEC1sAxlARBDU8CpEc_u1C8IIB1S2_5h-k43ydXqoLthCcy_JGgkTErwclttsIUaTTqKGoPqhnurWzyriUPzy4JNT8YFIkzLvaiDsexKYcfhB__EdiC9B4WhbubanM.vg" class="txt_sub">알고하시길</a><br>
+														<span class="p11 txt_sub bloc">게시판 :  <a href="/_c21_/bbs_list?grpid=1IHuH&amp;fldid=Lp0T">자유게시판</a></span>						                                                  </td>
+                <td></td>
+            </tr>
+                                        </tbody>
+        </table>
+    
+		<input type="hidden" name="move" value="">
+        </form>
+        
+        
+
+				
+								<!-- 신규 페이지 -->
+				<div class="list_btn_area">
+													        <div class="paging pagingtype_search">
+		            <span class="num_prev">
+    <span class="arrow">◀</span><a href="javascript:goPage(41);">이전</a>
+</span>
+<a href="javascript:goPage(1)" class="num_box">1</a>
+<span>...</span>
+   
+        <a href="javascript:goPage(46);" class="num_box">46</a>  
+            <a href="javascript:goPage(47);" class="num_box">47</a>  
+            <a href="javascript:goPage(48);" class="num_box">48</a>  
+            <a href="javascript:goPage(49);" class="num_box">49</a>  
+            <a href="javascript:;" class="num_box txt_point u b">50</a>
+    
+<span class="num_next">
+    <span class="txt_sub">다음</span><span class="arrow txt_sub">▶</span>        
+</span>
+		            </div>
+				</div>
+												<div class="other_search_tit">
+					<a href="#" onclick="searchOtherResult('cafe', '지그재그'); return false;" title="지그재그"><strong class="txt_point">'지그재그'</strong>(으)로 검색한 다른 카페글 보기</a><span class="arrow">▶</span>
+					<span class="bar2">|</span>
+					<a href="https://search.daum.net/search?w=tot&amp;q=지그재그" target="_blank">통합검색 결과 보기</a><span class="arrow">▶</span>
+				</div>
+										
+						<table class="another_bbs">
+		<tbody><tr>
+			<td class="related_bbs line">
+							<h5><span class="txt_point">지그재그</span> 관련 글 많은 게시판</h5>
+							<ul>
+																<li><strong>ㆍ</strong><a href="/_c21_/cafesearch?grpid=1IHuH&amp;fldid=Lp0T&amp;listnum=20&amp;query=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&amp;item=subject&amp;nickname=&amp;searchPeriod=&amp;media_info=&amp;attachfile_yn=">자유게시판 (10241건)</a><br></li>
+									<li><strong>ㆍ</strong><a href="/_c21_/cafesearch?grpid=1IHuH&amp;fldid=VN83&amp;listnum=20&amp;query=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&amp;item=subject&amp;nickname=&amp;searchPeriod=&amp;media_info=&amp;attachfile_yn=">금전거래전용게시판 (1338건)</a><br></li>
+									<li><strong>ㆍ</strong><a href="/_c21_/cafesearch?grpid=1IHuH&amp;fldid=ReHf&amp;listnum=20&amp;query=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&amp;item=subject&amp;nickname=&amp;searchPeriod=&amp;media_info=&amp;attachfile_yn=">악플달면 쩌리쩌려버려 (358건)</a><br></li>
+									<li><strong>ㆍ</strong><a href="/_c21_/cafesearch?grpid=1IHuH&amp;fldid=W17m&amp;listnum=20&amp;query=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&amp;item=subject&amp;nickname=&amp;searchPeriod=&amp;media_info=&amp;attachfile_yn=">직장인 대나무숲 (269건)</a><br></li>
+									<li><strong>ㆍ</strong><a href="/_c21_/cafesearch?grpid=1IHuH&amp;fldid=QoXG&amp;listnum=20&amp;query=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&amp;item=subject&amp;nickname=&amp;searchPeriod=&amp;media_info=&amp;attachfile_yn=">└ 에트(콧멍으로편입) (55건)</a><br></li>
+											</ul>
+			</td>
+		</tr>
+		</tbody></table>
+				
+				<!-- search box start -->
+				<div class="search_box_wrap search_box_bottom_new">
+					<div id="cafeSearchInputWrap" class="search_box_elem">						
+						<select name="searchPeriod" class="widthfix inp fl" id="searchPeriod2">
+							<option value="all">전체기간</option>
+							<option value="aWeek">최근 1주</option>
+							<option value="aMonth">최근 1달</option>
+							<option value="#DURATION"></option>
+						</select>
+						<div class="sel_body box bg" style="display:none;" id="s_b_53527799418030"><ul><li><a href="javascript:;" onclick="SelectMaker.clickEvent(53527799418030,'all','전체기간')">전체기간</a></li><li><a href="javascript:;" onclick="SelectMaker.clickEvent(53527799418030,'aWeek','최근 1주')">최근 1주</a></li><li><a href="javascript:;" onclick="SelectMaker.clickEvent(53527799418030,'aMonth','최근 1달')">최근 1달</a></li><li>직접 입력<br><p><input type="text" id="s_t_1_53527799418030" value="2026.04.17" class="inp">-<input type="text" id="s_t_2_53527799418030" value="2026.07.17" class="inp"></p><p class="button_set" onclick="SelectMaker.clickEvent('53527799418030', document.getElementById('s_t_1_53527799418030').value + '' + document.getElementById('s_t_2_53527799418030').value, null, '#DURATION')"><span class="btn_bg bg08"></span><span class="btn_txt bt08 w03">확인</span></p></li></ul></div><select name="item" class="inp fl" onchange="changeSearchType(this, 'fldHeadList2', document.searchForm);">
+							<option value="subject" selected="">제목+내용</option>
+							<option value="onlytitle">글제목</option>
+							<option value="writer">글쓴이</option>
+														<option value="filename">첨부파일명</option>
+							<option disabled="">----------</option>
+							<option value="cmtContent">댓글내용</option>
+							<option value="cmtNicknameNgram">댓글작성자</option>
+							<option disabled="">----------</option>
+							<option value="preview">게시글+댓글</option>
+						</select>
+						<select id="fldHeadList2" name="head" class="head_cont inp" style="display: none;">
+												</select>
+						<div class="suggest">
+    <input type="text" value="지그재그" name="q" size="22" autocomplete="off" class="inp query tf_keyword" id="q1" data-bind="value: keywordInput.searchQuery, hasFocus: keywordInput.isSelected, event: { keydown: onKeyDown, keyup: onKeyUp, focus: onFocus, blur: onBlur }"><span aria-live="polite" data-bind="text: suggestList.accessible, attr: { 'aria-live': 'polite'}, css: 'screen_out'" class="screen_out"></span>
+    <div class="suggest_box_wrap">
+        <div class="suggest_box" id="suggest_box1" data-bind="template: { name: &quot;suggest-container&quot; }"><div class="baseBox bg" data-bind="
+	visible: (suggestList.length() &gt; 0 &amp;&amp; suggestList.visible) || suggestList.enableAnswerLayer,
+	template: { name: 'suggest-layer' }" style="display: none;"><!-- ko if: options.isReverse --><!-- /ko -->
+
+<!-- ko ifnot: options.isReverse -->
+    <div data-bind="foreach: suggestList.lists"></div>
+
+    <!-- ko if: options.enableFooter --><!-- /ko -->
+<!-- /ko -->
+</div>
+<!-- ko if: options.enableRecentList --><!-- /ko -->
+</div>
+    </div>
+</div>
+<script type="text/javascript" src="//search1.daumcdn.net/search/suggest_pc/suggest-1.2.16.min.js" charset="UTF-8"></script>
+<script>
+    jQuery.noConflict();
+
+    (function($){
+        var suggestBox = $('.suggest');
+
+        suggestBox.on('keyup', '.inp', function(e){
+            if(e.keyCode === 13) {
+                $(e.target).blur();
+            }
+        });
+    })(jQuery);
+</script>
+						<a href="#" class="btn_search" id="suggest_search1" onclick="SearchUtil.searchBBS(this); return false;"><img src="//t1.daumcdn.net/cafe_image/cf_img4/img/btn_search.gif" width="37" height="21" alt="검색"></a>
+						<a href="#" class="btn_detail" onclick="DetailSearchManager.showDetailSearchLayer(this, 'bottom'); return false;">상세검색	</a>						
+										</div>
+				</div><!-- search box end -->
+												<div id="detail_search_wrap" class=" bg_sub">
+   	<div class="detail_search_layer bg_sub">
+   		<h3 class="title bg_sub">
+   			<em>상세검색</em>
+   			<img class="help_icon" src="//t1.daumcdn.net/cafe_image/cf_img2/img_blank2.gif" alt="도움말" width="14" height="14" onmouseover="TooltipLayer.showTooltip(this);" onmouseout="TooltipLayer.hideTooltip(this);">
+			<p class="search_tooltip">
+				한줄메모장과 읽기권한이 우수회원 이상인 게시판은 상세검색에 포함되지 않습니다.
+			</p><br>
+   		</h3>
+   		<dl>
+   			<dt class="none">게시판선택</dt>
+   			<dd id="cafeMenuListWrap"><ul class="bg inp txt"></ul></dd>
+ 			   			<dt>검색범위</dt>
+   			<dd>
+   				<select class="inp" id="searchContentType">
+   					<option value="subject">제목+내용</option>
+   					<option value="onlytitle">글제목</option>
+   					<option value="filename">첨부파일명</option>
+   				</select>
+   			</dd>
+   			   			<dt>검색단어</dt>
+   			<dd><input type="text" class="inp input_txt" value="" id="searchKeyword"></dd>
+   			   			<dt>글작성자</dt>
+   			   			<dd><input type="text" class="inp input_txt" value="" id="writer"></dd>
+   			<dt>기간선택</dt>
+   			<dd>
+   				<select id="selectTerm" class="doc_type_select inp fl">
+					<option value="all">전체기간</option>
+					<option value="aWeek">최근 1주</option>
+					<option value="aMonth">최근 1달</option>
+					<option value="#DURATION"></option>
+				</select>
+   			<div class="sel_body box bg" style="display:none;" id="s_b_124898198642140"><ul><li><a href="javascript:;" onclick="SelectMaker.clickEvent(124898198642140,'all','전체기간')">전체기간</a></li><li><a href="javascript:;" onclick="SelectMaker.clickEvent(124898198642140,'aWeek','최근 1주')">최근 1주</a></li><li><a href="javascript:;" onclick="SelectMaker.clickEvent(124898198642140,'aMonth','최근 1달')">최근 1달</a></li><li>직접 입력<br><p><input type="text" id="s_t_1_124898198642140" value="2026.04.17" class="inp">-<input type="text" id="s_t_2_124898198642140" value="2026.07.17" class="inp"></p><p class="button_set" onclick="SelectMaker.clickEvent('124898198642140', document.getElementById('s_t_1_124898198642140').value + '' + document.getElementById('s_t_2_124898198642140').value, null, '#DURATION')"><span class="btn_bg bg08"></span><span class="btn_txt bt08 w03">확인</span></p></li></ul></div></dd>
+   			<dt>첨부유형</dt>
+   			<dd>
+   				<select class="doc_type_select inp" id="docTypeSelect">
+   				   					<option value="all">전체 게시글</option>
+   					<option value="A,B">모든 파일형식</option>
+   					<option value="image">이미지 포함</option>
+   					<option value="m">동영상 포함</option>
+   					<option value="A">문서 포함</option>
+				   				</select>
+   			</dd>
+   		</dl>
+   		<div class="footer_btn_wrap">
+   			<a href="#">
+				<img src="//t1.daumcdn.net/cafe_image/cf_img4/img/btn_search.gif" width="37" height="21" alt="검색2">
+			</a>
+   			<a href="#">
+				<span class="btn_bg bg05"></span>
+				<span class="btn_txt bt05 w03">닫기</span>
+			</a>
+			<a href="#" class="reset">
+				<img alt="초기화" src="//t1.daumcdn.net/cafe_image/cf_img4/img/img_initialize.gif" width="7" height="6">
+				초기화
+			</a>
+   		</div>
+   	</div>  	
+</div><!-- end detail search wrap -->
+
+				<form id="searchForm" name="searchForm">
+				<input type="hidden" name="grpid" value="1IHuH">
+				<input type="hidden" name="fldid" value="">
+				<input type="hidden" name="pagenum" value="1">
+				<input type="hidden" name="listnum" value="20">
+				<input type="hidden" name="item" value="subject"> <!-- 검색대상 - 제목+내용:subject, 글제목:onlytitle, 첨부파일명:filename, 글번호:no, 말머리:head -->
+				<input type="hidden" name="head" value=""> <!-- 말머리 키워드 -->
+				<input type="hidden" name="query" value="지그재그"> <!-- 검색 쿼리 -->
+				<input type="hidden" name="attachfile_yn" value=""> <!-- 첨부파일:A,B 여부 -->
+				<input type="hidden" name="media_info" value=""> <!-- 이미지:i, 동영상:m 첨부 -->
+				<input type="hidden" name="viewtype" value=""> <!-- 리스트 - 목록형:tit, 요약형:all -->
+				<input type="hidden" name="searchPeriod" value=""> <!-- 기간 format 2010.01.01-2010.12.31 -->
+				<input type="hidden" name="sorttype" value="0"> <!-- 정렬방식 0:최신, 1:정확도, 2:댓글수 -->
+				<input type="hidden" name="nickname" value=""> <!-- 상세검색 - 글쓴이 -->
+				</form><!-- form for search area end -->
+							 				<script>
+					Suggest.init();
+					
+											var select_1 = new SelectMaker('searchPeriod1','sel','2026.04.17','2026.07.17');
+						var select_2 = new SelectMaker('searchPeriod2','sel','2026.04.17','2026.07.17');
+						var select_3 = new SelectMaker('selectTerm','sel','2026.04.17','2026.07.17');
+									</script>
+								<!-- naver 검색광고 추가로 인한 애드핏 제거 -->
+
+				<!-- content end -->        
+                </td><td class="rb" nowrap="">&nbsp;</td></tr><tr><td class="blb" nowrap="">&nbsp;</td><td class="bcb" nowrap=""></td><td class="brb" nowrap="">&nbsp;</td></tr></tbody>
+                </table><!-- end roundTable -->
+            </div><!-- end primaryContent -->
+        </div><!-- end content -->
+    </div><!-- end container -->
+    <script type="text/javascript">
+//<![CDATA[
+var isIE = navigator.userAgent.indexOf("MSIE") != -1;
+	  if(isIE && ((CAFEAPP.SUB_WIDTH_TYPE == "flexibled2_1") || (CAFEAPP.SUB_WIDTH_TYPE == "flexibled3_1") || (CAFEAPP.SUB_WIDTH_TYPE == "flexibled3_3"))){
+		 window.setTimeout('resizeMinWidthWrap()',250);
+	  }
+//]]>
+</script>
+<div id="noMemberLayer" class="p11" style="display: none;">
+	카페에 가입되지 않은<br>회원입니다.
+</div>
+<div class="cl">&nbsp;</div>
+<div id="footer" class="line"><div class="footer_bg">
+	<p class="copyright1">
+		<a href="https://policy.daum.net/policy/info" target="_blank">서비스 약관/정책</a> <span class="bar2">|</span>
+		<a href="https://cs.daum.net/redbell/right/libelProcess" target="_blank">권리침해신고</a> <span class="bar2">|</span>
+		<a href="https://top.cafe.daum.net/_c21_/agreement_axz" target="_blank">이용약관</a> <span class="bar2">|</span>
+		<a href="https://cs.daum.net/faq/36.html" target="_blank">카페 고객센터</a> <span class="bar2">|</span>
+		<a href="https://cafe-notice.tistory.com/1124" target="_blank">검색비공개 요청</a>
+	</p>
+	<p class="copyright2">ⓒ <a href="https://axzcorp.com/" target="_blank" class="link_axz">AXZ Corp.</a></p>
+
+</div></div><!-- end footer -->
+<img src="https://logins.daum.net/accounts/auth.gif" width="0" height="0" alt="" id="daumtrans" class="daum_auth">
+
+<script type="text/javascript">//<![CDATA[
+	try {
+		if (parent.proxy) {
+			var homeobj = document.getElementById("homeurl");
+			homeobj.href = parent.proxy+"/subdued20club";
+		}
+	} catch (e) {
+	}
+
+	try {
+		if (parent.proxy) {
+			var topobj = document.getElementById("upper");
+			topobj.style.display = 'none';
+		}
+	} catch (e) {
+	}
+	try {
+		//뚜껑 카페
+		if (parent.proxy) {
+			var leftobj = document.getElementById("leftmenu");
+			if(parent.lmargin!=null)
+				leftobj.style.left = parent.lmargin;
+			else
+				leftobj.style.left = 25;
+
+			if(parent.lmargin!=null)
+				document.body.leftMargin = parent.lmargin;
+			else
+				document.body.leftMargin = 25;
+			if(parent.rmargin!=null)
+				document.body.rightMargin = parent.rmargin;
+			else
+				document.body.rightMargin = 9;
+		}
+	} catch (e) {
+	}
+
+	top.document.title = document.title;
+// ]]>
+</script>
+
+
+<script>
+	jQuery.noConflict();
+
+	(function ($) {
+		var getParameterByName = function (name, url) {
+			if (!url) {
+				url = window.location.href;
+			}
+			name = name.replace(/[\[\]]/g, "\\$&");
+			var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+				results = regex.exec(url);
+			if (!results) return null;
+			if (!results[2]) return '';
+			return decodeURIComponent(results[2].replace(/\+/g, " "));
+		};
+
+		this.SearchModule = {
+			defaultSearch: function (queryString) {
+				window.location.href = "/_c21_/cafesearch?grpid=" + getParameterByName('grpid') + "&item=subject&sorttype=0&query=" + encodeURIComponent(queryString);
+			}
+		};
+
+		var searchBox = $('.searchBox');
+
+		searchBox.on('click', '.btnSearch', function (e) {
+			e.preventDefault();
+			var searchQuery = $(e.delegateTarget).find('.inp_search').val();
+
+			if (searchQuery === '') {
+				alert('검색할 키워드를 입력해주세요.');
+				return;
+			}
+
+			SearchModule.defaultSearch(searchQuery);
+		});
+
+		searchBox.on('keyup', '.inpSearch', function (e) {
+			if (e.keyCode === 13) {
+				$(e.target).blur();
+				$(e.delegateTarget).find('.btnSearch').click();
+			}
+		});
+	})(jQuery);
+</script>
+</div><!-- end wrap -->
+<div id="dialogs"></div>
+<div id="menus"></div>
+<div id="tips"></div>
+<script type="text/javascript">
+(function(){
+	jQuery(window).on("load", function () {
+		var contentsWrapId = "user_contents";
+		var userContents = document.getElementById("user_contents");
+		if (userContents) {
+			ExifViewer.load(contentsWrapId);
+		}
+	});
+})();
+</script>
+<script type="text/javascript">
+	(function($) {
+		var PREFIX = '개별카페>개별카페 홈>';
+
+		// 공통
+		$('#cafeinfo').on('click', '.btn_admin2', function (e) {
+			CafeTiara.trackEvent(e, '글쓰기', 'write_btn', PREFIX);
+		});
+		$('#cafe_write_article_btn').on('click', function (e) {
+			CafeTiara.trackEvent(e, '글쓰기', 'write_btn', PREFIX);
+		});
+		$('#cafe_join_btn').on('click', function (e) {
+			CafeTiara.trackEvent(e, '가입', 'cafe_join', PREFIX);
+		});
+		$('#title').on('mousedown', '.title_menu', function (e) {
+			CafeTiara.trackEvent(e, '타이틀 메뉴', 'title_menu', PREFIX);
+		});
+		$('#fancafe_widget_container').find('.fandom_ranking').on('click', function (e) {
+			CafeTiara.trackEvent(e, '팬덤랭킹', 'fandom_rank', PREFIX);
+		});
+		$('#fancafe-widget-cheer').on('click', function (e) {
+			CafeTiara.trackEvent(e, '응원하기', 'cheerup_btn', PREFIX);
+		});
+		$('#nameContextMenu').on('click', '#sideViewRow_msg a', function (e) {
+			CafeTiara.trackEvent(e, '쪽지보내기', 'message_send', PREFIX);
+		});
+
+		// todo: 앨범게시판, 한줄메모장 작업 후 삭제
+		$('#content').find('.list_btn_areaT a.btn').on('click', function (e) {
+			CafeTiara.trackEvent(e, '글쓰기 버튼', 'write_btn', PREFIX);
+		});
+		$('#content').find('.list_btn_bbs_read a.btn:first-child').on('click', function (e) {
+			CafeTiara.trackEvent(e, '글쓰기 버튼(사진올리기)', 'write_btn', '앨범게시판>게시글리스트>');
+		});
+
+		$('#content').find('td.subject a:first-child').on('click', function (e) {
+			CafeTiara.trackEvent(e, '글목록 영역 클릭', 'article_title', PREFIX);
+		});
+		$('#content').find('.albumListBox .data_tit a').on('click', function (e) {
+			CafeTiara.trackEvent(e, '글목록 영역 클릭', 'article_title', PREFIX);
+		});
+		$('#content').find('.albumListBox a.subject_pt').on('click', function (e) {
+			CafeTiara.trackEvent(e, '글목록 영역 클릭', 'article_title', PREFIX);
+		});
+
+		$('#content').find('td.subject a.txt_point').on('click', function (e) {
+			CafeTiara.trackEvent(e, '댓글보기(팝업창)', 'comment_view_btn', PREFIX);
+		});
+		$('#content').find('.albumListBox a.txt_point').on('click', function (e) {
+			CafeTiara.trackEvent(e, '댓글보기(팝업창)', 'comment_view_btn', '앨범게시판>게시글리스트>');
+		});
+		// 여기까지
+
+		$('#content').find('.app_download_btn').on('click', function (e) {
+			CafeTiara.trackEvent(e, '앱설치배너', 'cafe_app_banner', PREFIX);
+		});
+		$('#content').find('.longtail_attach_image a').on('click', function (e) {
+			CafeTiara.trackEvent(e, '썸네일이미지 클릭', 'thumb', PREFIX);
+		});
+	})(jQuery);
+</script>
+<script>
+	jQuery(function(){
+		daum.cafe.util.anchor.anchor();
+	});
+</script>
+
+<script src="//t1.daumcdn.net/tiara/js/v1/tiara-1.2.0.min.js"></script>
+<script src="//t1.daumcdn.net/cafe_cj/pcweb/build/js/util/cafe_tiara-3935887216.js"></script>
+	<script>
+	CafeTiara.trackPage('cafe_search', 'cafe');
+</script>
+<script src="//t1.daumcdn.net/cafe_cj/mobileweb/js/sentry/raven.min.js"></script>
+<script>
+	Raven.config('https://ce39799f72994347b5eafe885301385c@aem-kakao-collector.onkakao.net/4674', {
+		ignoreErrors: [
+			// 스토리지 용량 관련 에러. 무시
+			'QuotaExceededError', // IE 스토리지
+			'exceeded the quota', // 크롬 스토리지
+			'The quota has been exceeded', // 사파리 스토리지
+			// 이미지 업로드 실패 무시.
+			'Network Error',
+			// 외부 소스 에러 무시.
+			'https://t1.daumcdn.net/kas/static/ba.min.js'
+		]
+	}).install()
+</script>
+
+

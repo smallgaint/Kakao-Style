@@ -1,30 +1,29 @@
-"""HTTP and orchestration layer for the Daum Cafe crawler."""
+"""Playwright-based Daum Cafe all-board search crawler."""
 
 from __future__ import annotations
 
 import logging
+import os
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
+from datetime import date, datetime
 from pathlib import Path
-from urllib.parse import urlencode, urljoin, urlparse, urlunparse, parse_qs
+from urllib.parse import urlencode
 
-import requests
-from tqdm import tqdm
+from playwright.sync_api import Browser, BrowserContext, Page, Playwright, sync_playwright
 
 import config
 from models import Comment, CrawlStats, Post
-from parser import extract_contentval, extract_iframe_src, parse_board_posts, parse_post_detail, validate_selectors
+from parser import parse_post_detail, parse_search_results
 from utils import (
-    cache_path,
-    comment_csv_path,
     ensure_directories,
     load_existing_comments,
     load_existing_posts,
     merge_comments,
     merge_posts,
     polite_sleep,
-    post_csv_path,
+    search_comment_csv_path,
+    search_post_csv_path,
     write_comments,
     write_posts,
 )
@@ -32,21 +31,23 @@ from utils import (
 
 @dataclass(slots=True)
 class RuntimeConfig:
-    """Effective settings after config.py and CLI arguments are merged."""
-
-    boards: list[str]
-    start_page: int
-    end_page: int
-    crawl_content: bool
-    crawl_comment: bool
-    only_new_posts: bool
+    search_keywords: list[str]
+    search_start_date: date
+    search_end_date: date
+    search_start_page: int
+    search_list_size: int
+    checkpoint_size: int
+    crawl_details: bool
     save_html: bool
-    use_cache: bool
+    login_enabled: bool
+    login_storage_state: Path
+    save_login_state: bool
+    manual_login_wait_seconds: int
+    headless: bool
+    browser_timeout: int
     request_delay: float
     random_delay_rate: float
     max_retry: int
-    thread_workers: int
-    timeout: int
     base_url: str
     cafe_code: str
     grpid: str
@@ -54,214 +55,300 @@ class RuntimeConfig:
     output_dir: Path
     log_dir: Path
     html_dir: Path
-    cache_dir: Path
 
 
 class DaumCafeCrawler:
-    """Collect Daum Cafe board posts and optional detail/comment data."""
+    """Collect date-bounded all-board Daum Cafe search results."""
 
     def __init__(self, runtime: RuntimeConfig, logger: logging.Logger) -> None:
         self.runtime = runtime
         self.logger = logger
-        self.session = requests.Session()
-        self.session.headers.update(runtime.headers)
-        ensure_directories(runtime.output_dir, runtime.log_dir, runtime.html_dir, runtime.cache_dir)
+        self.playwright: Playwright | None = None
+        self.browser: Browser | None = None
+        self.context: BrowserContext | None = None
+        ensure_directories(runtime.output_dir, runtime.log_dir, runtime.html_dir, runtime.login_storage_state.parent)
 
-    def crawl_all(self) -> list[CrawlStats]:
-        """Crawl every configured board."""
-        stats: list[CrawlStats] = []
-        for board in self.runtime.boards:
-            stats.append(self.crawl_board(board))
-        return stats
+    def start_browser(self) -> None:
+        self.playwright = sync_playwright().start()
+        self.browser = self.playwright.chromium.launch(headless=self.runtime.headless)
+        context_options: dict[str, object] = {"user_agent": self.runtime.headers["User-Agent"]}
+        if self.runtime.login_storage_state.exists():
+            context_options["storage_state"] = str(self.runtime.login_storage_state)
+            self.logger.info("Saved Daum login session loaded")
+        self.context = self.browser.new_context(**context_options)
 
-    def crawl_board(self, board: str) -> CrawlStats:
-        """Crawl one board over the configured page range."""
-        started = time.perf_counter()
-        stat = CrawlStats(board=board)
-        post_path = post_csv_path(self.runtime.output_dir, board, self.runtime.start_page, self.runtime.end_page)
-        comment_path = comment_csv_path(self.runtime.output_dir, board, self.runtime.start_page, self.runtime.end_page)
-        existing_posts = load_existing_posts(post_path)
-        existing_comments = load_existing_comments(comment_path)
-        existing_keys = {post.post_id or post.number for post in existing_posts}
-        collected: dict[str, Post] = {}
+    def close_browser(self) -> None:
+        if self.context:
+            self.context.close()
+        if self.browser:
+            self.browser.close()
+        if self.playwright:
+            self.playwright.stop()
+        self.context = self.browser = self.playwright = None
 
-        self.logger.info("Start board=%s pages=%s-%s", board, self.runtime.start_page, self.runtime.end_page)
-        try:
-            for page in tqdm(range(self.runtime.start_page, self.runtime.end_page + 1), desc=f"{board} pages"):
-                html = self.fetch_board_frame(board, page)
-                self.log_selector_validation(html, f"{board} page={page}")
-                page_posts = parse_board_posts(html, board, self.runtime.base_url)
-                for post in page_posts:
-                    key = post.post_id or post.number
-                    if self.runtime.only_new_posts and key in existing_keys:
-                        continue
-                    collected[key] = post
-                stat.pages += 1
-                self.logger.info("Page complete board=%s page=%s posts=%s", board, page, len(page_posts))
-        except KeyboardInterrupt:
-            self.logger.warning("Graceful shutdown requested; saving collected rows.")
-        except Exception as exc:
-            stat.errors += 1
-            self.logger.exception("Board crawl failed board=%s error=%s", board, exc)
+    def login(self) -> None:
+        """
+        storage_state 방식만 사용.
+        세션이 없으면 에러를 발생시킨다.
+        """
 
-        posts_to_enrich = list(collected.values())
-        new_comments: list[Comment] = []
-        if self.runtime.crawl_content:
-            posts_to_enrich, new_comments = self.enrich_posts(posts_to_enrich)
+        if not self.context:
+            raise RuntimeError("Browser has not been started")
 
-        posts = merge_posts(existing_posts, posts_to_enrich)
-        comments = merge_comments(existing_comments, new_comments)
-        write_posts(post_path, posts)
-        if self.runtime.crawl_content and self.runtime.crawl_comment:
-            write_comments(comment_path, comments)
+        if self.runtime.login_storage_state.exists():
+            self.logger.info("Saved login session loaded.")
+            return
 
-        stat.posts = len(posts_to_enrich)
-        stat.comments = len(new_comments)
-        elapsed = time.perf_counter() - started
-        self.logger.info(
-            "End board=%s pages=%s posts=%s comments=%s elapsed=%.2fs",
-            board,
-            stat.pages,
-            stat.posts,
-            stat.comments,
-            elapsed,
+        raise RuntimeError(
+            "\n저장된 로그인 세션이 없습니다.\n"
+            "먼저 python login_once.py 를 실행하여 로그인 세션을 생성하세요."
         )
+
+    def crawl_search(self) -> CrawlStats:
+        """Crawl every configured keyword, saving completed 50-post batches."""
+        if not self.context:
+            raise RuntimeError("Browser has not been started")
+        stat = CrawlStats(board="search")
+        post_path = search_post_csv_path(self.runtime.output_dir, self.runtime.search_start_date, self.runtime.search_end_date)
+        comment_path = search_comment_csv_path(self.runtime.output_dir, self.runtime.search_start_date, self.runtime.search_end_date)
+        posts_by_key = {self._post_key(post): post for post in load_existing_posts(post_path)}
+        comments = load_existing_comments(comment_path)
+        pending: list[Post] = []
+        dirty = False
+
+        def checkpoint() -> None:
+            nonlocal comments, dirty
+            if not pending:
+                return
+            batch = pending[:]
+            pending.clear()
+            batch_comments: list[Comment] = []
+            if self.runtime.crawl_details:
+                batch, batch_comments = self._enrich_posts(batch)
+            for post in batch:
+                posts_by_key[self._post_key(post)] = post
+            comments = merge_comments(comments, batch_comments)
+            write_posts(post_path, merge_posts([], list(posts_by_key.values())))
+            if self.runtime.crawl_details:
+                write_comments(comment_path, comments)
+            dirty = False
+            self.logger.info("Checkpoint saved: posts=%s comments=%s", len(posts_by_key), len(comments))
+
+        try:
+            for keyword in self.runtime.search_keywords:
+                self.logger.info("Search start: keyword=%s", keyword)
+                page_number = self.runtime.search_start_page
+                reached_start_date = False
+                while not reached_start_date:
+                    html = self.fetch_search_page(keyword, page_number)
+                    page_posts = parse_search_results(html, self.runtime.base_url, keyword)
+                    stat.pages += 1
+                    if not page_posts:
+                        break
+                    for post in page_posts:
+                        post_date = self._post_date(post.date)
+                        if post_date is None:
+                            self.logger.warning("Skipping undated result: %s", post.link)
+                            continue
+                        if post_date > self.runtime.search_end_date:
+                            continue
+                        if post_date < self.runtime.search_start_date:
+                            reached_start_date = True
+                            break
+                        key = self._post_key(post)
+                        existing = posts_by_key.get(key)
+                        if existing:
+                            existing.search_keywords = self._combine_keywords(existing.search_keywords, keyword)
+                            dirty = True
+                            continue
+                        duplicate = next((item for item in pending if self._post_key(item) == key), None)
+                        if duplicate:
+                            duplicate.search_keywords = self._combine_keywords(duplicate.search_keywords, keyword)
+                            continue
+                        pending.append(post)
+                        stat.posts += 1
+                        if len(pending) >= self.runtime.checkpoint_size:
+                            checkpoint()
+                    page_number += 1
+        except KeyboardInterrupt:
+            self.logger.warning("Interrupted; saving completed and pending work")
+        except Exception:
+            stat.errors += 1
+            self.logger.exception("Search crawl failed")
+        finally:
+            checkpoint()
+            if dirty:
+                write_posts(post_path, merge_posts([], list(posts_by_key.values())))
+        stat.comments = len(comments)
         return stat
 
-    def enrich_posts(self, posts: list[Post]) -> tuple[list[Post], list[Comment]]:
-        """Fetch article detail pages in parallel."""
-        if not posts:
-            return [], []
-        enriched: list[Post] = []
-        comments: list[Comment] = []
-        with ThreadPoolExecutor(max_workers=self.runtime.thread_workers) as executor:
-            futures = {executor.submit(self.fetch_post_detail, post): post for post in posts}
-            for future in tqdm(as_completed(futures), total=len(futures), desc="post details"):
-                original = futures[future]
-                try:
-                    post, post_comments = future.result()
-                    enriched.append(post)
-                    if self.runtime.crawl_comment:
-                        comments.extend(post_comments)
-                except Exception as exc:
-                    self.logger.exception("Detail failed link=%s error=%s", original.link, exc)
-                    enriched.append(original)
-        return enriched, comments
-
-    def fetch_board_frame(self, board: str, page: int) -> str:
-        """Fetch the outer board page, extract iframe src, then fetch the iframe."""
-        outer_url = self.board_outer_url(board)
-        outer_html = self.fetch_text(outer_url)
-        frame_url = extract_iframe_src(outer_html, self.runtime.base_url) or self.board_frame_url(board, page)
-        frame_url = self.with_page(frame_url, page)
-        return self.fetch_text(frame_url)
-
-    def fetch_post_detail(self, post: Post) -> tuple[Post, list[Comment]]:
-        """Fetch the article iframe and parse detail data."""
-        html = self.fetch_detail_frame(post)
-        if self.runtime.save_html:
-            self.save_html(post, html)
-        return parse_post_detail(html, post)
-
-    def fetch_detail_frame(self, post: Post) -> str:
-        """Resolve outer article URLs to iframe detail URLs."""
-        if "_c21_/bbs_read" in post.link:
-            return self.fetch_text(post.link)
-        outer_html = self.fetch_text(post.link)
-        frame_url = extract_iframe_src(outer_html, self.runtime.base_url)
-        if not frame_url:
-            frame_url = self.detail_frame_url(post)
-        return self.fetch_text(frame_url)
-
-    def fetch_text(self, url: str) -> str:
-        """Fetch HTML with retry, optional URL cache, and random delay."""
-        cached = cache_path(self.runtime.cache_dir, url)
-        if self.runtime.use_cache and cached.exists():
-            return cached.read_text(encoding="utf-8")
-
+    def fetch_search_page(self, keyword: str, page_number: int) -> str:
+        """Navigate a search result page in the authenticated browser context."""
+        if not self.context:
+            raise RuntimeError("Browser has not been started")
+        url = self.search_url(keyword, page_number)
         last_error: Exception | None = None
         for attempt in range(1, self.runtime.max_retry + 1):
+            page: Page | None = None
             try:
-                response = self.session.get(url, timeout=self.runtime.timeout)
-                response.raise_for_status()
-                response.encoding = response.apparent_encoding or "utf-8"
-                polite_sleep(self.runtime.request_delay, self.runtime.random_delay_rate)
-                if self.runtime.use_cache:
-                    cached.write_text(response.text, encoding="utf-8")
-                return response.text
-            except requests.RequestException as exc:
+                page = self.context.new_page()
+                page.goto(url, wait_until="networkidle")
+
+                # iframe 로드 대기
+                page.wait_for_selector("iframe#down", timeout=10000)
+
+                frame = page.frame_locator("iframe#down")
+
+                # 검색 결과가 나타날 때까지 대기
+                frame.locator("body").wait_for(timeout=10000)
+
+                html = frame.locator("body").inner_html()
+
+                Path("debug_search.html").write_text(
+                    html,
+                    encoding="utf-8"
+                )
+
+                return html
+            except Exception as exc:
                 last_error = exc
-                self.logger.warning("Retry %s/%s url=%s error=%s", attempt, self.runtime.max_retry, url, exc)
-                polite_sleep(self.runtime.request_delay * attempt, self.runtime.random_delay_rate)
-        raise RuntimeError(f"Request failed after retries: {url}") from last_error
+                self.logger.warning("Search retry %s/%s page=%s: %s", attempt, self.runtime.max_retry, page_number, exc)
+            finally:
+                if page:
+                    page.close()
+        raise RuntimeError(f"Search request failed: {url}") from last_error
 
-    def board_outer_url(self, board: str) -> str:
-        """Build a human-facing board URL."""
-        return f"{self.runtime.base_url}/{self.runtime.cafe_code}/{board}"
+    def _enrich_posts(self, posts: list[Post]) -> tuple[list[Post], list[Comment]]:
+        enriched: list[Post] = []
+        comments: list[Comment] = []
+        for post in posts:
+            page: Page | None = None
+            try:
+                page = self.context.new_page() if self.context else None
+                if page is None:
+                    raise RuntimeError("Browser has not been started")
+                page.goto(
+                    post.link,
+                    wait_until="networkidle",
+                    timeout=self.runtime.browser_timeout,
+                )
 
-    def board_frame_url(self, board: str, page: int) -> str:
-        """Build the Daum Cafe board iframe URL."""
-        query = urlencode({"grpid": self.runtime.grpid, "fldid": board, "page": page})
-        return f"{self.runtime.base_url}/_c21_/bbs_list?{query}"
+                # iframe이 있는 경우
+                iframe = page.locator("iframe#down")
 
-    def detail_frame_url(self, post: Post) -> str:
-        """Build a best-effort detail iframe URL from a post link."""
-        contentval = extract_contentval(post.link)
-        params = {"grpid": self.runtime.grpid, "fldid": post.board, "datanum": post.post_id or post.number}
-        if contentval:
-            params["contentval"] = contentval
-        return f"{self.runtime.base_url}/_c21_/bbs_read?{urlencode(params)}"
+                if iframe.count() > 0:
+                    frame = page.frame_locator("iframe#down")
 
-    def with_page(self, url: str, page: int) -> str:
-        """Set or replace the page query parameter on an iframe URL."""
-        parsed = urlparse(url)
-        query = parse_qs(parsed.query)
-        query["page"] = [str(page)]
-        return urlunparse(parsed._replace(query=urlencode(query, doseq=True)))
+                    frame.locator("body").wait_for(timeout=10000)
 
-    def save_html(self, post: Post, html: str) -> None:
-        """Save original article HTML for auditing."""
-        board_dir = self.runtime.html_dir / post.board
-        ensure_directories(board_dir)
-        (board_dir / f"{post.number}.html").write_text(html, encoding="utf-8")
+                    html = frame.locator("body").inner_html()
+                else:
+                    html = page.content()
 
-    def log_selector_validation(self, html: str, label: str) -> None:
-        """Log missing selector groups without failing the crawl."""
-        status = validate_selectors(html)
-        for key, ok in status.items():
-            if not ok and key == "board_rows":
-                self.logger.warning("Selector not found label=%s selector_group=%s", label, key)
+                updated, post_comments = parse_post_detail(html, post)  
+
+                self.logger.info(
+                    "Detail parsed: %s comments=%d",
+                    post.post_id,
+                    len(post_comments),
+                )
+                if not Path("debug_detail.html").exists():
+                    Path("debug_detail.html").write_text(
+                        html,
+                        encoding="utf-8"
+                    )
+                enriched.append(updated)
+                comments.extend(post_comments)
+            except Exception as exc:
+                self.logger.warning("Detail unavailable; preview retained: %s (%s)", post.link, exc)
+                enriched.append(post)
+            finally:
+                if page:
+                    page.close()
+                polite_sleep(self.runtime.request_delay, self.runtime.random_delay_rate)
+        return enriched, comments
+
+    def search_url(self, keyword: str, page_number: int) -> str:
+        params = {
+            "grpid": self.runtime.grpid,
+            "item": "subject",
+            "sorttype": "0",
+            "query": keyword,
+            "pagenum": page_number,
+            "listnum": self.runtime.search_list_size,
+        }
+        return f"{self.runtime.base_url}/_c21_/cafesearch?{urlencode(params)}"
+
+    def _has_cafe_session(self, page: Page) -> bool:
+        page.goto(f"{self.runtime.base_url}/{self.runtime.cafe_code}", wait_until="domcontentloaded", timeout=self.runtime.browser_timeout)
+        try:
+            return page.locator("#loginout").inner_text(timeout=3_000).strip() == "로그아웃"
+        except Exception:
+            return "로그아웃" in page.locator("body").inner_text(timeout=3_000)
+
+    def _login_url(self) -> str:
+        return "https://logins.daum.net/accounts/loginform.do?" + urlencode({"url": f"{self.runtime.base_url}/{self.runtime.cafe_code}"})
+
+    def _save_login_state(self) -> None:
+        if self.context and self.runtime.save_login_state:
+            self.context.storage_state(path=str(self.runtime.login_storage_state))
+
+    @staticmethod
+    def _fill_first(page: Page, selector: str, value: str) -> None:
+        locator = page.locator(selector)
+        if locator.count() == 0:
+            raise RuntimeError(f"Daum login input not found: {selector}")
+        locator.first.fill(value)
+
+    @staticmethod
+    def _post_key(post: Post) -> str:
+        return f"{post.board}:{post.post_id or post.number}"
+
+    @staticmethod
+    def _combine_keywords(current: str, keyword: str) -> str:
+        return ",".join(sorted({item for item in [*current.split(","), keyword] if item}))
+
+    @staticmethod
+    def _post_date(value: str) -> date | None:
+        try:
+            return datetime.strptime(value, "%y.%m.%d").date()
+        except ValueError:
+            return None
 
 
 def build_runtime_config(
-    boards: list[str] | None = None,
-    start_page: int | None = None,
-    end_page: int | None = None,
-    crawl_content: bool | None = None,
-    crawl_comment: bool | None = None,
-    save_html: bool | None = None,
-    only_new_posts: bool | None = None,
+    keywords: list[str] | None = None,
+    start_date: str | None = None,
+    end_date: str | None = None,
+    crawl_details: bool | None = None,
+    headless: bool | None = None,
 ) -> RuntimeConfig:
-    """Merge CLI arguments with config.py defaults."""
-    effective_content = config.CRAWL_CONTENT if crawl_content is None else crawl_content
-    effective_comment = config.CRAWL_COMMENT if crawl_comment is None else crawl_comment
-    if not effective_content:
-        effective_comment = False
-
+    """Merge CLI overrides with config.py and validate date boundaries."""
+    start = datetime.strptime(start_date or config.SEARCH_START_DATE, "%Y-%m-%d").date()
+    end = datetime.strptime(end_date or config.SEARCH_END_DATE, "%Y-%m-%d").date()
+    if start > end:
+        raise ValueError("SEARCH_START_DATE must be on or before SEARCH_END_DATE")
+    effective_keywords = [value.strip() for value in (keywords or config.SEARCH_KEYWORDS) if value.strip()]
+    if not effective_keywords:
+        raise ValueError("At least one search keyword is required")
     return RuntimeConfig(
-        boards=boards or config.BOARDS,
-        start_page=start_page or config.START_PAGE,
-        end_page=end_page or config.END_PAGE,
-        crawl_content=effective_content,
-        crawl_comment=effective_comment,
-        only_new_posts=config.ONLY_NEW_POSTS if only_new_posts is None else only_new_posts,
-        save_html=config.SAVE_HTML if save_html is None else save_html,
-        use_cache=config.USE_CACHE,
+        search_keywords=effective_keywords,
+        search_start_date=start,
+        search_end_date=end,
+        search_start_page=config.SEARCH_START_PAGE,
+        search_list_size=config.SEARCH_LIST_SIZE,
+        checkpoint_size=config.CHECKPOINT_SIZE,
+        crawl_details=config.CRAWL_DETAILS if crawl_details is None else crawl_details,
+        save_html=config.SAVE_HTML,
+        login_enabled=config.LOGIN_ENABLED,
+        login_storage_state=config.PROJECT_DIR / config.LOGIN_STORAGE_STATE,
+        save_login_state=config.SAVE_LOGIN_STATE,
+        manual_login_wait_seconds=config.MANUAL_LOGIN_WAIT_SECONDS,
+        headless=config.HEADLESS if headless is None else headless,
+        browser_timeout=config.BROWSER_TIMEOUT,
         request_delay=config.REQUEST_DELAY,
         random_delay_rate=config.RANDOM_DELAY_RATE,
         max_retry=config.MAX_RETRY,
-        thread_workers=config.THREAD_WORKERS,
-        timeout=config.TIMEOUT,
         base_url=config.BASE_URL,
         cafe_code=config.CAFE_CODE,
         grpid=config.GRPID,
@@ -269,5 +356,4 @@ def build_runtime_config(
         output_dir=config.OUTPUT_DIR,
         log_dir=config.LOG_DIR,
         html_dir=config.HTML_DIR,
-        cache_dir=config.CACHE_DIR,
     )

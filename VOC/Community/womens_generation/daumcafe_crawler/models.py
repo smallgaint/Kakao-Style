@@ -21,6 +21,8 @@ class Post:
     date: str
     view_count: int
     link: str
+    preview: str = ""
+    search_keywords: str = ""
     content: str = ""
 
     def to_dict(self) -> dict[str, object]:

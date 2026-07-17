@@ -1878,3 +1878,94 @@ RuntimeError: Request failed after retries: https://cafe.daum.net/_c21_/bbs_read
 2026-07-13 13:35:36,529 [INFO] Start board=ReHf pages=1-1
 2026-07-13 13:35:36,574 [INFO] Page complete board=ReHf page=1 posts=20
 2026-07-13 13:35:37,484 [INFO] End board=ReHf pages=1 posts=20 comments=322 elapsed=0.96s
+2026-07-16 23:05:29,629 [INFO] Saved Daum login session loaded
+2026-07-16 23:05:30,154 [INFO] Saved login session loaded.
+2026-07-16 23:05:30,224 [INFO] Search start: keyword=지그재그
+2026-07-16 23:05:32,135 [INFO] Search start: keyword=직잭
+2026-07-16 23:05:33,816 [INFO] Search start: keyword=무신사
+2026-07-16 23:05:35,266 [INFO] Search start: keyword=에이블리
+2026-07-16 23:05:36,745 [INFO] Search start: keyword=직잭원
+2026-07-16 23:05:38,274 [INFO] Search start: keyword=직잭일
+2026-07-16 23:05:39,846 [INFO] Search start: keyword=직잭업
+2026-07-16 23:05:41,549 [INFO] Search start: keyword=zigzag
+2026-07-16 23:05:43,100 [INFO] Search start: keyword=29cm
+2026-07-16 23:05:44,852 [INFO] Search start: keyword=29CM
+2026-07-16 23:08:22,359 [INFO] Saved Daum login session loaded
+2026-07-16 23:08:22,699 [INFO] Saved login session loaded.
+2026-07-16 23:08:22,699 [INFO] Search start: keyword=지그재그
+2026-07-16 23:08:24,357 [INFO] Search start: keyword=직잭
+2026-07-16 23:08:26,205 [INFO] Search start: keyword=무신사
+2026-07-16 23:08:27,734 [INFO] Search start: keyword=에이블리
+2026-07-16 23:08:29,443 [INFO] Search start: keyword=직잭원
+2026-07-16 23:08:30,901 [INFO] Search start: keyword=직잭일
+2026-07-16 23:08:32,607 [INFO] Search start: keyword=직잭업
+2026-07-16 23:08:33,921 [INFO] Search start: keyword=zigzag
+2026-07-16 23:08:35,393 [INFO] Search start: keyword=29cm
+2026-07-16 23:08:36,990 [INFO] Search start: keyword=29CM
+2026-07-16 23:10:41,480 [INFO] Saved Daum login session loaded
+2026-07-16 23:10:41,810 [INFO] Saved login session loaded.
+2026-07-16 23:10:41,869 [INFO] Search start: keyword=지그재그
+2026-07-16 23:10:48,696 [INFO] Checkpoint saved: posts=50 comments=0
+2026-07-16 23:10:53,307 [INFO] Checkpoint saved: posts=100 comments=0
+2026-07-16 23:10:57,806 [INFO] Search start: keyword=직잭
+2026-07-16 23:11:00,017 [INFO] Search start: keyword=무신사
+2026-07-16 23:11:02,270 [INFO] Checkpoint saved: posts=150 comments=0
+2026-07-16 23:11:09,153 [INFO] Checkpoint saved: posts=200 comments=0
+2026-07-16 23:11:13,745 [INFO] Checkpoint saved: posts=250 comments=0
+2026-07-16 23:11:20,621 [INFO] Checkpoint saved: posts=300 comments=0
+2026-07-16 23:11:27,284 [INFO] Checkpoint saved: posts=350 comments=0
+2026-07-16 23:11:27,284 [INFO] Search start: keyword=에이블리
+2026-07-16 23:11:34,018 [INFO] Checkpoint saved: posts=400 comments=0
+2026-07-16 23:11:40,659 [INFO] Checkpoint saved: posts=450 comments=0
+2026-07-16 23:11:42,878 [INFO] Search start: keyword=직잭원
+2026-07-16 23:11:44,937 [INFO] Search start: keyword=직잭일
+2026-07-16 23:11:47,176 [INFO] Search start: keyword=직잭업
+2026-07-16 23:11:49,176 [INFO] Search start: keyword=zigzag
+2026-07-16 23:11:53,535 [INFO] Search start: keyword=29cm
+2026-07-16 23:11:55,795 [INFO] Checkpoint saved: posts=500 comments=0
+2026-07-16 23:12:02,346 [INFO] Checkpoint saved: posts=550 comments=0
+2026-07-16 23:12:02,346 [INFO] Search start: keyword=29CM
+2026-07-16 23:16:31,675 [INFO] Saved Daum login session loaded
+2026-07-16 23:16:32,115 [INFO] Saved login session loaded.
+2026-07-16 23:16:32,115 [INFO] Search start: keyword=지그재그
+2026-07-16 23:16:36,878 [INFO] Search start: keyword=직잭
+2026-07-16 23:16:39,161 [INFO] Search start: keyword=무신사
+2026-07-16 23:16:43,566 [INFO] Checkpoint saved: posts=50 comments=0
+2026-07-16 23:16:45,819 [INFO] Search start: keyword=에이블리
+2026-07-16 23:16:50,308 [INFO] Checkpoint saved: posts=100 comments=0
+2026-07-16 23:16:50,309 [INFO] Search start: keyword=직잭원
+2026-07-16 23:16:52,438 [INFO] Search start: keyword=직잭일
+2026-07-16 23:16:54,781 [INFO] Search start: keyword=직잭업
+2026-07-16 23:16:56,964 [INFO] Search start: keyword=zigzag
+2026-07-16 23:16:59,321 [INFO] Search start: keyword=29cm
+2026-07-16 23:17:03,859 [INFO] Search start: keyword=29CM
+2026-07-16 23:17:08,480 [INFO] Checkpoint saved: posts=126 comments=0
+2026-07-16 23:21:57,320 [INFO] Saved Daum login session loaded
+2026-07-16 23:21:57,724 [INFO] Saved login session loaded.
+2026-07-16 23:21:57,794 [INFO] Search start: keyword=지그재그
+2026-07-16 23:22:05,064 [INFO] Checkpoint saved: posts=50 comments=0
+2026-07-16 23:22:09,747 [INFO] Checkpoint saved: posts=100 comments=0
+2026-07-16 23:22:16,729 [INFO] Checkpoint saved: posts=150 comments=0
+2026-07-16 23:22:21,403 [INFO] Checkpoint saved: posts=200 comments=0
+2026-07-16 23:22:28,263 [INFO] Checkpoint saved: posts=250 comments=0
+2026-07-16 23:22:32,858 [INFO] Checkpoint saved: posts=300 comments=0
+2026-07-16 23:22:39,531 [INFO] Checkpoint saved: posts=350 comments=0
+2026-07-16 23:22:44,005 [INFO] Checkpoint saved: posts=400 comments=0
+2026-07-16 23:22:50,845 [INFO] Checkpoint saved: posts=450 comments=0
+2026-07-16 23:22:55,345 [INFO] Checkpoint saved: posts=500 comments=0
+2026-07-16 23:23:02,201 [INFO] Checkpoint saved: posts=550 comments=0
+2026-07-16 23:23:06,775 [INFO] Checkpoint saved: posts=600 comments=0
+2026-07-16 23:23:13,440 [INFO] Checkpoint saved: posts=650 comments=0
+2026-07-16 23:23:17,945 [INFO] Checkpoint saved: posts=700 comments=0
+2026-07-16 23:23:24,895 [INFO] Checkpoint saved: posts=750 comments=0
+2026-07-16 23:23:29,359 [INFO] Checkpoint saved: posts=800 comments=0
+2026-07-16 23:23:36,304 [INFO] Checkpoint saved: posts=850 comments=0
+2026-07-16 23:23:41,006 [INFO] Checkpoint saved: posts=900 comments=0
+2026-07-16 23:23:48,020 [INFO] Checkpoint saved: posts=950 comments=0
+2026-07-16 23:23:52,554 [INFO] Checkpoint saved: posts=1000 comments=0
+2026-07-17 12:41:53,421 [WARNING] Search retry 1/3 page=20037: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://cafe.daum.net/_c21_/cafesearch?grpid=1IHuH&item=subject&sorttype=0&query=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8&pagenum=20037&listnum=20", waiting until "networkidle"
+
+2026-07-17 16:22:12,917 [WARNING] Interrupted; saving completed and pending work
+2026-07-17 16:22:12,989 [INFO] Checkpoint saved: posts=1001 comments=0

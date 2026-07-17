@@ -28,6 +28,8 @@ POST_FIELDS = [
     "date",
     "view_count",
     "link",
+    "preview",
+    "search_keywords",
     "content",
 ]
 
@@ -95,14 +97,14 @@ def polite_sleep(base_delay: float, random_rate: float) -> None:
     time.sleep(max(0.0, base_delay + random.uniform(-jitter, jitter)))
 
 
-def post_csv_path(output_dir: Path, board: str, start: int, end: int) -> Path:
-    """Build the post CSV path."""
-    return output_dir / f"daumcafe_{board}_{start}_{end}.csv"
+def search_post_csv_path(output_dir: Path, start_date: date, end_date: date) -> Path:
+    """Build the stable CSV path for a search-date range."""
+    return output_dir / f"daumcafe_search_{start_date:%Y%m%d}_{end_date:%Y%m%d}.csv"
 
 
-def comment_csv_path(output_dir: Path, board: str, start: int, end: int) -> Path:
-    """Build the comment CSV path."""
-    return output_dir / f"daumcafe_{board}_{start}_{end}_comments.csv"
+def search_comment_csv_path(output_dir: Path, start_date: date, end_date: date) -> Path:
+    """Build the stable comment CSV path for a search-date range."""
+    return output_dir / f"daumcafe_search_{start_date:%Y%m%d}_{end_date:%Y%m%d}_comments.csv"
 
 
 def cache_path(cache_dir: Path, url: str) -> Path:
@@ -135,6 +137,8 @@ def load_existing_posts(path: Path) -> list[Post]:
                     date=row.get("date", ""),
                     view_count=parse_int(row.get("view_count", "")),
                     link=row.get("link", ""),
+                    preview=row.get("preview", ""),
+                    search_keywords=row.get("search_keywords", ""),
                     content=row.get("content", ""),
                 )
             )
@@ -191,20 +195,24 @@ def validate_posts(posts: Sequence[Post]) -> None:
 def write_posts(path: Path, posts: Sequence[Post]) -> None:
     """Write post CSV with UTF-8 BOM."""
     validate_posts(posts)
-    with path.open("w", encoding="utf-8-sig", newline="") as file:
+    temp_path = path.with_suffix(path.suffix + ".tmp")
+    with temp_path.open("w", encoding="utf-8-sig", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=POST_FIELDS)
         writer.writeheader()
         writer.writerows(post.to_dict() for post in posts)
+    temp_path.replace(path)
 
 
 def write_comments(path: Path, comments: Iterable[Comment]) -> None:
     """Write comment CSV with UTF-8 BOM."""
-    with path.open("w", encoding="utf-8-sig", newline="") as file:
+    temp_path = path.with_suffix(path.suffix + ".tmp")
+    with temp_path.open("w", encoding="utf-8-sig", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=COMMENT_FIELDS)
         writer.writeheader()
         writer.writerows(comment.to_dict() for comment in comments)
+    temp_path.replace(path)
 
 
 def _post_key(post: Post) -> str:
     """Return a stable key for a post."""
-    return post.post_id or post.number
+    return f"{post.board}:{post.post_id or post.number}"
