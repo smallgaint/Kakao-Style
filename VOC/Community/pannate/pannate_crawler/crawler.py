@@ -46,13 +46,16 @@ class PannSearchCrawler:
         posts = load_posts(config.POST_OUTPUT) if config.ENABLE_RESUME else []
         comments = load_comments(config.COMMENT_OUTPUT) if config.ENABLE_RESUME else []
         posts_by_id = {post.post_id: post for post in posts}
+        commented_post_ids = {comment.post_id for comment in comments}
         stats = CrawlStats()
 
         for keyword in keywords:
-            self._crawl_keyword(keyword, start_date, end_date, posts_by_id, posts, comments, stats)
+            self._crawl_keyword(keyword, start_date, end_date, posts_by_id, commented_post_ids, posts, comments, stats)
             self._save(posts, comments)
 
         self._save(posts, comments)
+        stats.total_posts = len(posts)
+        stats.total_comments = len(comments)
         return stats
 
     def _crawl_keyword(
@@ -61,6 +64,7 @@ class PannSearchCrawler:
         start_date: date,
         end_date: date,
         posts_by_id: dict[str, Post],
+        commented_post_ids: set[str],
         posts: list[Post],
         comments: list[Comment],
         stats: CrawlStats,
@@ -94,6 +98,16 @@ class PannSearchCrawler:
                     if updated != existing:
                         posts[:] = merge_posts(posts, [updated])
                         posts_by_id[post.post_id] = updated
+                    if config.CRAWL_COMMENT and existing.comment_count > 0 and existing.post_id not in commented_post_ids:
+                        try:
+                            restored_comments = self._crawl_comments(existing, "")
+                            comments[:] = merge_comments(comments, restored_comments)
+                            if restored_comments:
+                                commented_post_ids.add(existing.post_id)
+                                stats.comments += len(restored_comments)
+                        except Exception:
+                            stats.errors += 1
+                            self.logger.exception("Comment backfill failed post_id=%s", existing.post_id)
                     continue
 
                 try:
@@ -101,6 +115,8 @@ class PannSearchCrawler:
                     posts[:] = merge_posts(posts, [enriched])
                     comments[:] = merge_comments(comments, new_comments)
                     posts_by_id[enriched.post_id] = enriched
+                    if new_comments:
+                        commented_post_ids.add(enriched.post_id)
                     stats.posts += 1
                     stats.comments += len(new_comments)
                 except Exception:
@@ -124,11 +140,30 @@ class PannSearchCrawler:
             self._save_html(post.post_id, html)
         content, view_count = parse_post_detail(html)
         enriched = replace(post, content=content, view_count=view_count)
-        return enriched, self._crawl_comments(enriched, html) if config.CRAWL_COMMENT else []
+        should_crawl_comments = config.CRAWL_COMMENT and enriched.comment_count > 0
+        return enriched, self._crawl_comments(enriched, html) if should_crawl_comments else []
 
     def _crawl_comments(self, post: Post, first_page_html: str) -> list[Comment]:
+        """Fetch regular comments even when the article HTML omits them.
+
+        Pann detail pages may contain only best comments initially and fetch the
+        regular ``.cmt_list`` asynchronously with ``/talk/reply/load``.
+        """
         comments = parse_comments(first_page_html, post.post_id, post.url)
-        last_page = parse_last_comment_page(first_page_html)
+        fragment = self.post_text(
+            config.COMMENT_LOAD_URL,
+            data={
+                "pann_id": post.post_id,
+                "reply_id": 0,
+                "rereply_id": 0,
+                "page": 1,
+                "penm": "",
+                "order": "W",
+            },
+            referer=post.url,
+        )
+        comments = merge_comments(comments, parse_comments(fragment, post.post_id, post.url))
+        last_page = max(parse_last_comment_page(first_page_html), parse_last_comment_page(fragment))
         visited_pages = {1}
         page = 2
         while page <= last_page and page not in visited_pages:
@@ -206,7 +241,11 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     stats = PannSearchCrawler().crawl_all(args.keywords, args.start_date, args.end_date)
-    print(f"Crawl summary: search_pages={stats.search_pages}, posts={stats.posts}, comments={stats.comments}, errors={stats.errors}")
+    print(
+        "Crawl summary: "
+        f"search_pages={stats.search_pages}, new_posts={stats.posts}, new_comments={stats.comments}, "
+        f"total_posts={stats.total_posts}, total_comments={stats.total_comments}, errors={stats.errors}"
+    )
 
 
 if __name__ == "__main__":

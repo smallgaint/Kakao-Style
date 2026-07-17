@@ -18,4 +18,4 @@ python main.py --keywords 지그재그 에이블리 --start-date 2025-07-16 --en
 - `data/pann_posts.csv`: 게시글 ID, 검색 키워드, 제목, 댓글 수, 게시판, 작성자, 작성일, 조회수, URL, 본문
 - `data/pann_comments.csv`: 게시글 ID/URL, 댓글 작성자, 작성일, 내용
 
-두 파일은 UTF-8 BOM CSV입니다. 기존 CSV가 있으면 게시글 ID와 댓글 ID/작성일/내용을 기준으로 중복을 제거하고 이어서 수집합니다.
+두 파일은 UTF-8 BOM CSV입니다. 기존 CSV가 있으면 게시글 ID와 댓글 ID/작성일/내용을 기준으로 중복을 제거하고 이어서 수집합니다. 실행 요약의 `new_*`는 이번 실행의 신규 건수, `total_*`는 CSV 누적 건수입니다.
