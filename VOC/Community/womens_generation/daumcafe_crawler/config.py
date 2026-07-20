@@ -17,7 +17,7 @@ CHECKPOINT_SIZE = 50
 
 # A single switch for article bodies and comments. Search-result rows are
 # always collected, even when this is False.
-CRAWL_DETAILS = False
+CRAWL_DETAILS = True
 SAVE_HTML = False
 
 # Daum/Kakao credentials must be supplied through DAUM_ID / DAUM_PASSWORD.

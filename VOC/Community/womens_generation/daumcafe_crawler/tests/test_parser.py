@@ -8,7 +8,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from parser import extract_iframe_src, parse_post_detail, parse_search_results
+from parser import extract_iframe_src, has_next_search_page, parse_post_detail, parse_search_results
 from models import Post
 from utils import normalize_date
 
@@ -59,3 +59,8 @@ def test_permission_notice_keeps_search_preview() -> None:
     assert parsed.preview == "preview"
     assert parsed.content == ""
     assert comments == []
+
+
+def test_search_pager_detects_last_page() -> None:
+    assert has_next_search_page('<span class="num_next"><a href="javascript:goPage(2)">다음</a></span>')
+    assert not has_next_search_page('<span class="num_next">다음</span>')

@@ -14,7 +14,7 @@ from playwright.sync_api import Browser, BrowserContext, Page, Playwright, sync_
 
 import config
 from models import Comment, CrawlStats, Post
-from parser import parse_post_detail, parse_search_results
+from parser import has_next_search_page, parse_post_detail, parse_search_results
 from utils import (
     ensure_directories,
     load_existing_comments,
@@ -139,12 +139,31 @@ class DaumCafeCrawler:
                 self.logger.info("Search start: keyword=%s", keyword)
                 page_number = self.runtime.search_start_page
                 reached_start_date = False
+                seen_page_signatures: set[tuple[str, ...]] = set()
                 while not reached_start_date:
                     html = self.fetch_search_page(keyword, page_number)
                     page_posts = parse_search_results(html, self.runtime.base_url, keyword)
                     stat.pages += 1
                     if not page_posts:
+                        self.logger.info("Search end: keyword=%s requested_page=%s reason=no_results", keyword, page_number)
                         break
+                    signature = tuple(f"{post.board}:{post.post_id or post.number}" for post in page_posts)
+                    if signature in seen_page_signatures:
+                        self.logger.warning(
+                            "Search end: keyword=%s requested_page=%s reason=repeated_page",
+                            keyword,
+                            page_number,
+                        )
+                        break
+                    seen_page_signatures.add(signature)
+                    has_next_page = has_next_search_page(html)
+                    self.logger.info(
+                        "Search page: keyword=%s requested_page=%s results=%s has_next=%s",
+                        keyword,
+                        page_number,
+                        len(page_posts),
+                        has_next_page,
+                    )
                     for post in page_posts:
                         post_date = self._post_date(post.date)
                         if post_date is None:
@@ -169,6 +188,20 @@ class DaumCafeCrawler:
                         stat.posts += 1
                         if len(pending) >= self.runtime.checkpoint_size:
                             checkpoint()
+                    if reached_start_date:
+                        self.logger.info(
+                            "Search end: keyword=%s requested_page=%s reason=start_date_reached",
+                            keyword,
+                            page_number,
+                        )
+                        break
+                    if not has_next_page:
+                        self.logger.info(
+                            "Search end: keyword=%s requested_page=%s reason=last_page",
+                            keyword,
+                            page_number,
+                        )
+                        break
                     page_number += 1
         except KeyboardInterrupt:
             self.logger.warning("Interrupted; saving completed and pending work")

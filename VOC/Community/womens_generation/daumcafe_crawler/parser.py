@@ -167,6 +167,13 @@ def parse_search_results(html: str, base_url: str, keyword: str) -> list[Post]:
     return posts
 
 
+def has_next_search_page(html: str) -> bool:
+    """Return whether the Daum search pager exposes a usable next-page link."""
+    soup = BeautifulSoup(html, "lxml")
+    next_link = soup.select_one(".num_next a[href*='goPage']")
+    return bool(next_link and "goPage" in next_link.get("href", ""))
+
+
 def parse_script_articles(html: str, board: str, base_url: str) -> list[Post]:
     """Parse modern Daum Cafe board pages rendered from articles.push data."""
     blocks = re.findall(r"articles\.push\(\s*\{(.*?)\}\s*\);", html, flags=re.DOTALL)
