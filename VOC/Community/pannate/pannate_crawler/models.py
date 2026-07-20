@@ -41,3 +41,5 @@ class CrawlStats:
     posts: int = 0
     comments: int = 0
     errors: int = 0
+    total_posts: int = 0
+    total_comments: int = 0

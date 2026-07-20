@@ -80,6 +80,7 @@ def parse_arguments() -> argparse.Namespace:
 
     parser.add_argument("--start-date", type=str, default=None, help="검색 시작일 (YYYY-MM-DD, 포함)")
     parser.add_argument("--end-date", type=str, default=None, help="검색 종료일 (YYYY-MM-DD, 포함)")
+    parser.add_argument("--checkpoint-size", type=int, default=None, help="신규 게시글 중간 저장 단위 (0이면 마지막에만 저장)")
 
     parser.add_argument(
         "--search-type",
@@ -204,6 +205,11 @@ def apply_cli_arguments(args: argparse.Namespace) -> None:
 
     if args.search_type is not None:
         config.SEARCH_TYPE = args.search_type
+
+    if args.checkpoint_size is not None:
+        if args.checkpoint_size < 0:
+            raise ValueError("--checkpoint-size는 0 이상의 정수여야 합니다.")
+        config.CHECKPOINT_SIZE = args.checkpoint_size
 
     if args.login:
         config.LOGIN_ENABLED = True
@@ -506,24 +512,41 @@ def main():
                 logger.error("로그인이 필요한 작업을 계속할 수 없어 종료합니다")
                 sys.exit(1)
         
-        # parameters: 게시판별 검색 목록 수집
+        # parameters: 게시판별 검색 목록 수집 및 체크포인트 저장
         all_posts = []
+        checkpoint_size = getattr(config, "CHECKPOINT_SIZE", 50)
+        output_name = f"instiz_board_search_{start_date:%Y%m%d}_{end_date:%Y%m%d}"
+
+        def save_checkpoint(posts: list) -> None:
+            """현재 배치만 상세 수집한 후 기존 CSV에 병합 저장합니다."""
+            if not posts:
+                return
+            logger.info("체크포인트 저장 시작: 신규 게시글 %s개", len(posts))
+            details = crawler.crawl_post_contents(posts) if config.CRAWL_CONTENT else {
+                post.post_id: {"post": post, "comments": []} for post in posts
+            }
+            saved_posts = [entry["post"] for entry in details.values()]
+            save_to_csv(saved_posts, details, output_name=output_name)
+            logger.info("체크포인트 저장 완료: 신규 게시글 %s개", len(saved_posts))
+
         logger.info("게시판 검색 크롤링: 기간=%s~%s, 키워드=%s", start_date, end_date, ", ".join(search_keywords))
 
         for target in targets:
             board = target["board"]
             category = target["category"]
             for keyword in search_keywords:
-                all_posts.extend(crawler.crawl_board_search(board, category, keyword, start_date, end_date))
+                all_posts.extend(crawler.crawl_board_search(
+                    board, category, keyword, start_date, end_date,
+                    checkpoint_size=checkpoint_size,
+                    checkpoint_callback=save_checkpoint,
+                ))
 
-        # parameters: 중복 제거 후 한 번만 상세 수집
-        post_details = crawler.crawl_post_contents(all_posts) if config.CRAWL_CONTENT and all_posts else {
-            post.post_id: {"post": post, "comments": []} for post in all_posts
-        }
-        if config.CRAWL_CONTENT:
-            all_posts = [details["post"] for details in post_details.values()]
-        output_name = f"instiz_board_search_{start_date:%Y%m%d}_{end_date:%Y%m%d}"
-        save_to_csv(all_posts, post_details, output_name=output_name)
+        if checkpoint_size == 0 and all_posts:
+            save_checkpoint(all_posts)
+
+        # 키워드 중복으로 갱신된 search_keywords까지 최종 반영합니다.
+        if checkpoint_size and all_posts:
+            save_to_csv(list(crawler.posts_by_url.values()), output_name=output_name)
         
         # parameters: 통계 출력
         stats = crawler.get_statistics()

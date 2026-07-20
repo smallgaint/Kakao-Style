@@ -1568,3 +1568,468 @@ playwright._impl._errors.Error: Executable doesn't exist at C:\Users\user\AppDat
 2026-07-16 21:23:00 [INFO] __main__: 인스티즈 크롤러 종료
 2026-07-16 21:23:00 [INFO] crawler: 브라우저 종료 중...
 2026-07-16 21:23:00 [INFO] crawler: 브라우저 종료 완료
+2026-07-16 21:38:49 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-16 21:38:49 [INFO] crawler: 브라우저 시작 중...
+2026-07-16 21:38:50 [INFO] crawler: 저장된 로그인 세션 사용: C:\Users\user\kk\Kakao-Style\VOC\Community\instiz\instiz_crawler\auth\instiz_storage_state.json
+2026-07-16 21:38:50 [INFO] crawler: 브라우저 시작 완료
+2026-07-16 21:39:03 [INFO] crawler: 검색 페이지 접근 확인
+2026-07-16 21:39:03 [INFO] crawler: 이미 로그인된 세션입니다
+2026-07-16 21:39:04 [INFO] crawler: 로그인 세션 저장: C:\Users\user\kk\Kakao-Style\VOC\Community\instiz\instiz_crawler\auth\instiz_storage_state.json
+2026-07-16 21:39:04 [INFO] __main__: 게시판 검색 크롤링: 기간=2025-07-01~2026-12-31, 키워드=지그재그, 직잭, 무신사, 에이블리, 직쟄, 직젝, 직젴, zigzag, 29cm, 29CM
+2026-07-16 21:39:04 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=지그재그
+2026-07-16 21:41:55 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=지그재그, page=49
+2026-07-16 21:41:55 [INFO] crawler: 게시판 검색 완료: board=name, keyword=지그재그, posts=953
+2026-07-16 21:41:55 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=직잭
+2026-07-16 21:42:33 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=직잭, page=11
+2026-07-16 21:42:33 [INFO] crawler: 게시판 검색 완료: board=name, keyword=직잭, posts=176
+2026-07-16 21:42:33 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=무신사
+2026-07-16 21:46:41 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=무신사, page=71
+2026-07-16 21:46:41 [INFO] crawler: 게시판 검색 완료: board=name, keyword=무신사, posts=1260
+2026-07-16 21:46:41 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=에이블리
+2026-07-16 21:50:23 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=에이블리, page=65
+2026-07-16 21:50:23 [INFO] crawler: 게시판 검색 완료: board=name, keyword=에이블리, posts=997
+2026-07-16 21:50:23 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=직쟄
+2026-07-16 21:50:29 [INFO] crawler: 검색 결과 종료: board=name, keyword=직쟄, page=2
+2026-07-16 21:50:29 [INFO] crawler: 게시판 검색 완료: board=name, keyword=직쟄, posts=0
+2026-07-16 21:50:29 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=직젝
+2026-07-16 21:50:36 [INFO] crawler: 검색 결과 종료: board=name, keyword=직젝, page=2
+2026-07-16 21:50:36 [INFO] crawler: 게시판 검색 완료: board=name, keyword=직젝, posts=2
+2026-07-16 21:50:36 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=직젴
+2026-07-16 21:50:42 [INFO] crawler: 검색 결과 종료: board=name, keyword=직젴, page=2
+2026-07-16 21:50:42 [INFO] crawler: 게시판 검색 완료: board=name, keyword=직젴, posts=1
+2026-07-16 21:50:42 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=zigzag
+2026-07-16 21:50:49 [INFO] crawler: 검색 결과 종료: board=name, keyword=zigzag, page=2
+2026-07-16 21:50:49 [INFO] crawler: 게시판 검색 완료: board=name, keyword=zigzag, posts=2
+2026-07-16 21:50:49 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=29cm
+2026-07-16 21:51:33 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=29cm, page=12
+2026-07-16 21:51:33 [INFO] crawler: 게시판 검색 완료: board=name, keyword=29cm, posts=122
+2026-07-16 21:51:33 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=29CM
+2026-07-16 21:52:15 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=29CM, page=12
+2026-07-16 21:52:15 [INFO] crawler: 게시판 검색 완료: board=name, keyword=29CM, posts=0
+2026-07-16 21:52:15 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=지그재그
+2026-07-16 21:52:21 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=지그재그, page=2
+2026-07-16 21:52:21 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=지그재그, posts=3
+2026-07-16 21:52:21 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=직잭
+2026-07-16 21:52:28 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=직잭, page=2
+2026-07-16 21:52:28 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=직잭, posts=3
+2026-07-16 21:52:28 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=무신사
+2026-07-16 21:52:35 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=무신사, page=2
+2026-07-16 21:52:35 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=무신사, posts=16
+2026-07-16 21:52:35 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=에이블리
+2026-07-16 21:52:42 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=에이블리, page=2
+2026-07-16 21:52:42 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=에이블리, posts=1
+2026-07-16 21:52:42 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=직쟄
+2026-07-16 21:52:45 [INFO] crawler: 검색 결과 종료: board=name_beauty, keyword=직쟄, page=1
+2026-07-16 21:52:45 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=직쟄, posts=0
+2026-07-16 21:52:45 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=직젝
+2026-07-16 21:52:48 [INFO] crawler: 검색 결과 종료: board=name_beauty, keyword=직젝, page=1
+2026-07-16 21:52:48 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=직젝, posts=0
+2026-07-16 21:52:48 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=직젴
+2026-07-16 21:52:51 [INFO] crawler: 검색 결과 종료: board=name_beauty, keyword=직젴, page=1
+2026-07-16 21:52:51 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=직젴, posts=0
+2026-07-16 21:52:51 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=zigzag
+2026-07-16 21:52:58 [INFO] crawler: 검색 결과 종료: board=name_beauty, keyword=zigzag, page=2
+2026-07-16 21:52:58 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=zigzag, posts=10
+2026-07-16 21:52:58 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=29cm
+2026-07-16 21:53:04 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=29cm, page=2
+2026-07-16 21:53:04 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=29cm, posts=2
+2026-07-16 21:53:04 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=29CM
+2026-07-16 21:53:11 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=29CM, page=2
+2026-07-16 21:53:11 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=29CM, posts=0
+2026-07-16 21:53:11 [INFO] crawler: 게시글 본문 수집 시작: 3548개 게시글
+2026-07-17 16:35:32 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-17 16:35:32 [INFO] crawler: 브라우저 시작 중...
+2026-07-17 16:35:40 [INFO] crawler: 저장된 로그인 세션 사용: C:\Users\user\kk\Kakao-Style\VOC\Community\instiz\instiz_crawler\auth\instiz_storage_state.json
+2026-07-17 16:35:40 [INFO] crawler: 브라우저 시작 완료
+2026-07-17 16:35:53 [INFO] crawler: 검색 페이지 접근 확인
+2026-07-17 16:35:53 [INFO] crawler: 이미 로그인된 세션입니다
+2026-07-17 16:35:54 [INFO] crawler: 로그인 세션 저장: C:\Users\user\kk\Kakao-Style\VOC\Community\instiz\instiz_crawler\auth\instiz_storage_state.json
+2026-07-17 16:35:54 [INFO] __main__: 게시판 검색 크롤링: 기간=2025-07-01~2026-12-31, 키워드=지그재그, 직잭, 무신사, 에이블리, 직쟄, 직젝, 직젴, zigzag, 29cm, 29CM
+2026-07-17 16:35:54 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=지그재그
+2026-07-17 16:38:48 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=지그재그, page=49
+2026-07-17 16:38:48 [INFO] crawler: 게시판 검색 완료: board=name, keyword=지그재그, posts=955
+2026-07-17 16:38:48 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=직잭
+2026-07-17 16:39:26 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=직잭, page=11
+2026-07-17 16:39:26 [INFO] crawler: 게시판 검색 완료: board=name, keyword=직잭, posts=176
+2026-07-17 16:39:26 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=무신사
+2026-07-17 16:43:32 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=무신사, page=71
+2026-07-17 16:43:32 [INFO] crawler: 게시판 검색 완료: board=name, keyword=무신사, posts=1252
+2026-07-17 16:43:32 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=에이블리
+2026-07-17 16:47:11 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=에이블리, page=65
+2026-07-17 16:47:11 [INFO] crawler: 게시판 검색 완료: board=name, keyword=에이블리, posts=997
+2026-07-17 16:47:11 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=직쟄
+2026-07-17 16:47:17 [INFO] crawler: 검색 결과 종료: board=name, keyword=직쟄, page=2
+2026-07-17 16:47:17 [INFO] crawler: 게시판 검색 완료: board=name, keyword=직쟄, posts=0
+2026-07-17 16:47:17 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=직젝
+2026-07-17 16:47:24 [INFO] crawler: 검색 결과 종료: board=name, keyword=직젝, page=2
+2026-07-17 16:47:24 [INFO] crawler: 게시판 검색 완료: board=name, keyword=직젝, posts=2
+2026-07-17 16:47:24 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=직젴
+2026-07-17 16:47:30 [INFO] crawler: 검색 결과 종료: board=name, keyword=직젴, page=2
+2026-07-17 16:47:30 [INFO] crawler: 게시판 검색 완료: board=name, keyword=직젴, posts=1
+2026-07-17 16:47:30 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=zigzag
+2026-07-17 16:47:37 [INFO] crawler: 검색 결과 종료: board=name, keyword=zigzag, page=2
+2026-07-17 16:47:37 [INFO] crawler: 게시판 검색 완료: board=name, keyword=zigzag, posts=2
+2026-07-17 16:47:37 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=29cm
+2026-07-17 16:48:16 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=29cm, page=12
+2026-07-17 16:48:16 [INFO] crawler: 게시판 검색 완료: board=name, keyword=29cm, posts=122
+2026-07-17 16:48:16 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=29CM
+2026-07-17 16:48:59 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=29CM, page=12
+2026-07-17 16:48:59 [INFO] crawler: 게시판 검색 완료: board=name, keyword=29CM, posts=0
+2026-07-17 16:48:59 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=지그재그
+2026-07-17 16:49:05 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=지그재그, page=2
+2026-07-17 16:49:05 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=지그재그, posts=3
+2026-07-17 16:49:05 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=직잭
+2026-07-17 16:49:13 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=직잭, page=2
+2026-07-17 16:49:13 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=직잭, posts=3
+2026-07-17 16:49:13 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=무신사
+2026-07-17 16:49:20 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=무신사, page=2
+2026-07-17 16:49:20 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=무신사, posts=16
+2026-07-17 16:49:20 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=에이블리
+2026-07-17 16:49:26 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=에이블리, page=2
+2026-07-17 16:49:26 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=에이블리, posts=1
+2026-07-17 16:49:26 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=직쟄
+2026-07-17 16:49:29 [INFO] crawler: 검색 결과 종료: board=name_beauty, keyword=직쟄, page=1
+2026-07-17 16:49:29 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=직쟄, posts=0
+2026-07-17 16:49:29 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=직젝
+2026-07-17 16:49:33 [INFO] crawler: 검색 결과 종료: board=name_beauty, keyword=직젝, page=1
+2026-07-17 16:49:33 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=직젝, posts=0
+2026-07-17 16:49:33 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=직젴
+2026-07-17 16:49:36 [INFO] crawler: 검색 결과 종료: board=name_beauty, keyword=직젴, page=1
+2026-07-17 16:49:36 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=직젴, posts=0
+2026-07-17 16:49:36 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=zigzag
+2026-07-17 16:49:42 [INFO] crawler: 검색 결과 종료: board=name_beauty, keyword=zigzag, page=2
+2026-07-17 16:49:42 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=zigzag, posts=10
+2026-07-17 16:49:42 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=29cm
+2026-07-17 16:49:49 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=29cm, page=2
+2026-07-17 16:49:49 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=29cm, posts=2
+2026-07-17 16:49:49 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=29CM
+2026-07-17 16:49:56 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=29CM, page=2
+2026-07-17 16:49:56 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=29CM, posts=0
+2026-07-17 16:49:56 [INFO] crawler: 게시글 본문 수집 시작: 3542개 게시글
+2026-07-17 17:24:59 [WARNING] __main__: 
+사용자에 의해 크롤링 중단됨
+2026-07-17 17:24:59 [INFO] crawler: 브라우저 종료 중...
+2026-07-17 17:24:59 [ERROR] crawler: 브라우저 종료 중 오류: Target page, context or browser has been closed
+Browser logs:
+
+<launching> C:\Users\user\AppData\Local\ms-playwright\chromium-1091\chrome-win\chrome.exe --disable-field-trial-config --disable-background-networking --enable-features=NetworkService,NetworkServiceInProcess --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=ImprovedCookieControls,LazyFrameLoading,GlobalMediaControls,DestroyProfileOnBrowserClose,MediaRouter,DialMediaRouteProvider,AcceptCHFrame,AutoExpandDetailsElement,CertificateTransparencyComponentUpdater,AvoidUnnecessaryBeforeUnloadCheckSync,Translate,HttpsUpgrades --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --enable-automation --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=C:\Users\user\AppData\Local\Temp\playwright_chromiumdev_profile-N739f6 --remote-debugging-pipe --no-startup-window
+<launched> pid=10644
+[pid=10644] <gracefully close start>
+2026-07-17 17:30:33 [INFO] __main__: 인스티즈 크롤러 시작
+2026-07-17 17:30:33 [INFO] crawler: 브라우저 시작 중...
+2026-07-17 17:30:34 [INFO] crawler: 저장된 로그인 세션 사용: C:\Users\user\kk\Kakao-Style\VOC\Community\instiz\instiz_crawler\auth\instiz_storage_state.json
+2026-07-17 17:30:34 [INFO] crawler: 브라우저 시작 완료
+2026-07-17 17:30:47 [INFO] crawler: 검색 페이지 접근 확인
+2026-07-17 17:30:47 [INFO] crawler: 이미 로그인된 세션입니다
+2026-07-17 17:30:48 [INFO] crawler: 로그인 세션 저장: C:\Users\user\kk\Kakao-Style\VOC\Community\instiz\instiz_crawler\auth\instiz_storage_state.json
+2026-07-17 17:30:48 [INFO] __main__: 게시판 검색 크롤링: 기간=2025-07-01~2026-12-31, 키워드=지그재그, 직잭, 무신사, 에이블리, 직쟄, 직젝, 직젴, zigzag, 29cm, 29CM
+2026-07-17 17:30:48 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=지그재그
+2026-07-17 17:31:08 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 17:31:08 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 17:37:28 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 17:37:28 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=100)
+2026-07-17 17:37:28 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 17:37:45 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 17:37:45 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 17:44:06 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 17:44:06 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=200)
+2026-07-17 17:44:06 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 17:44:23 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 17:44:23 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 17:50:34 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 17:50:34 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=300)
+2026-07-17 17:50:34 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 17:50:52 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 17:50:52 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 17:57:15 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 17:57:15 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=400)
+2026-07-17 17:57:15 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 17:57:32 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 17:57:32 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 18:03:49 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 18:03:49 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=500)
+2026-07-17 18:03:49 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 18:04:06 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 18:04:06 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 18:10:28 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 18:10:28 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=600)
+2026-07-17 18:10:28 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 18:10:44 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 18:10:44 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 18:17:07 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 18:17:07 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=700)
+2026-07-17 18:17:07 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 18:17:24 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 18:17:24 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 18:23:45 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 18:23:45 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=800)
+2026-07-17 18:23:45 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 18:24:02 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 18:24:02 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 18:30:18 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 18:30:18 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=900)
+2026-07-17 18:30:18 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 18:30:28 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=지그재그, page=49
+2026-07-17 18:30:28 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 55개
+2026-07-17 18:30:28 [INFO] crawler: 게시글 본문 수집 시작: 55개 게시글
+2026-07-17 18:33:52 [INFO] crawler: 게시글 본문 수집 완료: 55개 게시글
+2026-07-17 18:33:52 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=55, total=955)
+2026-07-17 18:33:52 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 55개
+2026-07-17 18:33:52 [INFO] crawler: 게시판 검색 완료: board=name, keyword=지그재그, posts=955
+2026-07-17 18:33:52 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=직잭
+2026-07-17 18:34:12 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 18:34:12 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 18:40:31 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 18:40:31 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=1055)
+2026-07-17 18:40:31 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 18:40:48 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=직잭, page=11
+2026-07-17 18:40:48 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 76개
+2026-07-17 18:40:48 [INFO] crawler: 게시글 본문 수집 시작: 76개 게시글
+2026-07-17 18:45:33 [INFO] crawler: 게시글 본문 수집 완료: 76개 게시글
+2026-07-17 18:45:33 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=76, total=1131)
+2026-07-17 18:45:33 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 76개
+2026-07-17 18:45:33 [INFO] crawler: 게시판 검색 완료: board=name, keyword=직잭, posts=176
+2026-07-17 18:45:33 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=무신사
+2026-07-17 18:45:54 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 18:45:54 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 18:52:18 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 18:52:18 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=1231)
+2026-07-17 18:52:18 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 18:52:38 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 18:52:38 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 18:58:56 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 18:58:56 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=1331)
+2026-07-17 18:58:56 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 18:59:14 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 18:59:14 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 19:05:31 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 19:05:31 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=1431)
+2026-07-17 19:05:31 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 19:05:51 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 19:05:51 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 19:12:12 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 19:12:12 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=1531)
+2026-07-17 19:12:12 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 19:12:28 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 19:12:28 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 19:18:45 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 19:18:45 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=1631)
+2026-07-17 19:18:45 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 19:19:06 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 19:19:06 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 19:25:33 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 19:25:33 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=1731)
+2026-07-17 19:25:33 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 19:25:50 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 19:25:50 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 19:32:16 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 19:32:16 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=1831)
+2026-07-17 19:32:16 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 19:32:33 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 19:32:33 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 19:38:59 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 19:38:59 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=1931)
+2026-07-17 19:38:59 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 19:39:19 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 19:39:19 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 19:45:44 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 19:45:44 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=2031)
+2026-07-17 19:45:44 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 19:46:01 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 19:46:01 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 19:52:23 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 19:52:23 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=2131)
+2026-07-17 19:52:23 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 19:52:43 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 19:52:43 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 19:59:08 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 19:59:08 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=2231)
+2026-07-17 19:59:08 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 19:59:29 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 19:59:29 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 20:05:56 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 20:05:56 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=2331)
+2026-07-17 20:05:56 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 20:06:10 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=무신사, page=71
+2026-07-17 20:06:10 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 52개
+2026-07-17 20:06:10 [INFO] crawler: 게시글 본문 수집 시작: 52개 게시글
+2026-07-17 20:09:28 [INFO] crawler: 게시글 본문 수집 완료: 52개 게시글
+2026-07-17 20:09:28 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=52, total=2383)
+2026-07-17 20:09:28 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 52개
+2026-07-17 20:09:28 [INFO] crawler: 게시판 검색 완료: board=name, keyword=무신사, posts=1252
+2026-07-17 20:09:28 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=에이블리
+2026-07-17 20:09:51 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 20:09:51 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 20:16:13 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 20:16:14 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=2483)
+2026-07-17 20:16:14 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 20:16:35 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 20:16:35 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 20:22:59 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 20:22:59 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=2583)
+2026-07-17 20:22:59 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 20:23:20 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 20:23:20 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 20:29:46 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 20:29:46 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=2683)
+2026-07-17 20:29:46 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 20:30:09 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 20:30:09 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 20:36:37 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 20:36:37 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=2783)
+2026-07-17 20:36:37 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 20:37:00 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 20:37:00 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 20:43:27 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 20:43:27 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=2883)
+2026-07-17 20:43:27 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 20:43:47 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 20:43:47 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 20:50:22 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 20:50:22 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=2983)
+2026-07-17 20:50:22 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 20:50:42 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 20:50:42 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 20:57:16 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 20:57:16 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=3083)
+2026-07-17 20:57:16 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 20:57:39 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 20:57:39 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 21:04:07 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 21:04:08 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=3183)
+2026-07-17 21:04:08 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 21:04:28 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 21:04:28 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 21:11:01 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 21:11:01 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=3283)
+2026-07-17 21:11:01 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 21:11:26 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=에이블리, page=65
+2026-07-17 21:11:26 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 97개
+2026-07-17 21:11:26 [INFO] crawler: 게시글 본문 수집 시작: 97개 게시글
+2026-07-17 21:17:49 [INFO] crawler: 게시글 본문 수집 완료: 97개 게시글
+2026-07-17 21:17:49 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=97, total=3380)
+2026-07-17 21:17:49 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 97개
+2026-07-17 21:17:49 [INFO] crawler: 게시판 검색 완료: board=name, keyword=에이블리, posts=997
+2026-07-17 21:17:49 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=직쟄
+2026-07-17 21:17:55 [INFO] crawler: 검색 결과 종료: board=name, keyword=직쟄, page=2
+2026-07-17 21:17:55 [INFO] crawler: 게시판 검색 완료: board=name, keyword=직쟄, posts=0
+2026-07-17 21:17:55 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=직젝
+2026-07-17 21:18:02 [INFO] crawler: 검색 결과 종료: board=name, keyword=직젝, page=2
+2026-07-17 21:18:02 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 2개
+2026-07-17 21:18:02 [INFO] crawler: 게시글 본문 수집 시작: 2개 게시글
+2026-07-17 21:18:09 [INFO] crawler: 게시글 본문 수집 완료: 2개 게시글
+2026-07-17 21:18:09 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=2, total=3382)
+2026-07-17 21:18:09 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 2개
+2026-07-17 21:18:09 [INFO] crawler: 게시판 검색 완료: board=name, keyword=직젝, posts=2
+2026-07-17 21:18:09 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=직젴
+2026-07-17 21:18:16 [INFO] crawler: 검색 결과 종료: board=name, keyword=직젴, page=2
+2026-07-17 21:18:16 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 1개
+2026-07-17 21:18:16 [INFO] crawler: 게시글 본문 수집 시작: 1개 게시글
+2026-07-17 21:18:20 [INFO] crawler: 게시글 본문 수집 완료: 1개 게시글
+2026-07-17 21:18:20 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=1, total=3383)
+2026-07-17 21:18:20 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 1개
+2026-07-17 21:18:20 [INFO] crawler: 게시판 검색 완료: board=name, keyword=직젴, posts=1
+2026-07-17 21:18:20 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=zigzag
+2026-07-17 21:18:26 [INFO] crawler: 검색 결과 종료: board=name, keyword=zigzag, page=2
+2026-07-17 21:18:26 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 2개
+2026-07-17 21:18:26 [INFO] crawler: 게시글 본문 수집 시작: 2개 게시글
+2026-07-17 21:18:34 [INFO] crawler: 게시글 본문 수집 완료: 2개 게시글
+2026-07-17 21:18:34 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=2, total=3385)
+2026-07-17 21:18:34 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 2개
+2026-07-17 21:18:34 [INFO] crawler: 게시판 검색 완료: board=name, keyword=zigzag, posts=2
+2026-07-17 21:18:34 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=29cm
+2026-07-17 21:19:04 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 100개
+2026-07-17 21:19:04 [INFO] crawler: 게시글 본문 수집 시작: 100개 게시글
+2026-07-17 21:25:32 [INFO] crawler: 게시글 본문 수집 완료: 100개 게시글
+2026-07-17 21:25:32 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=100, total=3485)
+2026-07-17 21:25:32 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 100개
+2026-07-17 21:25:42 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=29cm, page=12
+2026-07-17 21:25:42 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 22개
+2026-07-17 21:25:42 [INFO] crawler: 게시글 본문 수집 시작: 22개 게시글
+2026-07-17 21:27:07 [INFO] crawler: 게시글 본문 수집 완료: 22개 게시글
+2026-07-17 21:27:08 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=22, total=3507)
+2026-07-17 21:27:08 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 22개
+2026-07-17 21:27:08 [INFO] crawler: 게시판 검색 완료: board=name, keyword=29cm, posts=122
+2026-07-17 21:27:08 [INFO] crawler: 게시판 검색 시작: board=name, category=1, keyword=29CM
+2026-07-17 21:27:49 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name, keyword=29CM, page=12
+2026-07-17 21:27:49 [INFO] crawler: 게시판 검색 완료: board=name, keyword=29CM, posts=0
+2026-07-17 21:27:49 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=지그재그
+2026-07-17 21:27:56 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=지그재그, page=2
+2026-07-17 21:27:56 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 3개
+2026-07-17 21:27:56 [INFO] crawler: 게시글 본문 수집 시작: 3개 게시글
+2026-07-17 21:28:07 [INFO] crawler: 게시글 본문 수집 완료: 3개 게시글
+2026-07-17 21:28:07 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=3, total=3510)
+2026-07-17 21:28:07 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 3개
+2026-07-17 21:28:07 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=지그재그, posts=3
+2026-07-17 21:28:07 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=직잭
+2026-07-17 21:28:14 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=직잭, page=2
+2026-07-17 21:28:14 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 3개
+2026-07-17 21:28:14 [INFO] crawler: 게시글 본문 수집 시작: 3개 게시글
+2026-07-17 21:28:26 [INFO] crawler: 게시글 본문 수집 완료: 3개 게시글
+2026-07-17 21:28:26 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=3, total=3513)
+2026-07-17 21:28:26 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 3개
+2026-07-17 21:28:26 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=직잭, posts=3
+2026-07-17 21:28:26 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=무신사
+2026-07-17 21:28:33 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=무신사, page=2
+2026-07-17 21:28:33 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 16개
+2026-07-17 21:28:33 [INFO] crawler: 게시글 본문 수집 시작: 16개 게시글
+2026-07-17 21:29:34 [INFO] crawler: 게시글 본문 수집 완료: 16개 게시글
+2026-07-17 21:29:34 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=16, total=3529)
+2026-07-17 21:29:34 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 16개
+2026-07-17 21:29:34 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=무신사, posts=16
+2026-07-17 21:29:34 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=에이블리
+2026-07-17 21:29:40 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=에이블리, page=2
+2026-07-17 21:29:40 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 1개
+2026-07-17 21:29:40 [INFO] crawler: 게시글 본문 수집 시작: 1개 게시글
+2026-07-17 21:29:44 [INFO] crawler: 게시글 본문 수집 완료: 1개 게시글
+2026-07-17 21:29:44 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=1, total=3530)
+2026-07-17 21:29:44 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 1개
+2026-07-17 21:29:44 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=에이블리, posts=1
+2026-07-17 21:29:44 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=직쟄
+2026-07-17 21:29:47 [INFO] crawler: 검색 결과 종료: board=name_beauty, keyword=직쟄, page=1
+2026-07-17 21:29:47 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=직쟄, posts=0
+2026-07-17 21:29:47 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=직젝
+2026-07-17 21:29:50 [INFO] crawler: 검색 결과 종료: board=name_beauty, keyword=직젝, page=1
+2026-07-17 21:29:50 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=직젝, posts=0
+2026-07-17 21:29:50 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=직젴
+2026-07-17 21:29:54 [INFO] crawler: 검색 결과 종료: board=name_beauty, keyword=직젴, page=1
+2026-07-17 21:29:54 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=직젴, posts=0
+2026-07-17 21:29:54 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=zigzag
+2026-07-17 21:30:00 [INFO] crawler: 검색 결과 종료: board=name_beauty, keyword=zigzag, page=2
+2026-07-17 21:30:00 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 10개
+2026-07-17 21:30:00 [INFO] crawler: 게시글 본문 수집 시작: 10개 게시글
+2026-07-17 21:30:38 [INFO] crawler: 게시글 본문 수집 완료: 10개 게시글
+2026-07-17 21:30:38 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=10, total=3540)
+2026-07-17 21:30:38 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 10개
+2026-07-17 21:30:38 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=zigzag, posts=10
+2026-07-17 21:30:38 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=29cm
+2026-07-17 21:30:44 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=29cm, page=2
+2026-07-17 21:30:44 [INFO] __main__: 체크포인트 저장 시작: 신규 게시글 2개
+2026-07-17 21:30:44 [INFO] crawler: 게시글 본문 수집 시작: 2개 게시글
+2026-07-17 21:30:52 [INFO] crawler: 게시글 본문 수집 완료: 2개 게시글
+2026-07-17 21:30:52 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=2, total=3542)
+2026-07-17 21:30:52 [INFO] __main__: 체크포인트 저장 완료: 신규 게시글 2개
+2026-07-17 21:30:52 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=29cm, posts=2
+2026-07-17 21:30:52 [INFO] crawler: 게시판 검색 시작: board=name_beauty, category=None, keyword=29CM
+2026-07-17 21:30:59 [INFO] crawler: 기간 시작일 이전 검색 결과에서 종료: board=name_beauty, keyword=29CM, page=2
+2026-07-17 21:30:59 [INFO] crawler: 게시판 검색 완료: board=name_beauty, keyword=29CM, posts=0
+2026-07-17 21:30:59 [INFO] __main__: 게시글 CSV 저장 완료: output\instiz_board_search_20250701_20261231.csv (new=3542, total=3542)
+2026-07-17 21:30:59 [INFO] __main__: ==================================================
+2026-07-17 21:30:59 [INFO] __main__: 크롤링 완료
+2026-07-17 21:30:59 [INFO] __main__: ==================================================
+2026-07-17 21:30:59 [INFO] __main__: 시작 시간: 2026-07-17T17:30:33.093546
+2026-07-17 21:30:59 [INFO] __main__: 종료 시간: 2026-07-17T21:30:59.210094
+2026-07-17 21:30:59 [INFO] __main__: 실행 시간: 4시간 0분 26초
+2026-07-17 21:30:59 [INFO] __main__: --------------------------------------------------
+2026-07-17 21:30:59 [INFO] __main__: 게시판 수: 1
+2026-07-17 21:30:59 [INFO] __main__: 페이지 수: 245
+2026-07-17 21:30:59 [INFO] __main__: 게시글 수: 3542
+2026-07-17 21:30:59 [INFO] __main__: 댓글 수: 0
+2026-07-17 21:30:59 [INFO] __main__: --------------------------------------------------
+2026-07-17 21:30:59 [INFO] __main__: 오류 수: 0
+2026-07-17 21:30:59 [INFO] __main__: 재시도 횟수: 0
+2026-07-17 21:30:59 [INFO] __main__: 평균 처리 속도: 0.25 게시글/초
+2026-07-17 21:30:59 [INFO] __main__: ==================================================
+2026-07-17 21:30:59 [INFO] __main__: 인스티즈 크롤러 종료
+2026-07-17 21:30:59 [INFO] crawler: 브라우저 종료 중...
+2026-07-17 21:30:59 [INFO] crawler: 브라우저 종료 완료

@@ -12,7 +12,7 @@ KEYWORDS = ["지그재그", "직잭", "직젝", "직쟄", "직젴", "무신사",
 SORT = "DD"  # newest first
 
 # Both endpoints are inclusive. Update this fixed window before each collection.
-START_DATE = date(2025, 7, 16)
+START_DATE = date(2025, 7, 1)
 END_DATE = date(2026, 7, 16)
 
 CRAWL_CONTENT = True
@@ -20,7 +20,7 @@ CRAWL_COMMENT = True
 SAVE_HTML = False
 ENABLE_RESUME = True
 
-REQUEST_DELAY = 1.0
+REQUEST_DELAY = 2.0
 REQUEST_DELAY_RANDOM = 0.3
 MAX_RETRY = 3
 TIMEOUT = 30

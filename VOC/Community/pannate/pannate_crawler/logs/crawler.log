@@ -31431,3 +31431,103 @@ requests.exceptions.MissingSchema: Invalid URL '/talk/374829365': No scheme supp
 2026-07-16 20:46:03,639 [INFO] Searching keyword='29cm', sort=DD, from=2026-07-10
 2026-07-16 20:46:05,839 [INFO] Searching keyword='29CM', sort=DD, from=2026-07-10
 2026-07-16 20:46:08,106 [INFO] Searching keyword='zigzag', sort=DD, from=2026-07-10
+2026-07-16 21:30:07,620 [INFO] Start keyword='지그재그' date_range=2026-07-10..2026-07-16
+2026-07-16 21:30:09,026 [INFO] Reached START_DATE keyword='지그재그' page=1
+2026-07-16 21:30:09,029 [INFO] Start keyword='직잭' date_range=2026-07-10..2026-07-16
+2026-07-16 21:30:10,266 [INFO] Reached START_DATE keyword='직잭' page=1
+2026-07-16 21:30:10,268 [INFO] Start keyword='직젝' date_range=2026-07-10..2026-07-16
+2026-07-16 21:30:11,590 [INFO] Reached START_DATE keyword='직젝' page=1
+2026-07-16 21:30:11,593 [INFO] Start keyword='직쟄' date_range=2026-07-10..2026-07-16
+2026-07-16 21:30:12,883 [INFO] Reached START_DATE keyword='직쟄' page=1
+2026-07-16 21:30:12,886 [INFO] Start keyword='직젴' date_range=2026-07-10..2026-07-16
+2026-07-16 21:30:14,219 [INFO] Reached START_DATE keyword='직젴' page=1
+2026-07-16 21:30:14,221 [INFO] Start keyword='무신사' date_range=2026-07-10..2026-07-16
+2026-07-16 21:30:15,561 [INFO] Reached START_DATE keyword='무신사' page=1
+2026-07-16 21:30:15,564 [INFO] Start keyword='에이블리' date_range=2026-07-10..2026-07-16
+2026-07-16 21:30:16,702 [INFO] Reached START_DATE keyword='에이블리' page=1
+2026-07-16 21:30:16,705 [INFO] Start keyword='29cm' date_range=2026-07-10..2026-07-16
+2026-07-16 21:30:18,095 [INFO] Reached START_DATE keyword='29cm' page=1
+2026-07-16 21:30:18,098 [INFO] Start keyword='29CM' date_range=2026-07-10..2026-07-16
+2026-07-16 21:30:19,431 [INFO] Reached START_DATE keyword='29CM' page=1
+2026-07-16 21:30:19,433 [INFO] Start keyword='zigzag' date_range=2026-07-10..2026-07-16
+2026-07-16 21:30:20,566 [INFO] Reached START_DATE keyword='zigzag' page=1
+2026-07-16 21:31:05,770 [INFO] Start keyword='지그재그' date_range=2026-07-10..2026-07-16
+2026-07-16 21:31:07,062 [INFO] Reached START_DATE keyword='지그재그' page=1
+2026-07-16 21:31:07,067 [INFO] Start keyword='직잭' date_range=2026-07-10..2026-07-16
+2026-07-16 21:31:08,241 [INFO] Reached START_DATE keyword='직잭' page=1
+2026-07-16 21:31:08,243 [INFO] Start keyword='직젝' date_range=2026-07-10..2026-07-16
+2026-07-16 21:31:09,626 [INFO] Reached START_DATE keyword='직젝' page=1
+2026-07-16 21:31:09,628 [INFO] Start keyword='직쟄' date_range=2026-07-10..2026-07-16
+2026-07-16 21:31:10,883 [INFO] Reached START_DATE keyword='직쟄' page=1
+2026-07-16 21:31:10,886 [INFO] Start keyword='직젴' date_range=2026-07-10..2026-07-16
+2026-07-16 21:31:12,188 [INFO] Reached START_DATE keyword='직젴' page=1
+2026-07-16 21:31:12,190 [INFO] Start keyword='무신사' date_range=2026-07-10..2026-07-16
+2026-07-16 21:31:13,509 [INFO] Reached START_DATE keyword='무신사' page=1
+2026-07-16 21:31:13,512 [INFO] Start keyword='에이블리' date_range=2026-07-10..2026-07-16
+2026-07-16 21:31:14,682 [INFO] Reached START_DATE keyword='에이블리' page=1
+2026-07-16 21:31:14,685 [INFO] Start keyword='29cm' date_range=2026-07-10..2026-07-16
+2026-07-16 21:31:15,871 [INFO] Reached START_DATE keyword='29cm' page=1
+2026-07-16 21:31:15,873 [INFO] Start keyword='29CM' date_range=2026-07-10..2026-07-16
+2026-07-16 21:31:17,272 [INFO] Reached START_DATE keyword='29CM' page=1
+2026-07-16 21:31:17,276 [INFO] Start keyword='zigzag' date_range=2026-07-10..2026-07-16
+2026-07-16 21:31:18,696 [INFO] Reached START_DATE keyword='zigzag' page=1
+2026-07-16 21:34:35,409 [INFO] Start keyword='지그재그' date_range=2026-07-10..2026-07-16
+2026-07-16 21:34:36,613 [INFO] Reached START_DATE keyword='지그재그' page=1
+2026-07-16 21:34:36,619 [INFO] Start keyword='직잭' date_range=2026-07-10..2026-07-16
+2026-07-16 21:34:37,992 [INFO] Reached START_DATE keyword='직잭' page=1
+2026-07-16 21:34:37,994 [INFO] Start keyword='직젝' date_range=2026-07-10..2026-07-16
+2026-07-16 21:34:39,209 [INFO] Reached START_DATE keyword='직젝' page=1
+2026-07-16 21:34:39,211 [INFO] Start keyword='직쟄' date_range=2026-07-10..2026-07-16
+2026-07-16 21:34:40,496 [INFO] Reached START_DATE keyword='직쟄' page=1
+2026-07-16 21:34:40,498 [INFO] Start keyword='직젴' date_range=2026-07-10..2026-07-16
+2026-07-16 21:34:41,667 [INFO] Reached START_DATE keyword='직젴' page=1
+2026-07-16 21:34:41,669 [INFO] Start keyword='무신사' date_range=2026-07-10..2026-07-16
+2026-07-16 21:34:42,922 [INFO] Reached START_DATE keyword='무신사' page=1
+2026-07-16 21:34:42,924 [INFO] Start keyword='에이블리' date_range=2026-07-10..2026-07-16
+2026-07-16 21:34:44,162 [INFO] Reached START_DATE keyword='에이블리' page=1
+2026-07-16 21:34:44,164 [INFO] Start keyword='29cm' date_range=2026-07-10..2026-07-16
+2026-07-16 21:34:45,525 [INFO] Reached START_DATE keyword='29cm' page=1
+2026-07-16 21:34:45,528 [INFO] Start keyword='29CM' date_range=2026-07-10..2026-07-16
+2026-07-16 21:34:46,949 [INFO] Reached START_DATE keyword='29CM' page=1
+2026-07-16 21:34:46,951 [INFO] Start keyword='zigzag' date_range=2026-07-10..2026-07-16
+2026-07-16 21:34:48,298 [INFO] Reached START_DATE keyword='zigzag' page=1
+2026-07-16 22:09:27,351 [INFO] Start keyword='지그재그' date_range=2026-07-01..2026-07-16
+2026-07-16 22:09:28,985 [INFO] Reached START_DATE keyword='지그재그' page=1
+2026-07-16 22:09:28,990 [INFO] Start keyword='직잭' date_range=2026-07-01..2026-07-16
+2026-07-16 22:09:30,463 [INFO] Reached START_DATE keyword='직잭' page=1
+2026-07-16 22:09:30,466 [INFO] Start keyword='직젝' date_range=2026-07-01..2026-07-16
+2026-07-16 22:09:31,827 [INFO] Reached START_DATE keyword='직젝' page=1
+2026-07-16 22:09:31,829 [INFO] Start keyword='직쟄' date_range=2026-07-01..2026-07-16
+2026-07-16 22:09:33,284 [INFO] Reached START_DATE keyword='직쟄' page=1
+2026-07-16 22:09:33,286 [INFO] Start keyword='직젴' date_range=2026-07-01..2026-07-16
+2026-07-16 22:09:34,561 [INFO] Reached START_DATE keyword='직젴' page=1
+2026-07-16 22:09:34,563 [INFO] Start keyword='무신사' date_range=2026-07-01..2026-07-16
+2026-07-16 22:09:39,614 [INFO] Reached START_DATE keyword='무신사' page=1
+2026-07-16 22:09:39,617 [INFO] Start keyword='에이블리' date_range=2026-07-01..2026-07-16
+2026-07-16 22:09:42,170 [INFO] Reached START_DATE keyword='에이블리' page=1
+2026-07-16 22:09:42,173 [INFO] Start keyword='29cm' date_range=2026-07-01..2026-07-16
+2026-07-16 22:09:43,359 [INFO] Reached START_DATE keyword='29cm' page=1
+2026-07-16 22:09:43,361 [INFO] Start keyword='29CM' date_range=2026-07-01..2026-07-16
+2026-07-16 22:09:44,773 [INFO] Reached START_DATE keyword='29CM' page=1
+2026-07-16 22:09:44,776 [INFO] Start keyword='zigzag' date_range=2026-07-01..2026-07-16
+2026-07-16 22:09:46,133 [INFO] Reached START_DATE keyword='zigzag' page=1
+2026-07-16 22:11:29,008 [INFO] Start keyword='지그재그' date_range=2025-07-01..2026-07-16
+2026-07-16 22:15:53,510 [INFO] Reached START_DATE keyword='지그재그' page=8
+2026-07-16 22:15:53,516 [INFO] Start keyword='직잭' date_range=2025-07-01..2026-07-16
+2026-07-16 22:16:02,757 [INFO] Reached START_DATE keyword='직잭' page=1
+2026-07-16 22:16:02,762 [INFO] Start keyword='직젝' date_range=2025-07-01..2026-07-16
+2026-07-16 22:16:04,905 [INFO] Reached START_DATE keyword='직젝' page=1
+2026-07-16 22:16:04,909 [INFO] Start keyword='직쟄' date_range=2025-07-01..2026-07-16
+2026-07-16 22:16:07,189 [INFO] Reached START_DATE keyword='직쟄' page=1
+2026-07-16 22:16:07,194 [INFO] Start keyword='직젴' date_range=2025-07-01..2026-07-16
+2026-07-16 22:16:09,463 [INFO] Reached START_DATE keyword='직젴' page=1
+2026-07-16 22:16:09,468 [INFO] Start keyword='무신사' date_range=2025-07-01..2026-07-16
+2026-07-16 22:22:32,199 [INFO] Reached START_DATE keyword='무신사' page=11
+2026-07-16 22:22:32,207 [INFO] Start keyword='에이블리' date_range=2025-07-01..2026-07-16
+2026-07-16 22:30:25,313 [INFO] Reached START_DATE keyword='에이블리' page=15
+2026-07-16 22:30:25,326 [INFO] Start keyword='29cm' date_range=2025-07-01..2026-07-16
+2026-07-16 22:31:04,719 [INFO] Reached START_DATE keyword='29cm' page=1
+2026-07-16 22:31:04,734 [INFO] Start keyword='29CM' date_range=2025-07-01..2026-07-16
+2026-07-16 22:31:06,997 [INFO] Reached START_DATE keyword='29CM' page=1
+2026-07-16 22:31:07,011 [INFO] Start keyword='zigzag' date_range=2025-07-01..2026-07-16
+2026-07-16 22:31:11,804 [INFO] Reached START_DATE keyword='zigzag' page=1

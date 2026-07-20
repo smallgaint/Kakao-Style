@@ -4,7 +4,7 @@ Playwright 기반 웹 크롤링 로직 전담
 
 import time
 from playwright.sync_api import sync_playwright, Browser, BrowserContext, Page
-from typing import Optional, List, Set
+from typing import Optional, List, Set, Callable
 from pathlib import Path
 from datetime import datetime, date
 import logging
@@ -715,10 +715,13 @@ class InstizCrawler:
         keyword: str,
         start_date: date,
         end_date: date,
+        checkpoint_size: int = 0,
+        checkpoint_callback: Optional[Callable[[List[Post]], None]] = None,
     ) -> List[Post]:
         """게시판 검색을 최신 페이지부터 기간 시작일까지 순회합니다."""
         posts: List[Post] = []
         previous_datetime: Optional[datetime] = None
+        checkpoint_posts: List[Post] = []
         page = 1
         logger.info("게시판 검색 시작: board=%s, category=%s, keyword=%s", board, category, keyword)
 
@@ -761,8 +764,15 @@ class InstizCrawler:
                 self.posts_by_url[post_url] = post
                 self.processed_posts.add(post_url)
                 posts.append(post)
+                checkpoint_posts.append(post)
+                if checkpoint_callback and checkpoint_size and len(checkpoint_posts) >= checkpoint_size:
+                    checkpoint_callback(checkpoint_posts[:])
+                    checkpoint_posts.clear()
 
             page += 1
+
+        if checkpoint_callback and checkpoint_posts:
+            checkpoint_callback(checkpoint_posts)
 
         self.crawl_log.posts += len(posts)
         logger.info("게시판 검색 완료: board=%s, keyword=%s, posts=%s", board, keyword, len(posts))
