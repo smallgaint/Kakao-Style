@@ -13,13 +13,13 @@ BOARDS = [
 
 # parameters: 페이지 범위
 START_PAGE = 1
-END_PAGE = 1
+END_PAGE = 10000
 
 # parameters: 검색 설정
 # CLI에서 --keyword 또는 --keywords를 넘기면 각 게시판의 시간순 검색 결과를 수집합니다.
 SEARCH_KEYWORDS = ["지그재그", "직잭", "무신사","에이블리","직쟄", "직젝", "직젴", "zigzag", "29cm", "29CM"]
 SEARCH_TYPE = 9  # 1=제목, 5=내용, 9=제목+내용
-SEARCH_START_DATE = "2026-07-01"  # YYYY-MM-DD, 양끝 포함
+SEARCH_START_DATE = "2025-07-01"  # YYYY-MM-DD, 양끝 포함
 SEARCH_END_DATE = "2026-12-31"    # YYYY-MM-DD, 양끝 포함
 
 # parameters: 로그인 설정
@@ -36,6 +36,7 @@ CRAWL_CONTENT = True
 CRAWL_COMMENT = True
 SAVE_HTML = False
 ONLY_NEW_POSTS = False
+CHECKPOINT_SIZE = 100  # 신규 게시글 N개마다 CSV에 중간 저장 (0이면 마지막에만 저장)
 
 # parameters: 기본 URL
 BASE_URL = "https://www.instiz.net"
